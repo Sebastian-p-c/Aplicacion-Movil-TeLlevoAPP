@@ -1,0 +1,46 @@
+<ion-header [translucent]="true" class="ion-no-border ion-text-center">
+  <ion-toolbar>
+    <ion-title>
+      <h1 class="title">SkeletonAPP</h1>
+      <h6>Aquí comienza todo</h6>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <ion-header class="ion-no-border ion-text-center">
+      <ion-toolbar>
+        <ion-title size="large">{{ message }}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-list>
+      <ion-item>
+        <ion-input 
+          class="username-input"
+          label="Username" 
+          labelPlacement="floating"
+          [(ngModel)]="username"
+          (ionFocus)="clearInput()">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Password" 
+          labelPlacement="floating" 
+          type="password"
+          [(ngModel)]="password"
+          (ionFocus)="clearPassword()">
+        </ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" (click)="validateLogin()">
+      Ingresar
+    </ion-button>
+
+    <ion-button fill="clear" [routerLink]="['/register']" class="register-button" expand="block">
+      Registrarse
+    </ion-button>
+  </div>
+</ion-content>

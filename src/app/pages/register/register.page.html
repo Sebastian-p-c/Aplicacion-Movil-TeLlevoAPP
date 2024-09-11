@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>SkeletonAPP</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-register">
+  <h1 class="ion-title-register">¡Bienvenido!</h1>
+  <br>
+  <h4 class="ion-info">Información</h4>
+
+  <ion-list>
+    <!-- Nombre -->
+    <ion-item>
+      <ion-input 
+        class="nombre-input"
+        label="Nombre" 
+        labelPlacement="floating"
+        [(ngModel)]="nombre">
+      </ion-input>
+    </ion-item>
+
+    <!-- Apellido -->
+    <ion-item>
+      <ion-input 
+        class="apellido-input"
+        label="Apellido" 
+        labelPlacement="floating"
+        [(ngModel)]="apellido">
+      </ion-input>
+    </ion-item> 
+
+    <!-- Fecha de Nacimiento con input flotante e ícono de calendario -->
+    <ion-item>
+      <ion-input
+        class="fecha-nacimiento-input"
+        label="Fecha de Nacimiento" 
+        labelPlacement="floating"
+        readonly="true"
+        (click)="openCalendar()"
+        [value]="fechaNacimiento | date: 'dd/MM/yyyy'"
+        [class.fecha-seleccionada]="fechaNacimiento"
+      ></ion-input>
+      <ion-icon name="calendar" slot="end" (click)="openCalendar()"></ion-icon>
+    </ion-item>
+
+    <!-- Calendario desplegable con ion-datetime -->
+    <ion-datetime 
+      [(ngModel)]="fechaTemporal"
+      display-format="DD/MM/YYYY"
+      cancelText="Cancelar"
+      doneText="Listo"
+      *ngIf="mostrarCalendario"
+      (ionCancel)="cancelCalendar()"
+    ></ion-datetime>
+
+    <!-- Botón Aplicar visible solo cuando el calendario está abierto -->
+    <ion-button expand="block" (click)="applyDate()" *ngIf="mostrarCalendario" class="apply-button">
+      Aplicar
+    </ion-button>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,48 @@
+#container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;    
+  height: 40%;           
+  padding: 20px;           
+}
+.title {
+  background-color: #2d2c2c;  
+  color: #f0f0f0;
+  padding: 10px;            
+  border-radius: 5px;          
+  display: inline-block;       
+}
+
+ion-list {
+  width: 100%;              
+  max-width: 400px;       
+}
+
+ion-button {
+  margin: 10px 0;         
+  width: 50%;  
+  padding: 20px;         
+}
+
+
+ion-item {
+  --padding-start: 0;    
+  --padding-end: 0;      
+}
+
+ion-input {
+  width: 100%;            
+}
+
+ion-header{
+  padding: 0;
+}
+
+.username-input {
+  --color: gray;  
+}
+ion-input[type="password"] {
+  --color: gray;  
+}
+
