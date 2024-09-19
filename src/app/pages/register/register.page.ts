@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,30 +11,97 @@ export class RegisterPage implements OnInit {
 
   nombre: string = '';
   apellido: string = '';
-  fechaNacimiento: string = '';  // Almacena la fecha confirmada
-  fechaTemporal: string = '';    // Almacena temporalmente la fecha seleccionada
-  mostrarCalendario: boolean = false;  // Controla si el calendario está visible o no
+  fechaNacimiento: string = ''; 
+  fechaTemporal: string = '';   
+  mostrarCalendario: boolean = false;  
 
-  constructor() { }
+  correoRegistro: string = '';
+  emailInvalid: boolean = false;
+
+  usernameRegistro: string = '';
+
+  passwordRegistro: string = '';
+  confirmPassword: string = '';
+  passwordVisible: boolean = false; 
+  confirmPasswordVisible: boolean = false; 
+  passwordMismatch: boolean = false; 
+
+  constructor(
+    private alertController: AlertController,  // Inyecta AlertController
+    private router: Router) { }
 
   ngOnInit() { }
 
-  // Muestra el calendario cuando se hace clic en el input o ícono de fecha
   openCalendar() {
     this.mostrarCalendario = true;
   }
 
-  // Cierra el calendario si el usuario cancela
   cancelCalendar() {
     this.mostrarCalendario = false;
-    this.fechaTemporal = '';  // Limpiar la fecha temporal al cancelar
+    this.fechaTemporal = '';  
   }
 
-  // Aplica la fecha seleccionada cuando el usuario presiona "Aplicar"
   applyDate() {
     if (this.fechaTemporal) {
-      this.fechaNacimiento = this.fechaTemporal;  // Confirmar la fecha seleccionada
-      this.mostrarCalendario = false;  // Ocultar el calendario
+      this.fechaNacimiento = this.fechaTemporal;  
+      this.mostrarCalendario = false;  
+    }
+  }
+
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
+  }
+
+  toggleConfirmPasswordVisibility() {
+    this.confirmPasswordVisible = !this.confirmPasswordVisible;
+  }
+
+  validatePasswords() {
+    this.passwordMismatch = this.passwordRegistro !== this.confirmPassword;
+  }
+
+  validateEmail() {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    this.emailInvalid = !emailPattern.test(this.correoRegistro);
+  }
+
+  isFormValid(): boolean {
+    return (
+      this.nombre.trim() !== '' &&
+      this.apellido.trim() !== '' &&
+      this.fechaNacimiento !== '' &&
+      !this.emailInvalid &&
+      this.usernameRegistro.trim() !== '' &&
+      !this.passwordMismatch &&
+      this.passwordRegistro.trim() !== '' &&
+      this.confirmPassword.trim() !== ''
+    );
+  }
+  
+
+  async crearCuenta() {
+    if (this.isFormValid()) {
+      const alert = await this.alertController.create({
+        header: 'Éxito',
+        message: 'Se ha creado correctamente su cuenta',
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
+              // Pasar usernameRegistro al navegar a la página principal
+              const navigationExtras: NavigationExtras = {
+                state: {
+                  usernameRegistro: this.usernameRegistro
+                }
+              };
+              this.router.navigate(['/principal'], navigationExtras);
+            }
+          }
+        ],
+        backdropDismiss: false
+      });
+
+      await alert.present();
     }
   }
 }

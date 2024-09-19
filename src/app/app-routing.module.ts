@@ -23,6 +23,11 @@ loadChildren: () => import('./pages/register/register.module').then( m => m.Regi
 path: 'store',
 loadChildren: () => import('./pages/store/store.module').then( m => m.StorePageModule)
 },
+
+  {
+    path: 'principal',
+    loadChildren: () => import('./pages/principal/principal.module').then( m => m.PrincipalPageModule)
+  },
 ];
 
 @NgModule({

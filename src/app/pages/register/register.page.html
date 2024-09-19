@@ -7,10 +7,10 @@
 <ion-content class="ion-register">
   <h1 class="ion-title-register">¡Bienvenido!</h1>
   <br>
-  <h4 class="ion-info">Información</h4>
+  <h4 class="ion-info">Información:</h4>
 
   <ion-list>
-    <!-- Nombre -->
+
     <ion-item>
       <ion-input 
         class="nombre-input"
@@ -20,7 +20,6 @@
       </ion-input>
     </ion-item>
 
-    <!-- Apellido -->
     <ion-item>
       <ion-input 
         class="apellido-input"
@@ -30,7 +29,6 @@
       </ion-input>
     </ion-item> 
 
-    <!-- Fecha de Nacimiento con input flotante e ícono de calendario -->
     <ion-item>
       <ion-input
         class="fecha-nacimiento-input"
@@ -44,7 +42,6 @@
       <ion-icon name="calendar" slot="end" (click)="openCalendar()"></ion-icon>
     </ion-item>
 
-    <!-- Calendario desplegable con ion-datetime -->
     <ion-datetime 
       [(ngModel)]="fechaTemporal"
       display-format="DD/MM/YYYY"
@@ -54,9 +51,83 @@
       (ionCancel)="cancelCalendar()"
     ></ion-datetime>
 
-    <!-- Botón Aplicar visible solo cuando el calendario está abierto -->
     <ion-button expand="block" (click)="applyDate()" *ngIf="mostrarCalendario" class="apply-button">
       Aplicar
     </ion-button>
+
+    <ion-item>
+      <ion-input    
+        class="correoRegistro"
+        label="Correo Electrónico"
+        labelPlacement="floating"
+        [(ngModel)]="correoRegistro"
+        (ngModelChange)="validateEmail()"
+        #emailInput="ngModel">
+      </ion-input>
+    </ion-item>
+
+
+    
+    <ion-text color="danger" *ngIf="emailInvalid" class="emailError">
+      El correo electrónico no es válido
+    </ion-text>
+    
+
+    <ion-item>
+      <ion-input    
+        class="username-registro"
+        label="Nombre de Usuario"
+        labelPlacement="floating"
+        [(ngModel)]="usernameRegistro">
+      </ion-input>
+    </ion-item>
+
+  <!-- Campo para la Contraseña -->
+    <ion-item>
+      <ion-input 
+        label="Contraseña" 
+        labelPlacement="floating" 
+        [type]="passwordVisible ? 'text' : 'password'" 
+        [(ngModel)]="passwordRegistro">
+      </ion-input>
+      <ion-icon 
+        [name]="passwordVisible ? 'eye-off' : 'eye'" 
+        slot="end" 
+        (click)="togglePasswordVisibility()">
+      </ion-icon>
+    </ion-item>
+
+  <!-- Campo para Confirmar Contraseña -->
+    <ion-item>
+      <ion-input 
+        label="Confirmar Contraseña" 
+        labelPlacement="floating" 
+        [type]="confirmPasswordVisible ? 'text' : 'password'" 
+        [(ngModel)]="confirmPassword" 
+        (ngModelChange)="validatePasswords()">
+      </ion-input>
+      <ion-icon 
+        [name]="confirmPasswordVisible ? 'eye-off' : 'eye'" 
+        slot="end" 
+        (click)="toggleConfirmPasswordVisibility()">
+      </ion-icon>
+    </ion-item>
+
+    <!-- Mensaje de error si las contraseñas no coinciden -->
+    <ion-text color="danger" *ngIf="passwordMismatch" class="passwordError">
+      Las contraseñas no coinciden
+    </ion-text>
+
+    <!-- Botón para crear la cuenta -->
+    <ion-button 
+    expand="block" 
+    [disabled]="!isFormValid()" 
+    (click)="crearCuenta()"
+    class="crearCuenta">
+    Crear cuenta
+    
+    </ion-button>
+
+
   </ion-list>
 </ion-content>

@@ -25,3 +25,25 @@ font-size: 24px;
 color: #666;
 cursor: pointer;
 }
+
+.emailError {
+    text-align: left;  /* Alinea el texto hacia la derecha */
+    margin-left: 15px; /* Añade un margen derecho */
+    display: block;     /* Asegura que el texto ocupe toda la línea */
+}  
+
+.crearCuenta {
+    margin-top: 90px; /* Ajusta este valor según lo que necesites */
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.passwordError{
+    text-align: left;  /* Alinea el texto hacia la derecha */
+    margin-left: 15px; /* Añade un margen derecho */
+    display: block;     /* Asegura que el texto ocupe toda la línea */
+}
+
+ion-alert .head{
+    text-align: center;
+}

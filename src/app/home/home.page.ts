@@ -16,7 +16,7 @@ export class HomePage {
     private router: Router,
     private toastController: ToastController
   ) {
-    this.message = 'Bienvenido desde Angular!';
+    this.message = 'Bienvenido!';
   }
 
   clearInput() {
