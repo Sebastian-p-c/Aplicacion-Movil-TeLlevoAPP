@@ -29,7 +29,7 @@ export class HomePage {
 
   validateLogin(){
     console.log("Ejecutando validacion");
-    const userValid: string = 'admin';
+    const userValid: string = 'Mati';
     const pwdValid: string = '12345';
 
     if (this.username === userValid && this.password === pwdValid) {

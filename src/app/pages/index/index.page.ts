@@ -9,14 +9,13 @@ import { Router } from '@angular/router';
 
 export class IndexPage implements OnInit {
 
-  usernameRegistro: string = '';
-  username: string = 'guest';
+  username: string = ' ';
   constructor(
     private router: Router,
   ) {
     const state = this.router.getCurrentNavigation()?.extras.state
     if(state){
-      this.username = state['user']
+      this.username = state['user'];
     }
   }
 
@@ -41,13 +40,7 @@ export class IndexPage implements OnInit {
     console.log('Cerrar sesión'); 
   }
 
-
-
   ngOnInit() {
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras?.state) {
-      this.usernameRegistro = navigation.extras.state['usernameRegistro'];  // Recupera el valor del estado
-    }
   }
 
 }
