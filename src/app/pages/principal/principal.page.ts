@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';  // Importa Router
+import { Router } from '@angular/router';  
 
 @Component({
   selector: 'app-principal',
@@ -8,15 +8,15 @@ import { Router } from '@angular/router';  // Importa Router
 })
 export class PrincipalPage implements OnInit {
 
-  usernameRegistro: string = '';  // Usamos usernameRegistro en lugar de nombreUsuario
+  usernameRegistro: string = '';  
 
   constructor(private router: Router) { }
 
   ngOnInit() {
-    // Recupera el usernameRegistro desde la navegación
+  
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras?.state) {
-      this.usernameRegistro = navigation.extras.state['usernameRegistro'];  // Recupera el valor del estado
+      this.usernameRegistro = navigation.extras.state['usernameRegistro'];  
     }
   }
 }

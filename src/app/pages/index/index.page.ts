@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 
 export class IndexPage implements OnInit {
 
+  usernameRegistro: string = '';
   username: string = 'guest';
   constructor(
     private router: Router,
@@ -20,30 +21,33 @@ export class IndexPage implements OnInit {
   }
 
   slideOpts = {
-    initialSlide: 0,     // Empieza en la primera imagen
-    speed: 400,          // Velocidad de transición de 400 ms
+    initialSlide: 0,    
+    speed: 400,          
     autoplay: {
-      delay: 3000,       // Cambia de slide cada 3 segundos
-      disableOnInteraction: false, // El autoplay sigue incluso después de la interacción
+      delay: 3000,     
+      disableOnInteraction: false,
     },
-    loop: true,          // El carrusel vuelve a empezar cuando llega al final
-    direction: 'horizontal',  // Configuración para desplazamiento horizontal (predeterminado)
+    loop: true,          
+    direction: 'horizontal',  
     pagination: {
-      el: '.swiper-pagination', // Muestra los puntos de paginación abajo
-      clickable: true,  // Permite hacer clic en los puntos de paginación
+      el: '.swiper-pagination', 
+      clickable: true, 
     },
-    spaceBetween: 10,  // Espacio entre las slides
-    centeredSlides: true,  // Centra las slides en la vista
+    spaceBetween: 10, 
+    centeredSlides: true,  
   };
 
   logout() {
-    console.log('Cerrar sesión'); // Aquí puedes agregar la lógica de cierre de sesión
-    // Por ejemplo, navegar a la página de login o realizar alguna acción de logout
+    console.log('Cerrar sesión'); 
   }
 
 
 
   ngOnInit() {
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras?.state) {
+      this.usernameRegistro = navigation.extras.state['usernameRegistro'];  // Recupera el valor del estado
+    }
   }
 
 }

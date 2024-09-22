@@ -1,6 +1,6 @@
 <ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar color="medium">
-    <ion-title>Cine Loops</ion-title>
+  <ion-toolbar color="dark">
+    <ion-title>Uber</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="logout()">
@@ -15,33 +15,33 @@
 
 
 <ion-content [fullscreen]="true">
-
+  <h1 class="ion-text-center">¡Bienvenido!, {{ usernameRegistro }}!</h1>
   <ion-slides [options]="slideOpts">
     <ion-slide>
-      <img src="assets/img/fury.jpg" alt="Película 1">
+      <img src="assets/img/inicio.png" alt="Uber1">
     </ion-slide>
     <ion-slide>
-      <img src="assets/img/pijama-rayas.jpg" alt="Película 2">
-    </ion-slide>
-    <ion-slide>
-      <img src="assets/img/titanic.jpg" alt="Película 3">
+      <img src="assets/img/segundo.png" alt="Uber2">
     </ion-slide>
   </ion-slides>
+
+  <section class="img-section">
+    <img src="assets/img/uber-definit.png" alt="Uber3">
+  </section>
+  
+
 
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar color="medium">
+  <ion-toolbar color="dark">
     <ion-grid>
       <ion-row>
         <ion-col class="ion-text-center">
           <ion-icon name="home-outline" size="large"></ion-icon>
         </ion-col>
         <ion-col class="ion-text-center">
-          <ion-icon name="film-outline" size="large"></ion-icon>
-        </ion-col>
-        <ion-col class="ion-text-center">
-          <ion-icon name="cart-outline" size="large"></ion-icon>
+          <ion-icon name="map-outline" size="large"></ion-icon>
         </ion-col>
         <ion-col class="ion-text-center">
           <ion-icon name="settings-outline" size="large"></ion-icon>
