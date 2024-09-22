@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>restcontra</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <h1>Ingresa tu usuario</h1>
+    <form (ngSubmit)="onSubmit()">
+      <ion-list>
+        <ion-item>
+          <ion-input 
+            class="usuario-input"
+            placeholder="Usuario"
+            label="usuario" 
+            labelPlacement="floating"
+            type="usuario">
+          </ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button expand="block" type="submit">
+        Ingresar
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

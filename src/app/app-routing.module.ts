@@ -28,6 +28,10 @@ loadChildren: () => import('./pages/store/store.module').then( m => m.StorePageM
     path: 'principal',
     loadChildren: () => import('./pages/principal/principal.module').then( m => m.PrincipalPageModule)
   },
+  {
+    path: 'restcontra',
+    loadChildren: () => import('./pages/restcontra/restcontra.module').then( m => m.RestcontraPageModule)
+  },
 ];
 
 @NgModule({
