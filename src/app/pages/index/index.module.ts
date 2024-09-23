@@ -16,6 +16,6 @@ import { IndexPage } from './index.page';
     IndexPageRoutingModule
   ],
   declarations: [IndexPage],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA] // Agrega CUSTOM_ELEMENTS_SCHEMA
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] 
 })
 export class IndexPageModule {}

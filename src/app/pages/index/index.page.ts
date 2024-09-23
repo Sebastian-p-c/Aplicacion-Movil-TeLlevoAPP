@@ -46,7 +46,7 @@ export class IndexPage implements OnInit {
   ngOnInit() {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras?.state) {
-      this.usernameRegistro = navigation.extras.state['usernameRegistro'];  // Recupera el valor del estado
+      this.usernameRegistro = navigation.extras.state['usernameRegistro'];  
     }
   }
 
