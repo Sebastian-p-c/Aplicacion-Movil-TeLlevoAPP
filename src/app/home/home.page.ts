@@ -29,7 +29,7 @@ export class HomePage {
 
   validateLogin(){
     console.log("Ejecutando validacion");
-    const userValid: string = 'admin';
+    const userValid: string = 'Mati';
     const pwdValid: string = '12345';
 
     if (this.username === userValid && this.password === pwdValid) {
@@ -49,7 +49,7 @@ export class HomePage {
 
   async showToastMessage(message: string, color: string) {
     const toast = await this.toastController.create({
-      duration: 3000,
+      duration: 500,
       message,
       color: color,
       position: 'bottom',

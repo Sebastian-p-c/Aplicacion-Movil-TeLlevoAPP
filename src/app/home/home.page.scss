@@ -2,47 +2,53 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;    
-  height: 40%;           
-  padding: 20px;           
+  align-items: center;
+  height: auto;  
+  padding: 10px;
 }
+
 .title {
-  background-color: #2d2c2c;  
+  background-color: #2d2c2c;
   color: #f0f0f0;
-  padding: 10px;            
-  border-radius: 5px;          
-  display: inline-block;       
+  padding: 10px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.mensaje {
+  font-size: 1.5rem;  
+  color: #2d2c2c;
+
 }
 
 ion-list {
-  width: 100%;              
-  max-width: 400px;       
+  width: 100%;
+  max-width: 400px;
 }
 
 ion-button {
-  margin: 10px 0;         
-  width: 60%;  
-  padding: 20px;         
+  margin: 5px 0;
+  width: 60%;
+  padding: 5px;
 }
 
-
 ion-item {
-  --padding-start: 0;    
-  --padding-end: 0;      
+  --padding-start: 0;
+  --padding-end: 0;
 }
 
 ion-input {
-  width: 100%;            
+  width: 100%;
 }
 
-ion-header{
-  padding: 0;
+ion-header {
+  padding: 10px;  
 }
 
 .username-input {
-  --color: gray;  
-}
-ion-input[type="password"] {
-  --color: gray;  
+  --color: gray;
 }
 
+ion-input[type="password"] {
+  --color: gray;
+}

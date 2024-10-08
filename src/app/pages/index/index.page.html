@@ -3,6 +3,7 @@
     <ion-title>Uber</ion-title>
 
     <ion-buttons slot="end">
+      <!-- Llama a la función logout al hacer clic -->
       <ion-button (click)="logout()">
         <ion-icon class="custom-icon" slot="icon-only" name="log-out-outline"></ion-icon>
       </ion-button>
@@ -10,9 +11,6 @@
     
   </ion-toolbar>
 </ion-header>
-
-
-
 
 <ion-content [fullscreen]="true">
   <h1 class="ion-text-center">¡Bienvenido!, {{ username }}!</h1>
@@ -28,9 +26,6 @@
   <section class="img-section">
     <img src="assets/img/uber-definit.png" alt="Uber3">
   </section>
-  
-
-
 </ion-content>
 
 <ion-footer>

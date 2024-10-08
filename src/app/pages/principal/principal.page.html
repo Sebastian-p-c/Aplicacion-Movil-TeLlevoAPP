@@ -1,8 +1,16 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      ¡Hola!, {{ usernameRegistro }}!
-    </ion-title>
+    <ion-title>Página Principal</ion-title>
+    <!-- Icono de cerrar sesión -->
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarSesion()">  <!-- Función cerrarSesion se llama aquí -->
+        <ion-icon name="log-out-outline"></ion-icon>  <!-- Icono de cierre de sesión -->
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
+<ion-content>
+  <!-- Contenido de la página principal -->
+  <h1>Hola, {{ usernameRegistro }}. ¡Gracias por crear tu cuenta!</h1>
+</ion-content>

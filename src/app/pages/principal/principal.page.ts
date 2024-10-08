@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';  
+import { Router } from '@angular/router';  // Importa Router para redirigir
 
 @Component({
   selector: 'app-principal',
@@ -8,15 +8,23 @@ import { Router } from '@angular/router';
 })
 export class PrincipalPage implements OnInit {
 
-  usernameRegistro: string = '';  
+  usernameRegistro: string = '';  // Usuario logueado
 
   constructor(private router: Router) { }
 
   ngOnInit() {
-  
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras?.state) {
-      this.usernameRegistro = navigation.extras.state['usernameRegistro'];  
+      this.usernameRegistro = navigation.extras.state['usernameRegistro'];  // Obtener nombre de usuario
     }
+  }
+
+  // Función para cerrar sesión
+  cerrarSesion() {
+    // Aquí puedes limpiar los datos del usuario si es necesario (por ejemplo, tokens de autenticación)
+    console.log('Sesión cerrada');
+    
+    // Redirigir a la página principal o login
+    this.router.navigate(['/login']);  // Redirige a la página de login o inicio
   }
 }
