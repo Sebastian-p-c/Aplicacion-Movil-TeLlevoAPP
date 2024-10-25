@@ -31,6 +31,13 @@
       labelPlacement="floating">
       </ion-input>
     </ion-item>
+
+    <ion-item>
+      <ion-input
+      label="RUT"
+      labelPlacement="floating">
+      </ion-input>
+    </ion-item>
     
     <ion-item>
       <ion-input
@@ -60,13 +67,92 @@
       </ion-input>
     </ion-item>
 
-    <!-- <ion-item>
-      <ion-input 
-      label="Cantidad de Pasajeros"
-      type="number"
-      min="1">
+    <ion-item>
+      <ion-input
+        label="Banco"
+        labelPlacement="floating"
+        [value]="selectedBanco"
+        readonly>
       </ion-input>
-    </ion-item> -->
+
+      <ion-button id="open-banco-modal" fill="clear">
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </ion-button>
+
+      <ion-modal #bancoModal trigger="open-banco-modal" (didDismiss)="onDidDismiss($event, 'banco')">
+        <ng-template>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="bancoModal.dismiss(null, 'cancel')">Cancel</ion-button>
+            </ion-buttons>
+            <ion-buttons slot="end">
+              <ion-button (click)="bancoModal.dismiss(selectedBanco, 'confirm')">Done</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+          <ion-picker>
+            <ion-picker-column [value]="selectedBanco" (ionChange)="onIonChange($event, 'banco')">
+              <ion-picker-column-option value="" disabled="true">--</ion-picker-column-option>
+              <ion-picker-column-option value="Banco Estado">Banco Estado</ion-picker-column-option>
+              <ion-picker-column-option value="Banco Edwards">Banco Chile/ Edwards-Citi</ion-picker-column-option>
+              <ion-picker-column-option value="Banco Scotiabank">Banco Scotiabank</ion-picker-column-option>
+              <ion-picker-column-option value="Banco Ripley">Banco Ripley</ion-picker-column-option>
+              <ion-picker-column-option value="Mercado Pago">Mercado Pago</ion-picker-column-option>
+            </ion-picker-column>
+          </ion-picker>
+        </ng-template>
+      </ion-modal>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        label="Tipo de Cuenta"
+        labelPlacement="floating"
+        [value]="selectedTipoCuenta"
+        readonly>
+      </ion-input>
+
+      <ion-button id="open-tipoCuenta-modal" fill="clear">
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </ion-button>
+
+      <ion-modal #tipoCuentaModal trigger="open-tipoCuenta-modal" (didDismiss)="onDidDismiss($event, 'tipoCuenta')">
+        <ng-template>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="tipoCuentaModal.dismiss(null, 'cancel')">Cancel</ion-button>
+            </ion-buttons>
+            <ion-buttons slot="end">
+              <ion-button (click)="tipoCuentaModal.dismiss(selectedTipoCuenta, 'confirm')">Done</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+          <ion-picker>
+            <ion-picker-column [value]="selectedTipoCuenta" (ionChange)="onIonChange($event, 'tipoCuenta')">
+              <ion-picker-column-option value="" disabled="true">--</ion-picker-column-option>
+              <ion-picker-column-option value="Corriente">Corriente</ion-picker-column-option>
+              <ion-picker-column-option value="Vista">Vista</ion-picker-column-option>
+              <ion-picker-column-option value="Ahorro">Ahorro</ion-picker-column-option>
+              <ion-picker-column-option value="Chequera Electronica">Chequera Electronica</ion-picker-column-option>
+            </ion-picker-column>
+          </ion-picker>
+        </ng-template>
+      </ion-modal>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-input
+      Label="Numero de Cuenta"
+      labelPlacement="floating">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+      Label="Precio por Pasajero (CLP)"
+      labelPlacement="floating">
+      </ion-input>
+    </ion-item>
+
     <ion-item>
       <ion-label position="stacked">Cantidad de Pasajeros</ion-label>
       <div style="display: flex; align-items: center;">

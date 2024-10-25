@@ -34,4 +34,25 @@ export class FormaViajePage implements OnInit {
     this.router.navigate(['/home']);  // Redirige a la página principal
   }
 
+  selectedBanco: string = '';  
+  selectedTipoCuenta: string = '';  
+
+  onIonChange(event: CustomEvent, field: string) {
+    if (field === 'banco') {
+      this.selectedBanco = event.detail.value;
+    } else if (field === 'tipoCuenta') {
+      this.selectedTipoCuenta = event.detail.value;
+    }
+  }
+
+  onDidDismiss(event: CustomEvent, field: string) {
+    if (event.detail.role === 'confirm') {
+      if (field === 'banco') {
+        this.selectedBanco = event.detail.data;
+      } else if (field === 'tipoCuenta') {
+        this.selectedTipoCuenta = event.detail.data;
+      }
+    }
+  }
+
 }
