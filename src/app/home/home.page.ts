@@ -41,7 +41,7 @@ export class HomePage {
         },
       };
 
-      this.router.navigate(['/index'], extras);
+      this.router.navigate(['/elegusuario'], extras);
     } else {
       this.showToastMessage('Login incorrecto', 'danger');
     }

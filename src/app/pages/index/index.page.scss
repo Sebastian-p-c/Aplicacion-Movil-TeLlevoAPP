@@ -1,25 +1,36 @@
 
-ion-slide img {
-    padding: 20px;
-    width: 100%;
-    height: auto; 
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; 
+ion-card {
+text-align: center;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+border-radius: 12px;
 }
 
-.custom-icon {
-    font-size: 30px; 
+ion-card-content {
+position: relative;
 }
 
-.img-section {
-    padding: 20px;
+ion-card img {
+width: 100%;
+height: auto;
+object-fit: contain;
 }
 
-.img-section img {
-    border: 2px solid #000;
-    width: 100%;
-    height: auto; 
-    max-width: 100%;
-    max-height: 100%;
+ion-card p {
+margin-top: 10px;
+font-size: 16px;
+color: #333;
+white-space: nowrap; /* Evita el salto de línea */
+overflow: hidden;
+text-overflow: ellipsis; /* Agrega puntos suspensivos si el texto es demasiado largo */
+}
+
+ion-icon {
+    color: white;
+}
+
+.new-badge {
+position: absolute;
+top: 10px;
+right: 10px;
+font-size: 12px;
 }

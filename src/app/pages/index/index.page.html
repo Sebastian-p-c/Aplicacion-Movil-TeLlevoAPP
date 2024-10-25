@@ -13,15 +13,56 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <h1 class="ion-text-center">¡Bienvenido!, {{ username }}!</h1>
-  <ion-slides [options]="slideOpts">
-    <ion-slide>
-      <img src="assets/img/inicio.png" alt="Uber1">
-    </ion-slide>
-    <ion-slide>
-      <img src="assets/img/segundo.png" alt="Uber2">
-    </ion-slide>
-  </ion-slides>
+  <ion-grid>
+    <ion-row>
+      <!-- Primera fila -->
+      <ion-col size="6">
+        <ion-card button [routerLink]="['/...']">
+          <ion-card-content>
+            <img src="assets/img/viaje.png" alt="Viaje" />
+            <p>Viaje</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card button [routerLink]="['/...']">
+          <ion-card-content>
+            <img src="assets/img/teens.png" alt="Teens" />
+            <p>Teens</p>
+            <ion-badge color="primary" class="new-badge">Nuevo</ion-badge>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  
+    <!-- Segunda fila -->
+    <ion-row>
+      <ion-col size="4">
+        <ion-card button [routerLink]="['/...']">
+          <ion-card-content>
+            <img src="assets/img/viajegrupal.png" alt="Viaje grupal" />
+            <p>Grupal</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card button [routerLink]="['/...']">
+          <ion-card-content>
+            <img src="assets/img/transito.png" alt="Tránsito" />
+            <p>Tránsito</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card button [routerLink]="['/...']">
+          <ion-card-content>
+            <img src="assets/img/reserve.png" alt="Reserve" />
+            <p>Reserve</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <section class="img-section">
     <img src="assets/img/uber-definit.png" alt="Uber3">
@@ -32,14 +73,23 @@
   <ion-toolbar color="dark">
     <ion-grid>
       <ion-row>
+        <!-- Botón Home -->
         <ion-col class="ion-text-center">
-          <ion-icon name="home-outline" size="large"></ion-icon>
+          <ion-button fill="clear" [routerLink]="['/index']">
+            <ion-icon name="home-outline" size="large"></ion-icon>
+          </ion-button>
         </ion-col>
+        <!-- Botón Map -->
         <ion-col class="ion-text-center">
-          <ion-icon name="map-outline" size="large"></ion-icon>
+          <ion-button fill="clear" [routerLink]="['/...']">
+            <ion-icon name="map-outline" size="large"></ion-icon>
+          </ion-button>
         </ion-col>
+        <!-- Botón Settings -->
         <ion-col class="ion-text-center">
-          <ion-icon name="settings-outline" size="large"></ion-icon>
+          <ion-button fill="clear" [routerLink]="['/...']">
+            <ion-icon name="settings-outline" size="large"></ion-icon>
+          </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

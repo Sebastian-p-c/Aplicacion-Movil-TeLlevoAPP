@@ -1,0 +1,48 @@
+.card-container {
+display: flex;
+flex-direction: column;
+gap: 20px; /* Añade espacio entre las cartas */
+padding: 20px;
+}
+
+ion-card {
+text-align: center;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+border-radius: 12px;
+cursor: pointer;
+}
+
+ion-card-content {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.card-text {
+max-width: 70%; 
+text-align: left; 
+}
+
+ion-card img {
+width: 50px;
+height: auto;
+object-fit: contain;
+margin-left: 10px;
+}
+
+ion-card h3 {
+margin: 0;
+font-size: 1.2em;
+}
+
+ion-card p {
+margin-top: 10px;
+font-size: 16px;
+color: #333;
+}
+
+ion-content {
+background-color: #f5f5f5; /* Color de fondo suave */
+height: 100%;
+padding: 20px;
+}

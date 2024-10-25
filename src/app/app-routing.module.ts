@@ -31,7 +31,15 @@ loadChildren: () => import('./pages/store/store.module').then( m => m.StorePageM
   {
     path: 'restcontra',
     loadChildren: () => import('./pages/restcontra/restcontra.module').then( m => m.RestcontraPageModule)
+  },  {
+    path: 'elegusuario',
+    loadChildren: () => import('./pages/elegusuario/elegusuario.module').then( m => m.ElegusuarioPageModule)
   },
+  {
+    path: 'conductor',
+    loadChildren: () => import('./pages/conductor/conductor.module').then( m => m.ConductorPageModule)
+  },
+
 ];
 
 @NgModule({

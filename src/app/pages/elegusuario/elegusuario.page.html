@@ -1,0 +1,43 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar color="dark">
+    <ion-title>Uber</ion-title>
+
+    <ion-buttons slot="end">
+      <!-- Llama a la función logout al hacer clic -->
+      <ion-button (click)="logout()">
+        <ion-icon class="custom-icon" slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h2>¿Que quieres ser hoy?</h2>
+  <div class="card-container">
+    <ion-card button (click)="navigateTo('conductor')">
+      <ion-card-content>
+        <div class="card-text">
+          <h3>Conductor</h3>
+          <p>Ingresa como conductor para comenzar a recibir viajes y obtener ganancias.</p>
+        </div>
+        <img src="assets/img/viaje.png" alt="Conductor" />
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card button (click)="navigateTo('index')">
+      <ion-card-content>
+        <div class="card-text">
+          <h3>Pasajero</h3>
+          <p>Ingresa como pasajero y viaja a tu destino de forma segura.</p>
+        </div>
+        <img src="assets/img/teens.png" alt="Pasajero" />
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="dark">
+  </ion-toolbar>
+</ion-footer>

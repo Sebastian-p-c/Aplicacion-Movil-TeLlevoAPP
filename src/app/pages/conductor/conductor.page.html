@@ -1,0 +1,81 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar color="dark">
+    <ion-title>Uber</ion-title>
+
+    <ion-buttons slot="end">
+      <!-- Llama a la función logout al hacer clic -->
+      <ion-button (click)="logout()">
+        <ion-icon class="custom-icon" slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <h2>Elige cómo quieres generar ganancias</h2>
+
+    <!-- Primera carta -->
+    <ion-card [ngClass]="{'selected-card': selectedCard === 'viaje-entrega'}" (click)="selectCard('viaje-entrega')">
+      <ion-card-header>
+        <ion-badge color="primary">Viajes</ion-badge>
+        <ion-badge color="success">Entrega</ion-badge>
+      </ion-card-header>
+      <ion-card-content class="card-content">
+        <div class="card-text">
+          <h3>Viajes o entregas en auto</h3>
+          <p><strong>Edad:</strong> mayor de 18 años</p>
+          <p><strong>Vehículo:</strong> el vehículo no puede tener más de 10 años de antigüedad a partir del año en curso.</p>
+        </div>
+        <img src="assets/img/viaje.png" alt="Auto" />
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Segunda carta -->
+    <ion-card [ngClass]="{'selected-card': selectedCard === 'viaje'}" (click)="selectCard('viaje')">
+      <ion-card-header>
+        <ion-badge color="primary">Viajes</ion-badge>
+      </ion-card-header>
+      <ion-card-content class="card-content">
+        <div class="card-text">
+          <h3>Viajes en auto</h3>
+          <p><strong>Edad:</strong> mayor de 18 años</p>
+          <p><strong>Vehículo:</strong> capacidad mínima para...</p>
+        </div>
+        <img src="assets/img/viaje.png" alt="Auto" />
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Botón de continuar -->
+    <ion-button expand="block" color="primary" [disabled]="!selectedCard" (click)="continue()">Continuar</ion-button>
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="dark">
+    <ion-grid>
+      <ion-row>
+        <!-- Botón Home -->
+        <ion-col class="ion-text-center">
+          <ion-button fill="clear" [routerLink]="['/conductor']">
+            <ion-icon name="home-outline" size="large"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <!-- Botón Map -->
+        <ion-col class="ion-text-center">
+          <ion-button fill="clear" [routerLink]="['/...']">
+            <ion-icon name="map-outline" size="large"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <!-- Botón Settings -->
+        <ion-col class="ion-text-center">
+          <ion-button fill="clear" [routerLink]="['/...']">
+            <ion-icon name="settings-outline" size="large"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>
