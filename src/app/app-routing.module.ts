@@ -39,6 +39,10 @@ loadChildren: () => import('./pages/store/store.module').then( m => m.StorePageM
     path: 'conductor',
     loadChildren: () => import('./pages/conductor/conductor.module').then( m => m.ConductorPageModule)
   },
+  {
+    path: 'forma-viaje',
+    loadChildren: () => import('./pages/forma-viaje/forma-viaje.module').then( m => m.FormaViajePageModule)
+  },
 
 ];
 

@@ -1,0 +1,122 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar color="dark">
+    <ion-title>Uber</ion-title>
+
+    <ion-buttons slot="end">
+      <!-- Llama a la función logout al hacer clic -->
+      <ion-button (click)="logout()">
+        <ion-icon class="custom-icon" slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-register">
+  <h3 class="ion-title-register">Formulario para Viajes</h3>
+  <br>
+  <h4 class="ion-info">Información:</h4>
+  <ion-list>
+    
+    <ion-item>
+      <ion-input
+      label="Nombre"
+      labelPlacement="floating">
+      </ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-input
+      label="Apellido"
+      labelPlacement="floating">
+      </ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-input
+      label="Matricula"
+      labelPlacement="floating">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input 
+      label="Modelo del Vehiculo"
+      labelPlacement="floating">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input 
+      label="Color del Vehiculo"
+      labelPlacement="floating">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input 
+      label="Telefono de Contacto"
+      labelPlacement="floating">
+      </ion-input>
+    </ion-item>
+
+    <!-- <ion-item>
+      <ion-input 
+      label="Cantidad de Pasajeros"
+      type="number"
+      min="1">
+      </ion-input>
+    </ion-item> -->
+    <ion-item>
+      <ion-label position="stacked">Cantidad de Pasajeros</ion-label>
+      <div style="display: flex; align-items: center;">
+        <!-- Botón de disminución -->
+        <ion-button (click)="decrementarCantidad()" fill="outline" color="danger">
+          <ion-icon name="remove-outline"></ion-icon>
+        </ion-button>
+    
+        <!-- Campo de entrada de cantidad -->
+        <ion-input [(ngModel)]="cantidad" type="number" min="0" style="text-align: center; width: 60px;"></ion-input>
+    
+        <!-- Botón de aumento -->
+        <ion-button (click)="incrementarCantidad()" fill="outline" color="success">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+
+    <ion-button
+    expand="block">
+    Generar Viaje
+    </ion-button>
+    
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="dark">
+    <ion-grid>
+      <ion-row>
+        <!-- Botón Home -->
+        <ion-col class="ion-text-center">
+          <ion-button fill="clear" [routerLink]="['/elegusuario']">
+            <ion-icon name="home-outline" size="large"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <!-- Botón Map -->
+        <ion-col class="ion-text-center">
+          <ion-button fill="clear" [routerLink]="['/...']">
+            <ion-icon name="map-outline" size="large"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <!-- Botón Settings -->
+        <ion-col class="ion-text-center">
+          <ion-button fill="clear" [routerLink]="['/...']">
+            <ion-icon name="settings-outline" size="large"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>
