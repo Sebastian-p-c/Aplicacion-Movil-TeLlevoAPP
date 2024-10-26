@@ -1,0 +1,53 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar color="dark">
+    <ion-title>Uber</ion-title>
+
+    <ion-buttons slot="end">
+      <!-- Llama a la función logout al hacer clic -->
+      <ion-button (click)="logout()">
+        <ion-icon class="custom-icon" slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+
+
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">reserva</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="dark">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <!-- Botón Home -->
+        <ion-col class="ion-text-center" size="auto">
+          <ion-button fill="clear" color="light" [routerLink]="['/index']" style="margin-top: -5px;">
+            <ion-icon name="home-outline" size="large"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <!-- Botón Map -->
+        <ion-col class="ion-text-center" size="auto">
+          <ion-button fill="clear" color="light" [routerLink]="['/...']" style="margin-top: -5px;">
+            <ion-icon name="map-outline" size="large"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <!-- Botón Settings -->
+        <ion-col class="ion-text-center" size="auto">
+          <ion-button fill="clear" color="light" [routerLink]="['/...']" style="margin-top: -5px;">
+            <ion-icon name="settings-outline" size="large"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

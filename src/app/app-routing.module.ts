@@ -58,7 +58,11 @@ loadChildren: () => import('./pages/store/store.module').then( m => m.StorePageM
     path: '**',
     redirectTo: 'not-found',
     pathMatch: 'full'
+  },  {
+    path: 'reserva',
+    loadChildren: () => import('./pages/reserva/reserva.module').then( m => m.ReservaPageModule)
   },
+
 
 ];
 
