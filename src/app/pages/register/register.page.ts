@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
+import { StorageService } from 'src/services/storage.service'; // Importa el servicio de almacenamiento
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,6 @@ export class RegisterPage implements OnInit {
   emailInvalid: boolean = false;
 
   usernameRegistro: string = '';
-
   passwordRegistro: string = '';
   confirmPassword: string = '';
   passwordVisible: boolean = false; 
@@ -27,8 +27,10 @@ export class RegisterPage implements OnInit {
   passwordMismatch: boolean = false; 
 
   constructor(
-    private alertController: AlertController,  // Inyecta AlertController
-    private router: Router) { }
+    private alertController: AlertController,
+    private router: Router,
+    private storageService: StorageService // Inyecta el servicio de almacenamiento
+  ) { }
 
   ngOnInit() { }
 
@@ -77,31 +79,59 @@ export class RegisterPage implements OnInit {
       this.confirmPassword.trim() !== ''
     );
   }
-  
 
   async crearCuenta() {
-    if (this.isFormValid()) {
-      const alert = await this.alertController.create({
-        header: 'Éxito',
-        message: 'Se ha creado correctamente su cuenta',
-        buttons: [
-          {
-            text: 'OK',
-            handler: () => {
-              // Pasar usernameRegistro al navegar a la página principal
-              const navigationExtras: NavigationExtras = {
-                state: {
-                  usernameRegistro: this.usernameRegistro
-                }
-              };
-              this.router.navigate(['/principal'], navigationExtras);
-            }
-          }
-        ],
-        backdropDismiss: false
-      });
+  if (this.isFormValid()) {
+    // Guarda los datos de inicio de sesión con la clave 'userCredentials'
+    await this.storageService.setItem('userCredentials', {
+      username: this.usernameRegistro,
+      password: this.passwordRegistro,
+    });
 
-      await alert.present();
+    // Guarda datos adicionales si es necesario
+    await this.storageService.setItem('userData', {
+      nombre: this.nombre,
+      apellido: this.apellido,
+      fechaNacimiento: this.fechaNacimiento,
+      correoRegistro: this.correoRegistro,
+      usernameRegistro: this.usernameRegistro,
+    });
+
+    const alert = await this.alertController.create({
+      header: 'Éxito',
+      message: 'Se ha creado correctamente su cuenta',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            const navigationExtras: NavigationExtras = {
+              state: {
+                usernameRegistro: this.usernameRegistro
+              }
+            };
+            this.router.navigate(['/principal'], navigationExtras);
+          }
+        }
+      ],
+      backdropDismiss: false
+    });
+
+    await alert.present();
+  }
+}
+
+
+  // Método para obtener los datos almacenados (si es necesario)
+  async cargarDatos() {
+    const userData = await this.storageService.getItem('userData');
+    if (userData) {
+      this.nombre = userData.nombre || '';
+      this.apellido = userData.apellido || '';
+      this.fechaNacimiento = userData.fechaNacimiento || '';
+      this.correoRegistro = userData.correoRegistro || '';
+      this.usernameRegistro = userData.usernameRegistro || '';
+      this.passwordRegistro = userData.passwordRegistro || ''; // Cargar la contraseña, si es necesario
     }
   }
 }
+
