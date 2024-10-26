@@ -19,8 +19,9 @@
     <!-- Modo de Alto Contraste -->
     <ion-item lines="full">
       <ion-label>Modo de Alto Contraste</ion-label>
-      <ion-toggle slot="end" [(ngModel)]="isHighContrast" (ionChange)="toggleHighContrast()"></ion-toggle>
+      <ion-toggle slot="end" [(ngModel)]="isHighContrast" (ionChange)="toggleHighContrast($event)"></ion-toggle>
     </ion-item>
+    
     
 
 

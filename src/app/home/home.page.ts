@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { StorageService } from 'src/services/storage.service';
@@ -8,22 +8,29 @@ import { StorageService } from 'src/services/storage.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-
-export class HomePage {
+export class HomePage implements OnInit {
   message: string;
   username: string = '';
   password: string = '';
 
-  // Definimos las credenciales del admin
+  // Credenciales del administrador
   private adminUsername: string = 'admin';
-  private adminPassword: string = 'admin'; // Cambia esto a la contraseña deseada
+  private adminPassword: string = 'admin';
 
   constructor(
     private router: Router,
     private toastController: ToastController,
-    private storageService: StorageService // Inyecta el servicio aquí
+    private storageService: StorageService
   ) {
     this.message = 'Bienvenido!';
+  }
+
+  // Método ngOnInit para activar alto contraste si está guardado
+  ngOnInit() {
+    const storedContrast = localStorage.getItem('high-contrast');
+    if (storedContrast === 'true') {
+      document.body.classList.add('high-contrast');
+    }
   }
 
   clearInput() {
@@ -40,15 +47,14 @@ export class HomePage {
     // Verifica si el usuario es el administrador
     if (this.username === this.adminUsername && this.password === this.adminPassword) {
       this.showToastMessage('Login correcto como Admin', 'success');
-      this.router.navigate(['/principal']); // Cambia esto a la ruta que desees para el admin
+      this.router.navigate(['/principal']);
     } else {
       // Si no es admin, verifica las credenciales almacenadas
-      const storedCredentials = await this.storageService.getItem('userCredentials'); // Asumiendo que guardaste userCredentials
+      const storedCredentials = await this.storageService.getItem('userCredentials');
 
       if (storedCredentials) {
         const { username: storedUsername, password: storedPassword } = storedCredentials;
 
-        // Validar los datos ingresados
         if (this.username === storedUsername && this.password === storedPassword) {
           this.showToastMessage('Login correcto', 'success');
 

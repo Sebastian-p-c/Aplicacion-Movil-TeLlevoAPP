@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,22 +6,33 @@ import { Router } from '@angular/router';
   templateUrl: './ajustes.page.html',
   styleUrls: ['./ajustes.page.scss'],
 })
-export class AjustesPage {
+export class AjustesPage implements OnInit {
   isHighContrast = false;
-  fontSize = 'medium';
 
   constructor(private router: Router) {}
 
-  toggleHighContrast() {
-    document.body.classList.toggle('high-contrast', this.isHighContrast);
+  ngOnInit() {
+    // Al cargar la página, revisa si el modo alto contraste está activado en localStorage
+    const storedContrast = localStorage.getItem('high-contrast');
+    if (storedContrast === 'true') {
+      this.isHighContrast = true;
+      document.body.classList.add('high-contrast');
+    }
   }
 
-  changeFontSize(event: any) {
-    document.body.style.fontSize = this.fontSize === 'large' ? '1.2em' : this.fontSize === 'small' ? '0.9em' : '1em';
+  toggleHighContrast(event: any) {
+    const isHighContrast = event.detail.checked;
+    if (isHighContrast) {
+      document.body.classList.add('high-contrast');
+      localStorage.setItem('high-contrast', 'true');
+    } else {
+      document.body.classList.remove('high-contrast');
+      localStorage.setItem('high-contrast', 'false');
+    }
   }
+  
 
   logout() {
-    // Redirige a la página de inicio de sesión o realiza la acción de cierre de sesión
-    this.router.navigate(['/home']); // Cambia '/home' a la ruta deseada después del cierre de sesión
+    this.router.navigate(['/home']); // Redirige a la página de inicio de sesión o la página deseada
   }
 }
