@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
@@ -9,8 +9,13 @@ import { ToastController } from '@ionic/angular';
 })
 export class HomePage {
   message: string;
-  username: string = 'User';
-  password: string = 'Password';
+  username: string = '';
+  password: string = '';
+
+  validUsers = [
+    { username: 'Mati', password: '12345' },
+    { username: 'Alex', password: '54321' }
+  ];
 
   constructor(
     private router: Router,
@@ -23,16 +28,19 @@ export class HomePage {
     this.username = '';  
   }
 
-  clearPassword(){
+  clearPassword() {
     this.password = '';
   }
 
-  validateLogin(){
-    console.log("Ejecutando validacion");
-    const userValid: string = 'Mati';
-    const pwdValid: string = '12345';
+  validateLogin() {
+    console.log("Ejecutando validación");
 
-    if (this.username === userValid && this.password === pwdValid) {
+    // Verificar si las credenciales coinciden con algún usuario válido
+    const userFound = this.validUsers.find(user => 
+      user.username === this.username && user.password === this.password
+    );
+
+    if (userFound) {
       this.showToastMessage('Login correcto', 'success');
 
       const extras: NavigationExtras = {

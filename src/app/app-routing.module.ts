@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { pageProtegidoGuard } from './guards/page-protegido.guard';
 
 const routes: Routes = [
 {
@@ -38,7 +39,8 @@ loadChildren: () => import('./pages/store/store.module').then( m => m.StorePageM
   },
   {
     path: 'conductor',
-    loadChildren: () => import('./pages/conductor/conductor.module').then( m => m.ConductorPageModule)
+    loadChildren: () => import('./pages/conductor/conductor.module').then( m => m.ConductorPageModule),
+    canActivate: [pageProtegidoGuard]
   },
   {
     path: 'forma-viaje',
