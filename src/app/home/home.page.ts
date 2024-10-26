@@ -25,7 +25,6 @@ export class HomePage implements OnInit {
     this.message = 'Bienvenido!';
   }
 
-  // Método ngOnInit para activar alto contraste si está guardado
   ngOnInit() {
     const storedContrast = localStorage.getItem('high-contrast');
     if (storedContrast === 'true') {
@@ -44,12 +43,10 @@ export class HomePage implements OnInit {
   async validateLogin() {
     console.log("Ejecutando validación");
 
-    // Verifica si el usuario es el administrador
     if (this.username === this.adminUsername && this.password === this.adminPassword) {
       this.showToastMessage('Login correcto como Admin', 'success');
       this.router.navigate(['/principal']);
     } else {
-      // Si no es admin, verifica las credenciales almacenadas
       const storedCredentials = await this.storageService.getItem('userCredentials');
 
       if (storedCredentials) {

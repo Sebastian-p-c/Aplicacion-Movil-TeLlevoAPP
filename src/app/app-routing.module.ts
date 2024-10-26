@@ -51,7 +51,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundPageModule)
   },
   {
-    path: 'ajustes',  // Ruta para la página de ajustes
+    path: 'ajustes',
     loadChildren: () => import('./pages/ajustes/ajustes.module').then(m => m.AjustesPageModule)
   },
   {
@@ -59,7 +59,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/mapa/mapa.module').then(m => m.MapaPageModule)
   },
 
-// Esto de abajo debe estar al ultimo siempre, despues de cada path, ya que es el page not found, de lo contrario genera errores
   {
     path: '**',
     redirectTo: 'not-found',

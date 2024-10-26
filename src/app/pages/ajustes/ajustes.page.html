@@ -3,7 +3,6 @@
     <ion-title>Uber</ion-title>
 
     <ion-buttons slot="end">
-      <!-- Llama a la función logout al hacer clic -->
       <ion-button (click)="logout()">
         <ion-icon class="custom-icon" slot="icon-only" name="log-out-outline"></ion-icon>
       </ion-button>
@@ -16,7 +15,6 @@
 <br><br>
     <h2>Opciones de Accesibilidad</h2>
     <br>
-    <!-- Modo de Alto Contraste -->
     <ion-item lines="full">
       <ion-label>Modo de Alto Contraste</ion-label>
       <ion-toggle slot="end" [(ngModel)]="isHighContrast" (ionChange)="toggleHighContrast($event)"></ion-toggle>
@@ -31,19 +29,16 @@
   <ion-toolbar color="dark">
     <ion-grid>
       <ion-row class="ion-justify-content-center">
-        <!-- Botón Home -->
         <ion-col class="ion-text-center" size="auto">
           <ion-button fill="clear" [routerLink]="['/conductor']" style="margin-top: -5px;">
             <ion-icon name="home-outline" size="large"></ion-icon>
           </ion-button>
         </ion-col>
-        <!-- Botón Map -->
         <ion-col class="ion-text-center" size="auto">
           <ion-button fill="clear" [routerLink]="['/mapa']" style="margin-top: -5px;">
             <ion-icon name="map-outline" size="large"></ion-icon>
           </ion-button>
         </ion-col>
-        <!-- Botón Settings -->
         <ion-col class="ion-text-center" size="auto">
           <ion-button fill="clear" [routerLink]="['/ajustes']" style="margin-top: -5px;">
             <ion-icon name="settings-outline" size="large"></ion-icon>

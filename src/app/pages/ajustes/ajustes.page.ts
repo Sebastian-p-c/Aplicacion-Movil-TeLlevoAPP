@@ -12,7 +12,6 @@ export class AjustesPage implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    // Al cargar la página, revisa si el modo alto contraste está activado en localStorage
     const storedContrast = localStorage.getItem('high-contrast');
     if (storedContrast === 'true') {
       this.isHighContrast = true;
@@ -33,6 +32,6 @@ export class AjustesPage implements OnInit {
   
 
   logout() {
-    this.router.navigate(['/home']); // Redirige a la página de inicio de sesión o la página deseada
+    this.router.navigate(['/home']);
   }
 }

@@ -10,14 +10,9 @@ export class NotFoundPage implements OnInit {
 
   constructor(private router: Router,) { }
 
-  // Función para cerrar sesión
   logout() {
     console.log('Cerrar sesión');
-    // Aquí puedes limpiar el localStorage si es necesario
-    // localStorage.removeItem('userToken');  // Ejemplo
-
-    // Redirigir a la página principal
-    this.router.navigate(['/home']);  // Redirige a la página principal
+    this.router.navigate(['/home']);
   }
   
   ngOnInit() {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
-import { StorageService } from 'src/services/storage.service'; // Importa el servicio de almacenamiento
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-register',
@@ -28,7 +28,7 @@ export class RegisterPage implements OnInit {
   constructor(
     private alertController: AlertController,
     private router: Router,
-    private storageService: StorageService // Inyecta el servicio de almacenamiento
+    private storageService: StorageService
   ) { }
 
   ngOnInit() { }
@@ -81,10 +81,8 @@ export class RegisterPage implements OnInit {
 
   async crearCuenta() {
     if (this.isFormValid()) {
-      // Verifica si ya existe un usuario registrado
       const existingUser = await this.storageService.getItem('userCredentials');
 
-      // Si ya hay credenciales guardadas, verifica el nombre de usuario
       if (existingUser && existingUser.username === this.usernameRegistro) {
         const alert = await this.alertController.create({
           header: 'Error',
@@ -92,16 +90,14 @@ export class RegisterPage implements OnInit {
           buttons: ['OK'],
         });
         await alert.present();
-        return; // Salir del método si el usuario ya existe
+        return;
       }
 
-      // Si no existe el usuario, guarda las credenciales
       await this.storageService.setItem('userCredentials', {
         username: this.usernameRegistro,
         password: this.passwordRegistro,
       });
 
-      // Guarda datos adicionales
       await this.storageService.setItem('userData', {
         nombre: this.nombre,
         apellido: this.apellido,
@@ -133,7 +129,6 @@ export class RegisterPage implements OnInit {
     }
   }
 
-  // Método para obtener los datos almacenados (si es necesario)
   async cargarDatos() {
     const userData = await this.storageService.getItem('userData');
     if (userData) {
@@ -142,7 +137,7 @@ export class RegisterPage implements OnInit {
       this.fechaNacimiento = userData.fechaNacimiento || '';
       this.correoRegistro = userData.correoRegistro || '';
       this.usernameRegistro = userData.usernameRegistro || '';
-      this.passwordRegistro = userData.passwordRegistro || ''; // Cargar la contraseña, si es necesario
+      this.passwordRegistro = userData.passwordRegistro || '';
     }
   }
 }

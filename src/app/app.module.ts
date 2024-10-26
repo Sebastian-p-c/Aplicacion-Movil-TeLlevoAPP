@@ -18,7 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     IonicStorageModule.forRoot(),
-    HttpClientModule // Agregado aquí
+    HttpClientModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

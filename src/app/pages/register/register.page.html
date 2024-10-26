@@ -80,7 +80,6 @@
       </ion-input>
     </ion-item>
 
-  <!-- Campo para la Contraseña -->
     <ion-item>
       <ion-input 
         label="Contraseña" 
@@ -95,7 +94,6 @@
       </ion-icon>
     </ion-item>
 
-  <!-- Campo para Confirmar Contraseña -->
     <ion-item>
       <ion-input 
         label="Confirmar Contraseña" 
@@ -111,12 +109,10 @@
       </ion-icon>
     </ion-item>
 
-    <!-- Mensaje de error si las contraseñas no coinciden -->
     <ion-text color="danger" *ngIf="passwordMismatch" class="passwordError">
       Las contraseñas no coinciden
     </ion-text>
 
-    <!-- Botón para crear la cuenta -->
     <ion-button 
     expand="block" 
     [disabled]="!isFormValid()" 

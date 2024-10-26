@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { ViajeService } from 'src/services/viaje.service'; // Asegúrate de importar el servicio
+import { ViajeService } from 'src/services/viaje.service';
 
 @Component({
   selector: 'app-forma-viaje',
@@ -24,8 +24,8 @@ export class FormaViajePage implements OnInit {
 
   constructor(
     private router: Router,
-    private viajeService: ViajeService, // Inyecta el servicio
-    private alertController: AlertController // Para mostrar alertas
+    private viajeService: ViajeService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() { }
@@ -58,12 +58,10 @@ export class FormaViajePage implements OnInit {
       cantidadPasajeros: this.cantidad,
     };
 
-    // Guarda el viaje en el almacenamiento
     await this.viajeService.guardarViaje(viaje);
 
-    // Verificar que el viaje se ha guardado
     const viajesGuardados = await this.viajeService.obtenerViajes();
-    console.log('Viajes guardados:', viajesGuardados); // Para depurar
+    console.log('Viajes guardados:', viajesGuardados);
 
     const alert = await this.alertController.create({
       header: 'Éxito',
@@ -73,7 +71,6 @@ export class FormaViajePage implements OnInit {
 
     await alert.present();
 
-    // Limpiar el formulario después de guardar
     this.limpiarFormulario();
   }
 
@@ -94,11 +91,7 @@ export class FormaViajePage implements OnInit {
 
   logout() {
     console.log('Cerrar sesión');
-    // Aquí puedes limpiar el localStorage si es necesario
-    // localStorage.removeItem('userToken');  // Ejemplo
-
-    // Redirigir a la página principal
-    this.router.navigate(['/home']);  // Redirige a la página principal
+    this.router.navigate(['/home']);
   }
 
   onIonChange(event: CustomEvent, field: string) {

@@ -12,7 +12,7 @@ export class IndexPage implements OnInit {
   username: string = 'guest';
 
   constructor(
-    private router: Router,  // Inyecta el Router para la navegación
+    private router: Router, 
   ) {
     const state = this.router.getCurrentNavigation()?.extras.state;
     if (state) {
@@ -37,14 +37,9 @@ export class IndexPage implements OnInit {
     centeredSlides: true,
   };
 
-  // Función para cerrar sesión
   logout() {
     console.log('Cerrar sesión');
-    // Aquí puedes limpiar el localStorage si es necesario
-    // localStorage.removeItem('userToken');  // Ejemplo
-
-    // Redirigir a la página principal
-    this.router.navigate(['/home']);  // Redirige a la página principal
+    this.router.navigate(['/home']);
   }
 
   ngOnInit() {

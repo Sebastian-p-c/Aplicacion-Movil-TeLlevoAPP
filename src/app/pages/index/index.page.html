@@ -3,7 +3,6 @@
     <ion-title>Uber</ion-title>
 
     <ion-buttons slot="end">
-      <!-- Llama a la función logout al hacer clic -->
       <ion-button (click)="logout()">
         <ion-icon class="custom-icon" slot="icon-only" name="log-out-outline"></ion-icon>
       </ion-button>
@@ -15,7 +14,6 @@
 <ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row>
-      <!-- Primera fila -->
       <ion-col size="6">
         <ion-card button [routerLink]="['/...']">
           <ion-card-content>
@@ -35,7 +33,6 @@
       </ion-col>
     </ion-row>
   
-    <!-- Segunda fila -->
     <ion-row>
       <ion-col size="4">
         <ion-card button [routerLink]="['/...']">
@@ -73,19 +70,16 @@
   <ion-toolbar color="dark">
     <ion-grid>
       <ion-row class="ion-justify-content-center">
-        <!-- Botón Home -->
         <ion-col class="ion-text-center" size="auto">
           <ion-button fill="clear" [routerLink]="['/elegusuario']" style="margin-top: -5px;">
             <ion-icon name="home-outline" size="large"></ion-icon>
           </ion-button>
         </ion-col>
-        <!-- Botón Map -->
         <ion-col class="ion-text-center" size="auto">
           <ion-button fill="clear" [routerLink]="['/mapa']" style="margin-top: -5px;">
             <ion-icon name="map-outline" size="large"></ion-icon>
           </ion-button>
         </ion-col>
-        <!-- Botón Settings -->
         <ion-col class="ion-text-center" size="auto">
           <ion-button fill="clear" [routerLink]="['/ajustes']" style="margin-top: -5px;">
             <ion-icon name="settings-outline" size="large"></ion-icon>

@@ -19,9 +19,9 @@ ion-card p {
 margin-top: 10px;
 font-size: 16px;
 color: #333;
-white-space: nowrap; /* Evita el salto de línea */
+white-space: nowrap;
 overflow: hidden;
-text-overflow: ellipsis; /* Agrega puntos suspensivos si el texto es demasiado largo */
+text-overflow: ellipsis;
 }
 
 ion-icon {

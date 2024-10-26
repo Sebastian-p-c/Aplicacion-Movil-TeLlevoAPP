@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ViajeService } from 'src/services/viaje.service'; // Asegúrate de importar tu servicio de viajes
+import { ViajeService } from 'src/services/viaje.service';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -23,16 +23,12 @@ export class ReservaPage implements OnInit {
 
   logout() {
     console.log('Cerrar sesión');
-    // Aquí puedes limpiar el localStorage si es necesario
-    // localStorage.removeItem('userToken');  // Ejemplo
-
-    // Redirigir a la página principal
-    this.router.navigate(['/home']);  // Redirige a la página principal
+    this.router.navigate(['/home']);
   }
 
   seleccionarViaje(viaje: any) {
     this.viajeSeleccionado = viaje;
-    this.cantidadPasajeros = 1; // Resetea la cantidad de pasajeros a 1 al seleccionar un viaje nuevo
+    this.cantidadPasajeros = 1;
   }
 
   incrementarPasajeros() {
@@ -59,6 +55,6 @@ export class ReservaPage implements OnInit {
       buttons: ['OK'],
     });
     await alert.present();
-    this.viajeSeleccionado = null; // Limpia la selección después de confirmar
+    this.viajeSeleccionado = null;
   }
 }

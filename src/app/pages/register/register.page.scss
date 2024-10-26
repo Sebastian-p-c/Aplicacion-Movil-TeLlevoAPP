@@ -10,10 +10,10 @@ margin-left: 20px;
 }
 
 .fecha-nacimiento-input {
-font-size: 1rem; /* Tamaño de fuente más pequeño */
+font-size: 1rem;
 }
 .apply-button {
-margin-top: 10px; /* Añade un margen superior para separar el botón del calendario */
+margin-top: 10px;
 }
 
 ion-input[readonly] {
@@ -27,21 +27,21 @@ cursor: pointer;
 }
 
 .emailError {
-    text-align: left;  /* Alinea el texto hacia la derecha */
-    margin-left: 15px; /* Añade un margen derecho */
-    display: block;     /* Asegura que el texto ocupe toda la línea */
+    text-align: left;
+    margin-left: 15px;
+    display: block;
 }  
 
 .crearCuenta {
-    margin-top: 90px; /* Ajusta este valor según lo que necesites */
+    margin-top: 90px;
     margin-left: 10px;
     margin-right: 10px;
 }
 
 .passwordError{
-    text-align: left;  /* Alinea el texto hacia la derecha */
-    margin-left: 15px; /* Añade un margen derecho */
-    display: block;     /* Asegura que el texto ocupe toda la línea */
+    text-align: left;
+    margin-left: 15px;
+    display: block;
 }
 
 ion-alert .head{
