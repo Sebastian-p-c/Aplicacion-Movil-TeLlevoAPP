@@ -43,19 +43,23 @@ const routes: Routes = [
     loadChildren: () => import('./pages/forma-viaje/forma-viaje.module').then(m => m.FormaViajePageModule)
   },
   {
+    path: 'reserva',
+    loadChildren: () => import('./pages/reserva/reserva.module').then( m => m.ReservaPageModule)
+  },
+  {
     path: 'not-found',
     loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundPageModule)
   },
-  {
-    path: 'ajustes',  // Ruta para la página de ajustes
-    loadChildren: () => import('./pages/ajustes/ajustes.module').then(m => m.AjustesPageModule)
-  },
-  // Ruta de página no encontrada, debe estar al final
+
+
+
+// Esto de abajo debe estar al ultimo siempre, despues de cada path, ya que es el page not found, de lo contrario genera errores
   {
     path: '**',
     redirectTo: 'not-found',
     pathMatch: 'full'
   },
+
 ];
 
 @NgModule({

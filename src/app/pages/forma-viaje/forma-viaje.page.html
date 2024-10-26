@@ -1,14 +1,11 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar color="dark">
     <ion-title>Uber</ion-title>
-
     <ion-buttons slot="end">
-      <!-- Llama a la función logout al hacer clic -->
       <ion-button (click)="logout()">
         <ion-icon class="custom-icon" slot="icon-only" name="log-out-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    
   </ion-toolbar>
 </ion-header>
 
@@ -16,53 +13,59 @@
   <h3 class="ion-title-register">Formulario Viajes</h3>
   <h4 class="ion-info">Información:</h4>
   <ion-list>
-    
     <ion-item>
       <ion-input
-      label="Nombre"
-      labelPlacement="floating">
-      </ion-input>
-    </ion-item>
-    
-    <ion-item>
-      <ion-input
-      label="Apellido"
-      labelPlacement="floating">
-      </ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input
-      label="RUT"
-      labelPlacement="floating">
+        label="Nombre"
+        labelPlacement="floating"
+        [(ngModel)]="nombre">
       </ion-input>
     </ion-item>
     
     <ion-item>
       <ion-input
-      label="Matricula (Patente)"
-      labelPlacement="floating">
+        label="Apellido"
+        labelPlacement="floating"
+        [(ngModel)]="apellido">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        label="RUT"
+        labelPlacement="floating"
+        [(ngModel)]="rut">
+      </ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-input
+        label="Matricula (Patente)"
+        labelPlacement="floating"
+        [(ngModel)]="matricula">
       </ion-input>
     </ion-item>
 
     <ion-item>
       <ion-input 
-      label="Modelo del Vehiculo"
-      labelPlacement="floating">
+        label="Modelo del Vehiculo"
+        labelPlacement="floating"
+        [(ngModel)]="modeloVehiculo">
       </ion-input>
     </ion-item>
 
     <ion-item>
       <ion-input 
-      label="Color del Vehiculo"
-      labelPlacement="floating">
+        label="Color del Vehiculo"
+        labelPlacement="floating"
+        [(ngModel)]="colorVehiculo">
       </ion-input>
     </ion-item>
 
     <ion-item>
       <ion-input 
-      label="Telefono de Contacto"
-      labelPlacement="floating">
+        label="Telefono de Contacto"
+        labelPlacement="floating"
+        [(ngModel)]="telefonoContacto">
       </ion-input>
     </ion-item>
 
@@ -73,7 +76,6 @@
         [value]="selectedBanco"
         readonly>
       </ion-input>
-
       <ion-button id="open-banco-modal" fill="clear">
         <ion-icon name="chevron-down-outline"></ion-icon>
       </ion-button>
@@ -110,7 +112,6 @@
         [value]="selectedTipoCuenta"
         readonly>
       </ion-input>
-
       <ion-button id="open-tipoCuenta-modal" fill="clear">
         <ion-icon name="chevron-down-outline"></ion-icon>
       </ion-button>
@@ -140,40 +141,38 @@
 
     <ion-item>
       <ion-input
-      Label="Numero de Cuenta"
-      labelPlacement="floating">
+        label="Numero de Cuenta"
+        labelPlacement="floating"
+        [(ngModel)]="numeroCuenta">
       </ion-input>
     </ion-item>
 
     <ion-item>
       <ion-input
-      Label="Precio por Pasajero (CLP)"
-      labelPlacement="floating">
+        label="Precio por Pasajero (CLP)"
+        labelPlacement="floating"
+        [(ngModel)]="precioPasajero">
       </ion-input>
     </ion-item>
 
     <ion-item lines="none" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
       <ion-label position="stacked" style="text-align: left; font-size: 23px;">Cantidad de Pasajeros</ion-label>
       <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; width: 100%;">
-        <!-- Botón de disminución -->
         <ion-button (click)="decrementarCantidad()" fill="outline" color="danger">
           <ion-icon name="remove-outline"></ion-icon>
         </ion-button>
-    
-        <!-- Campo de entrada de cantidad -->
+
         <ion-input [(ngModel)]="cantidad" type="number" min="0" style="text-align: center; width: 60px;"></ion-input>
-    
-        <!-- Botón de aumento -->
+
         <ion-button (click)="incrementarCantidad()" fill="outline" color="success">
           <ion-icon name="add-outline"></ion-icon>
         </ion-button>
       </div>
     </ion-item>
 
-    <ion-button expand="block" style="margin-bottom: 10px;">
+    <ion-button expand="block" style="margin-bottom: 10px;" (click)="generarViaje()">
       Generar Viaje
     </ion-button>
-    
   </ion-list>
 </ion-content>
 
@@ -181,19 +180,16 @@
   <ion-toolbar color="dark">
     <ion-grid>
       <ion-row class="ion-justify-content-center">
-        <!-- Botón Home -->
         <ion-col class="ion-text-center" size="auto">
           <ion-button fill="clear" [routerLink]="['/conductor']" style="margin-top: -5px;">
             <ion-icon name="home-outline" size="large"></ion-icon>
           </ion-button>
         </ion-col>
-        <!-- Botón Map -->
         <ion-col class="ion-text-center" size="auto">
           <ion-button fill="clear" [routerLink]="['/...']" style="margin-top: -5px;">
             <ion-icon name="map-outline" size="large"></ion-icon>
           </ion-button>
         </ion-col>
-        <!-- Botón Settings -->
         <ion-col class="ion-text-center" size="auto">
           <ion-button fill="clear" [routerLink]="['/ajustes']" style="margin-top: -5px;">
             <ion-icon name="settings-outline" size="large"></ion-icon>
