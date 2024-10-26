@@ -54,7 +54,10 @@ const routes: Routes = [
     path: 'ajustes',  // Ruta para la página de ajustes
     loadChildren: () => import('./pages/ajustes/ajustes.module').then(m => m.AjustesPageModule)
   },
-
+  {
+    path: 'mapa',
+    loadChildren: () => import('./pages/mapa/mapa.module').then(m => m.MapaPageModule)
+  },
 
 // Esto de abajo debe estar al ultimo siempre, despues de cada path, ya que es el page not found, de lo contrario genera errores
   {
@@ -62,7 +65,6 @@ const routes: Routes = [
     redirectTo: 'not-found',
     pathMatch: 'full'
   },
-
 ];
 
 @NgModule({

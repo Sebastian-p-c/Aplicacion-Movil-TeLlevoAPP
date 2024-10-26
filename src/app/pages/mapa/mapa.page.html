@@ -1,30 +1,16 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar color="dark">
     <ion-title>Uber</ion-title>
-
     <ion-buttons slot="end">
-      <!-- Llama a la función logout al hacer clic -->
       <ion-button (click)="logout()">
         <ion-icon class="custom-icon" slot="icon-only" name="log-out-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="settings-content">
-<br><br>
-    <h2>Opciones de Accesibilidad</h2>
-    <br>
-    <!-- Modo de Alto Contraste -->
-    <ion-item lines="full">
-      <ion-label>Modo de Alto Contraste</ion-label>
-      <ion-toggle slot="end" [(ngModel)]="isHighContrast" (ionChange)="toggleHighContrast($event)"></ion-toggle>
-    </ion-item>
-    
-    
-
-
+<ion-content>
+  <div id="map" style="height: 100vh; width: 100%;"></div>
 </ion-content>
 
 <ion-footer>
