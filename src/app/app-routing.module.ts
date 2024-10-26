@@ -31,7 +31,8 @@ loadChildren: () => import('./pages/store/store.module').then( m => m.StorePageM
   {
     path: 'restcontra',
     loadChildren: () => import('./pages/restcontra/restcontra.module').then( m => m.RestcontraPageModule)
-  },  {
+  },
+  {
     path: 'elegusuario',
     loadChildren: () => import('./pages/elegusuario/elegusuario.module').then( m => m.ElegusuarioPageModule)
   },
@@ -42,6 +43,19 @@ loadChildren: () => import('./pages/store/store.module').then( m => m.StorePageM
   {
     path: 'forma-viaje',
     loadChildren: () => import('./pages/forma-viaje/forma-viaje.module').then( m => m.FormaViajePageModule)
+  },
+  {
+    path: 'not-found',
+    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
+  },
+
+
+
+// Esto de abajo debe estar al ultimo siempre, despues de cada path, ya que es el page not found, de lo contrario genera errores
+  {
+    path: '**',
+    redirectTo: 'not-found',
+    pathMatch: 'full'
   },
 
 ];
