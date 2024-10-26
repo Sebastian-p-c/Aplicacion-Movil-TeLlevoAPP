@@ -1,0 +1,48 @@
+.settings-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 16px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.settings-container {
+  width: 100%;
+  max-width: 500px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+}
+
+.settings-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+ion-item {
+  --min-height: 56px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+ion-label {
+  font-size: 1.2rem;
+}
+
+ion-toggle,
+ion-select {
+  --color: #007acc;
+}
+
+ion-toolbar {
+  --background: #007acc;
+  color: #ffffff;
+}
+
+ion-footer ion-icon {
+  color: white; /* Cambia el color de los iconos a blanco */
+}

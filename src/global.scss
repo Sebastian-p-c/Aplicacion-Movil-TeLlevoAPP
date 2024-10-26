@@ -35,3 +35,85 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 //@import "@ionic/angular/css/palettes/dark.system.css";
+
+/* Modo Alto Contraste */
+body.high-contrast {
+    background-color: #000000; /* Fondo negro */
+    color: #ffffff !important; /* Texto en blanco */
+  }
+  
+  /* Ajuste de Toolbars */
+  body.high-contrast ion-toolbar {
+    --background: #1c1c1c;
+    color: #ffffff !important;
+  }
+  
+  /* Ajuste de Botones */
+  body.high-contrast ion-button {
+    --background: #333333;
+    --color: #ffffff;
+    border-radius: 8px;
+    --border-color: #444444;
+  }
+  
+  body.high-contrast ion-button[fill="outline"] {
+    --border-color: #ffffff;
+    --color: #ffffff !important;
+  }
+  
+  body.high-contrast ion-button:hover {
+    --background: #444444;
+  }
+  
+  /* Iconos y Texto */
+  body.high-contrast ion-icon,
+  body.high-contrast ion-label,
+  body.high-contrast ion-text {
+    color: #ffffff !important;
+  }
+  
+  /* Títulos en Celeste */
+  body.high-contrast h2,
+  body.high-contrast ion-title {
+    color: #00bfff !important; /* Celeste para títulos */
+  }
+  
+  /* Fondo de Contenido */
+  body.high-contrast ion-content {
+    --background: #000000;
+  }
+  
+  /* Inputs y Selects */
+  body.high-contrast ion-input,
+  body.high-contrast ion-select {
+    background-color: #222222;
+    color: #ffffff !important;
+    border-radius: 8px;
+    --placeholder-color: #bbbbbb;
+  }
+  
+  body.high-contrast ion-select,
+  body.high-contrast ion-toggle {
+    --color: #ffffff !important;
+  }
+  
+  body.high-contrast ion-item {
+    --background: #1a1a1a;
+    color: #ffffff !important;
+    border-bottom: 1px solid #333333;
+  }
+  
+  /* Scrollbar */
+  body.high-contrast ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  body.high-contrast ::-webkit-scrollbar-thumb {
+    background: #555555;
+    border-radius: 5px;
+  }
+  
+  ion-footer ion-icon {
+    color: white; /* Cambia el color de los iconos a blanco */
+  }
+  
