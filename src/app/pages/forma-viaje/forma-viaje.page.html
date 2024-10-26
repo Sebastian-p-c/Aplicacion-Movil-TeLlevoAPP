@@ -12,9 +12,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-register">
-  <h3 class="ion-title-register">Formulario para Viajes</h3>
-  <br>
+<ion-content class="ion-register" [fullscreen]="true" keyboardScroll="false" style="padding-bottom: 100px;">
+  <h3 class="ion-title-register">Formulario Viajes</h3>
   <h4 class="ion-info">Información:</h4>
   <ion-list>
     
@@ -41,7 +40,7 @@
     
     <ion-item>
       <ion-input
-      label="Matricula"
+      label="Matricula (Patente)"
       labelPlacement="floating">
       </ion-input>
     </ion-item>
@@ -86,13 +85,14 @@
               <ion-button (click)="bancoModal.dismiss(null, 'cancel')">Cancel</ion-button>
             </ion-buttons>
             <ion-buttons slot="end">
-              <ion-button (click)="bancoModal.dismiss(selectedBanco, 'confirm')">Done</ion-button>
+              <ion-button (click)="bancoModal.dismiss(selectedBanco, 'confirm')">Listo</ion-button>
             </ion-buttons>
           </ion-toolbar>
           <ion-picker>
             <ion-picker-column [value]="selectedBanco" (ionChange)="onIonChange($event, 'banco')">
               <ion-picker-column-option value="" disabled="true">--</ion-picker-column-option>
               <ion-picker-column-option value="Banco Estado">Banco Estado</ion-picker-column-option>
+              <ion-picker-column-option value="Banco Santander">Banco Santander</ion-picker-column-option>
               <ion-picker-column-option value="Banco Edwards">Banco Chile/ Edwards-Citi</ion-picker-column-option>
               <ion-picker-column-option value="Banco Scotiabank">Banco Scotiabank</ion-picker-column-option>
               <ion-picker-column-option value="Banco Ripley">Banco Ripley</ion-picker-column-option>
@@ -122,7 +122,7 @@
               <ion-button (click)="tipoCuentaModal.dismiss(null, 'cancel')">Cancel</ion-button>
             </ion-buttons>
             <ion-buttons slot="end">
-              <ion-button (click)="tipoCuentaModal.dismiss(selectedTipoCuenta, 'confirm')">Done</ion-button>
+              <ion-button (click)="tipoCuentaModal.dismiss(selectedTipoCuenta, 'confirm')">Listo</ion-button>
             </ion-buttons>
           </ion-toolbar>
           <ion-picker>
@@ -138,7 +138,6 @@
       </ion-modal>
     </ion-item>
 
-
     <ion-item>
       <ion-input
       Label="Numero de Cuenta"
@@ -153,9 +152,9 @@
       </ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Cantidad de Pasajeros</ion-label>
-      <div style="display: flex; align-items: center;">
+    <ion-item lines="none" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
+      <ion-label position="stacked" style="text-align: left; font-size: 23px;">Cantidad de Pasajeros</ion-label>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; width: 100%;">
         <!-- Botón de disminución -->
         <ion-button (click)="decrementarCantidad()" fill="outline" color="danger">
           <ion-icon name="remove-outline"></ion-icon>
@@ -171,34 +170,32 @@
       </div>
     </ion-item>
 
-    <ion-button
-    expand="block">
-    Generar Viaje
+    <ion-button expand="block" style="margin-bottom: 10px;">
+      Generar Viaje
     </ion-button>
     
   </ion-list>
-
 </ion-content>
 
 <ion-footer>
   <ion-toolbar color="dark">
     <ion-grid>
-      <ion-row>
+      <ion-row class="ion-justify-content-center">
         <!-- Botón Home -->
-        <ion-col class="ion-text-center">
-          <ion-button fill="clear" [routerLink]="['/conductor']">
+        <ion-col class="ion-text-center" size="auto">
+          <ion-button fill="clear" color="light" [routerLink]="['/conductor']" style="margin-top: -5px;">
             <ion-icon name="home-outline" size="large"></ion-icon>
           </ion-button>
         </ion-col>
         <!-- Botón Map -->
-        <ion-col class="ion-text-center">
-          <ion-button fill="clear" [routerLink]="['/...']">
+        <ion-col class="ion-text-center" size="auto">
+          <ion-button fill="clear" color="light" [routerLink]="['/...']" style="margin-top: -5px;">
             <ion-icon name="map-outline" size="large"></ion-icon>
           </ion-button>
         </ion-col>
         <!-- Botón Settings -->
-        <ion-col class="ion-text-center">
-          <ion-button fill="clear" [routerLink]="['/...']">
+        <ion-col class="ion-text-center" size="auto">
+          <ion-button fill="clear" color="light" [routerLink]="['/...']" style="margin-top: -5px;">
             <ion-icon name="settings-outline" size="large"></ion-icon>
           </ion-button>
         </ion-col>

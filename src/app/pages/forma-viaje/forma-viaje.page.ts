@@ -16,14 +16,17 @@ export class FormaViajePage implements OnInit {
   cantidad: number = 0;
 
   incrementarCantidad() {
-    this.cantidad++;
+    if (this.cantidad < 4) {
+      this.cantidad++;
+    }
   }
-
+  
   decrementarCantidad() {
-    if (this.cantidad > 0) { // Evita valores negativos
+    if (this.cantidad > 0) {
       this.cantidad--;
     }
   }
+  
 
   logout() {
     console.log('Cerrar sesión');
