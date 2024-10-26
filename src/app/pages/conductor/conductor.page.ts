@@ -29,7 +29,7 @@ export class ConductorPage implements OnInit {
       if (this.selectedCard === 'viaje-entrega') {
         this.router.navigate(['/viaje-entrega']);  // Redirige a la página de viajes/entregas
       } else if (this.selectedCard === 'viaje') {
-        this.router.navigate(['/viaje']);  // Redirige a la página de viajes
+        this.router.navigate(['/forma-viaje']);  // Redirige a la página de viajes
       }
     }
   }
