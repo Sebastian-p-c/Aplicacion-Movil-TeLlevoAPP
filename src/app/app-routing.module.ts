@@ -23,7 +23,8 @@ const routes: Routes = [
 
   {
     path: 'principal',
-    loadChildren: () => import('./pages/principal/principal.module').then(m => m.PrincipalPageModule)
+    loadChildren: () => import('./pages/principal/principal.module').then(m => m.PrincipalPageModule),
+    canActivate: [pageProtegidoGuard]
   },
   {
     path: 'restcontra',
@@ -36,7 +37,6 @@ const routes: Routes = [
   {
     path: 'conductor',
     loadChildren: () => import('./pages/conductor/conductor.module').then(m => m.ConductorPageModule),
-    canActivate: [pageProtegidoGuard]
   },
   {
     path: 'forma-viaje',

@@ -2,28 +2,26 @@ ion-card {
 text-align: center;
 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 border-radius: 12px;
-/* Asegúrate de que no haya un límite de altura */
 height: auto; 
 }
 
 ion-card-content {
 display: flex;
-justify-content: space-between; /* Espacio entre el texto y la imagen */
-align-items: center; /* Centra verticalmente el contenido */
+justify-content: space-between;
+align-items: center; 
 }
 
 ion-card img {
-width: 50px; /* Tamaño ajustado para la imagen */
+width: 50px; 
 height: auto;
 object-fit: contain;
-margin-left: 10px; /* Añade un margen entre el texto y la imagen */
+margin-left: 10px;
 }
 
 ion-card p {
 margin-top: 10px;
 font-size: 16px;
 color: #333;
-/* Elimina estas propiedades para que el texto se ajuste */
 white-space: normal;
 overflow: visible;
 text-overflow: initial;
@@ -32,7 +30,7 @@ text-overflow: initial;
 ion-card h3 {
 margin: 0;
 font-size: 1.2em;
-text-align: left; /* Alineación de los títulos */
+text-align: left;
 }
 
 ion-badge {
@@ -40,8 +38,8 @@ margin-right: 5px;
 }
 
 .card-text {
-max-width: 70%; /* El texto ocupará un 70% del espacio total */
-text-align: left; /* Alinea el texto a la izquierda */
+max-width: 70%;
+text-align: left;
 }
 
 .new-badge {
@@ -56,10 +54,10 @@ margin-top: 20px;
 }
 
 .selected-card {
-border: 2px solid #3880ff; /* Borde azul para resaltar la tarjeta seleccionada */
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
-background-color: #f0f8ff; /* Cambia el fondo ligeramente */
-transition: all 0.3s ease-in-out; /* Añade una transición suave al seleccionar */
+border: 2px solid #3880ff;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+background-color: #f0f8ff; 
+transition: all 0.3s ease-in-out;
 }
 
 ion-icon{

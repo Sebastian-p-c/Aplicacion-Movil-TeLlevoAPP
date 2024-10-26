@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Geolocation } from '@capacitor/geolocation';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-mapa',
@@ -14,7 +16,7 @@ export class MapaPage implements OnInit {
   startCoords: [number, number] = [-33.5024, -70.6132];
   endCoords: [number, number] = [-33.5024, -70.6132];
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private toastController: ToastController) {}
 
   ngOnInit() {}
 
@@ -59,7 +61,26 @@ export class MapaPage implements OnInit {
   }
 
   logout() {
-    // Lógica para cerrar sesión y redirigir a la página de inicio de sesión
     this.router.navigate(['/home']);
+  }
+
+  async obtenerMiUbicacion(){
+
+    let ubicacion = await Geolocation.getCurrentPosition();
+
+    let ubicacionTexto = "Latitud: " + ubicacion.coords.latitude + " Longitud: "+ ubicacion.coords.longitude
+
+    console.log(ubicacion)
+    this.mostrarToast(ubicacionTexto)
+  }
+
+  async mostrarToast(mensaje: string) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 1500,
+      position: "top",
+    });
+
+    await toast.present();
   }
 }
