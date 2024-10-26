@@ -10,8 +10,13 @@ import { StorageService } from 'src/services/storage.service';
 })
 export class HomePage {
   message: string;
-  username: string = 'User';
-  password: string = 'Password';
+  username: string = '';
+  password: string = '';
+
+  validUsers = [
+    { username: 'Mati', password: '12345' },
+    { username: 'Alex', password: '54321' }
+  ];
 
   constructor(
     private router: Router,

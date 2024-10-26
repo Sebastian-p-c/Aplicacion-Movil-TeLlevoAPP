@@ -4,22 +4,21 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <div id="container">
-    <h1>Ingresa tu usuario</h1>
-    <form (ngSubmit)="onSubmit()">
+<ion-content [fullscreen]="true" [scrollY]="false">
+  <div id="container" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; padding: 16px; text-align: center;">
+    <h1 style="font-size: 1.8rem; margin-bottom: 20px;">Ingresa tu usuario</h1>
+    <form (ngSubmit)="onSubmit()" style="width: 100%; max-width: 400px;">
       <ion-list>
         <ion-item>
           <ion-input 
             class="usuario-input"
-            placeholder="Usuario"
-            label="usuario" 
+            label="Ingrese su Usuario" 
             labelPlacement="floating"
-            type="usuario">
+            type="text">
           </ion-input>
         </ion-item>
       </ion-list>
-      <ion-button expand="block" type="submit">
+      <ion-button expand="block" type="submit" style="width: 100%; max-width: 400px; height: 50px; font-size: 1.2rem;">
         Ingresar
       </ion-button>
     </form>

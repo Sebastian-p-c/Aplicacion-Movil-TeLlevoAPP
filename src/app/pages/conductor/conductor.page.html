@@ -14,19 +14,18 @@
 
 <ion-content [fullscreen]="true">
   <ion-grid>
-    <h2>Elige cómo quieres generar ganancias</h2>
+    <h2 style="text-align: center;">Elige tu opcion:</h2>
 
     <!-- Primera carta -->
     <ion-card [ngClass]="{'selected-card': selectedCard === 'viaje-entrega'}" (click)="selectCard('viaje-entrega')">
       <ion-card-header>
-        <ion-badge color="primary">Viajes</ion-badge>
         <ion-badge color="success">Entrega</ion-badge>
       </ion-card-header>
       <ion-card-content class="card-content">
         <div class="card-text">
-          <h3>Viajes o entregas en auto</h3>
-          <p><strong>Edad:</strong> mayor de 18 años</p>
-          <p><strong>Vehículo:</strong> el vehículo no puede tener más de 10 años de antigüedad a partir del año en curso.</p>
+          <h3>Entregas</h3>
+          <p><strong>Edad:</strong> Mayor de 18 años</p>
+          <p><strong>Vehículo:</strong> El vehículo no puede tener más de 10 años de antigüedad a partir del año en curso.</p>
         </div>
         <img src="assets/img/viaje.png" alt="Auto" />
       </ion-card-content>
@@ -39,9 +38,9 @@
       </ion-card-header>
       <ion-card-content class="card-content">
         <div class="card-text">
-          <h3>Viajes en auto</h3>
-          <p><strong>Edad:</strong> mayor de 18 años</p>
-          <p><strong>Vehículo:</strong> capacidad mínima para 1 Pasajero</p>
+          <h3>Viajes</h3>
+          <p><strong>Edad:</strong> Mayor de 18 años</p>
+          <p><strong>Vehículo:</strong> Capacidad mínima para 1 Pasajero</p>
         </div>
         <img src="assets/img/viaje.png" alt="Auto" />
       </ion-card-content>
@@ -56,22 +55,22 @@
 <ion-footer>
   <ion-toolbar color="dark">
     <ion-grid>
-      <ion-row>
+      <ion-row class="ion-justify-content-center">
         <!-- Botón Home -->
-        <ion-col class="ion-text-center">
-          <ion-button fill="clear" [routerLink]="['/conductor']">
+        <ion-col class="ion-text-center" size="auto">
+          <ion-button fill="clear" [routerLink]="['/conductor']" style="margin-top: -5px;">
             <ion-icon name="home-outline" size="large"></ion-icon>
           </ion-button>
         </ion-col>
         <!-- Botón Map -->
-        <ion-col class="ion-text-center">
-          <ion-button fill="clear" [routerLink]="['/...']">
+        <ion-col class="ion-text-center" size="auto">
+          <ion-button fill="clear" [routerLink]="['/...']" style="margin-top: -5px;">
             <ion-icon name="map-outline" size="large"></ion-icon>
           </ion-button>
         </ion-col>
         <!-- Botón Settings -->
-        <ion-col class="ion-text-center">
-          <ion-button fill="clear" [routerLink]="['/...']">
+        <ion-col class="ion-text-center" size="auto">
+          <ion-button fill="clear" [routerLink]="['/...']" style="margin-top: -5px;">
             <ion-icon name="settings-outline" size="large"></ion-icon>
           </ion-button>
         </ion-col>
@@ -79,3 +78,4 @@
     </ion-grid>
   </ion-toolbar>
 </ion-footer>
+
