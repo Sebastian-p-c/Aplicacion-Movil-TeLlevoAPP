@@ -8,6 +8,7 @@ import { StorageService } from 'src/services/storage.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
+
 export class HomePage {
   message: string;
   username: string = '';
