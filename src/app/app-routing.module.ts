@@ -47,9 +47,14 @@ loadChildren: () => import('./pages/store/store.module').then( m => m.StorePageM
     loadChildren: () => import('./pages/forma-viaje/forma-viaje.module').then( m => m.FormaViajePageModule)
   },
   {
+    path: 'reserva',
+    loadChildren: () => import('./pages/reserva/reserva.module').then( m => m.ReservaPageModule)
+  },
+  {
     path: 'not-found',
     loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
   },
+  
 
 
 
@@ -58,10 +63,8 @@ loadChildren: () => import('./pages/store/store.module').then( m => m.StorePageM
     path: '**',
     redirectTo: 'not-found',
     pathMatch: 'full'
-  },  {
-    path: 'reserva',
-    loadChildren: () => import('./pages/reserva/reserva.module').then( m => m.ReservaPageModule)
   },
+  
 
 
 ];

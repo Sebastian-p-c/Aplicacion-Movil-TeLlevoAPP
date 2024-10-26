@@ -12,19 +12,50 @@
   </ion-toolbar>
 </ion-header>
 
-
-
-
-
-
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">reserva</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-list>
+    <ion-item *ngFor="let viaje of viajes" (click)="seleccionarViaje(viaje)">
+      <ion-label>
+        <h2>{{ viaje.nombre }} {{ viaje.apellido }}</h2>
+        <p>Vehículo: {{ viaje.modeloVehiculo }} ({{ viaje.colorVehiculo }})</p>
+        <p>Precio por pasajero: CLP {{ viaje.precioPasajero }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Muestra los detalles y permite elegir pasajeros si un viaje ha sido seleccionado -->
+  <ion-card *ngIf="viajeSeleccionado">
+    <ion-card-header>
+      <ion-card-title>Detalles del Viaje</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Conductor:</strong> {{ viajeSeleccionado.nombre }} {{ viajeSeleccionado.apellido }}</p>
+      <p><strong>Precio por pasajero:</strong> CLP {{ viajeSeleccionado.precioPasajero }}</p>
+      
+      <ion-item lines="none">
+        <ion-label>Cantidad de Pasajeros</ion-label>
+        <ion-button (click)="decrementarPasajeros()" fill="outline" color="danger">
+          <ion-icon name="remove-outline"></ion-icon>
+        </ion-button>
+        <ion-input [(ngModel)]="cantidadPasajeros" type="number" min="1" readonly></ion-input>
+        <ion-button (click)="incrementarPasajeros()" fill="outline" color="success">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <p><strong>Total:</strong> CLP {{ calcularTotal() }}</p>
+      
+      <ion-button expand="block" color="primary" (click)="confirmarViaje()">Confirmar Viaje</ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+
+
 <ion-footer>
   <ion-toolbar color="dark">
     <ion-grid>
