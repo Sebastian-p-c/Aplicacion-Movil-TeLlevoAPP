@@ -9,7 +9,6 @@ import { StorageService } from 'src/services/storage.service'; // Importa el ser
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-
   nombre: string = '';
   apellido: string = '';
   fechaNacimiento: string = ''; 
@@ -81,45 +80,58 @@ export class RegisterPage implements OnInit {
   }
 
   async crearCuenta() {
-  if (this.isFormValid()) {
-    // Guarda los datos de inicio de sesión con la clave 'userCredentials'
-    await this.storageService.setItem('userCredentials', {
-      username: this.usernameRegistro,
-      password: this.passwordRegistro,
-    });
+    if (this.isFormValid()) {
+      // Verifica si ya existe un usuario registrado
+      const existingUser = await this.storageService.getItem('userCredentials');
 
-    // Guarda datos adicionales si es necesario
-    await this.storageService.setItem('userData', {
-      nombre: this.nombre,
-      apellido: this.apellido,
-      fechaNacimiento: this.fechaNacimiento,
-      correoRegistro: this.correoRegistro,
-      usernameRegistro: this.usernameRegistro,
-    });
+      // Si ya hay credenciales guardadas, verifica el nombre de usuario
+      if (existingUser && existingUser.username === this.usernameRegistro) {
+        const alert = await this.alertController.create({
+          header: 'Error',
+          message: 'El nombre de usuario ya está en uso.',
+          buttons: ['OK'],
+        });
+        await alert.present();
+        return; // Salir del método si el usuario ya existe
+      }
 
-    const alert = await this.alertController.create({
-      header: 'Éxito',
-      message: 'Se ha creado correctamente su cuenta',
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
-            const navigationExtras: NavigationExtras = {
-              state: {
-                usernameRegistro: this.usernameRegistro
-              }
-            };
-            this.router.navigate(['/principal'], navigationExtras);
+      // Si no existe el usuario, guarda las credenciales
+      await this.storageService.setItem('userCredentials', {
+        username: this.usernameRegistro,
+        password: this.passwordRegistro,
+      });
+
+      // Guarda datos adicionales
+      await this.storageService.setItem('userData', {
+        nombre: this.nombre,
+        apellido: this.apellido,
+        fechaNacimiento: this.fechaNacimiento,
+        correoRegistro: this.correoRegistro,
+        usernameRegistro: this.usernameRegistro,
+      });
+
+      const alert = await this.alertController.create({
+        header: 'Éxito',
+        message: 'Se ha creado correctamente su cuenta',
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
+              const navigationExtras: NavigationExtras = {
+                state: {
+                  usernameRegistro: this.usernameRegistro
+                }
+              };
+              this.router.navigate(['/elegusuario'], navigationExtras);
+            }
           }
-        }
-      ],
-      backdropDismiss: false
-    });
+        ],
+        backdropDismiss: false
+      });
 
-    await alert.present();
+      await alert.present();
+    }
   }
-}
-
 
   // Método para obtener los datos almacenados (si es necesario)
   async cargarDatos() {
@@ -134,4 +146,5 @@ export class RegisterPage implements OnInit {
     }
   }
 }
+
 

@@ -13,10 +13,9 @@ export class HomePage {
   username: string = '';
   password: string = '';
 
-  validUsers = [
-    { username: 'Mati', password: '12345' },
-    { username: 'Alex', password: '54321' }
-  ];
+  // Definimos las credenciales del admin
+  private adminUsername: string = 'admin';
+  private adminPassword: string = 'admin'; // Cambia esto a la contraseña deseada
 
   constructor(
     private router: Router,
@@ -36,29 +35,35 @@ export class HomePage {
 
   async validateLogin() {
     console.log("Ejecutando validación");
-  
-    // Obtener las credenciales guardadas desde 'userCredentials'
-    const storedCredentials = await this.storageService.getItem('userCredentials');
-  
-    if (storedCredentials) {
-      const { username: storedUsername, password: storedPassword } = storedCredentials;
-  
-      // Validar los datos ingresados
-      if (this.username === storedUsername && this.password === storedPassword) {
-        this.showToastMessage('Login correcto', 'success');
-  
-        const extras: NavigationExtras = {
-          state: {
-            user: this.username,
-          },
-        };
-  
-        this.router.navigate(['/elegusuario'], extras);
-      } else {
-        this.showToastMessage('Login incorrecto', 'danger');
-      }
+
+    // Verifica si el usuario es el administrador
+    if (this.username === this.adminUsername && this.password === this.adminPassword) {
+      this.showToastMessage('Login correcto como Admin', 'success');
+      this.router.navigate(['/principal']); // Cambia esto a la ruta que desees para el admin
     } else {
-      this.showToastMessage('No hay datos de usuario registrados', 'warning');
+      // Si no es admin, verifica las credenciales almacenadas
+      const storedCredentials = await this.storageService.getItem('userCredentials'); // Asumiendo que guardaste userCredentials
+
+      if (storedCredentials) {
+        const { username: storedUsername, password: storedPassword } = storedCredentials;
+
+        // Validar los datos ingresados
+        if (this.username === storedUsername && this.password === storedPassword) {
+          this.showToastMessage('Login correcto', 'success');
+
+          const extras: NavigationExtras = {
+            state: {
+              user: this.username,
+            },
+          };
+
+          this.router.navigate(['/elegusuario'], extras);
+        } else {
+          this.showToastMessage('Login incorrecto', 'danger');
+        }
+      } else {
+        this.showToastMessage('No hay datos de usuario registrados', 'warning');
+      }
     }
   }
 
