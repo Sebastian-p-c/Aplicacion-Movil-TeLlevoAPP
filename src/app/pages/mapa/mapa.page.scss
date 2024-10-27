@@ -1,1 +1,19 @@
+#map {
+height: 100%;
+position: relative;
+}
 
+.boton-ubicacion {
+position: absolute;
+bottom: 15px;
+left: 90%;
+transform: translateX(-50%);
+z-index: 9999;
+}
+
+ion-button {
+--border-radius: 50%;
+width: 60px;
+height: 60px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
