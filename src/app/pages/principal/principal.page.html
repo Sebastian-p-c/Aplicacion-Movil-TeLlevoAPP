@@ -1,14 +1,19 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>Admin</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="cerrarSesion()">
-        <ion-icon name="log-out-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-title>Gestión de Usuarios</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <h1>Bienvenido admin.</h1>
+  <ion-list>
+    <ion-item *ngFor="let usuario of usuarios">
+      <ion-label>
+        <h2>{{ usuario.nombre }} {{ usuario.apellido }}</h2>
+        <p>Email: {{ usuario.correoRegistro }}</p>
+        <p>Username: {{ usuario.usernameRegistro }}</p>
+      </ion-label>
+      <ion-button (click)="eliminarUsuario(usuario.usernameRegistro)" color="danger">Eliminar</ion-button>
+      <ion-button (click)="irAActualizarUsuario(usuario.usernameRegistro)">Actualizar</ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>
