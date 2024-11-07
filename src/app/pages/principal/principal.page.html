@@ -1,11 +1,9 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Gestión de Usuarios</ion-title>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
+    <h1 class="ion-text-center">Administrador</h1>
     <ion-item *ngFor="let usuario of usuarios">
       <ion-label>
         <h2>{{ usuario.nombre }} {{ usuario.apellido }}</h2>
@@ -17,3 +15,7 @@
     </ion-item>
   </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-button expand="full" (click)="irAlMenuPrincipal()">Regresar al Menú Principal</ion-button>
+</ion-footer>

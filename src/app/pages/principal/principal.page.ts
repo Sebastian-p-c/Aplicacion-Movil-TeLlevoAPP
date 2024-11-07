@@ -10,7 +10,7 @@ import { StorageService } from 'src/services/storage.service';
 })
 export class PrincipalPage implements OnInit {
 
-  usuarios: any[] = []; // Array para almacenar los usuarios
+  usuarios: any[] = []; 
 
   constructor(
     private alertController: AlertController,
@@ -19,18 +19,18 @@ export class PrincipalPage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    await this.cargarUsuarios(); // Cargar usuarios al iniciar la página
+    await this.cargarUsuarios(); 
   }
 
-  // Cargar todos los usuarios desde Storage
+
   async cargarUsuarios() {
     const userData = await this.storageService.getItem('userData');
     if (userData) {
-      this.usuarios = [userData]; // Si tienes más de un usuario, ajusta este código para almacenar múltiples usuarios.
+      this.usuarios = [userData]; 
     }
   }
 
-  // Eliminar un usuario
+ 
   async eliminarUsuario(uid: string) {
     const alert = await this.alertController.create({
       header: 'Confirmar eliminación',
@@ -44,7 +44,7 @@ export class PrincipalPage implements OnInit {
           text: 'Eliminar',
           handler: async () => {
             this.usuarios = this.usuarios.filter(usuario => usuario.usernameRegistro !== uid);
-            await this.storageService.removeItem('userData'); // Elimina el usuario del Storage
+            await this.storageService.removeItem('userData'); 
             console.log(`Usuario con UID ${uid} eliminado`);
           },
         },
@@ -53,13 +53,17 @@ export class PrincipalPage implements OnInit {
     await alert.present();
   }
 
-  // Navegar a la página de actualización con datos del usuario
+  
   irAActualizarUsuario(uid: string) {
     const navigationExtras: NavigationExtras = {
       state: {
         uid: uid,
       },
     };
-    this.router.navigate(['/register'], navigationExtras); // Reutiliza la página de registro para actualizar
+    this.router.navigate(['/register'], navigationExtras); 
+  }
+
+  irAlMenuPrincipal() {
+    this.router.navigate(['/home']);
   }
 }
