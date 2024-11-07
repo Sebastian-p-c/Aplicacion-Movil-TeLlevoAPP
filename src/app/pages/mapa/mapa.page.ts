@@ -24,7 +24,7 @@ export class MapaPage implements OnInit {
     this.loadMap();
   }
 
-  loadMap() {
+  async loadMap() {
     if (this.map) {
       this.map.remove();
     }
@@ -35,8 +35,7 @@ export class MapaPage implements OnInit {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
 
-    const startMarker = L.marker(this.startCoords).addTo(this.map).bindPopup("Duoc UC San Joaquín");
-    const endMarker = L.marker(this.endCoords).addTo(this.map).bindPopup("Destino");
+    this.obtenerMiUbicacion();
 
     this.getRoute();
   }
@@ -64,14 +63,28 @@ export class MapaPage implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  async obtenerMiUbicacion(){
+  async obtenerMiUbicacion() {
+    try {
 
-    let ubicacion = await Geolocation.getCurrentPosition();
+      const ubicacion = await Geolocation.getCurrentPosition();
+      const userCoords: [number, number] = [ubicacion.coords.latitude, ubicacion.coords.longitude];
 
-    let ubicacionTexto = "Latitud: " + ubicacion.coords.latitude + " Longitud: "+ ubicacion.coords.longitude
+      const userCircle = L.circleMarker(userCoords, {
+        color: '#007bff', 
+        fillColor: '#3399FF', 
+        fillOpacity: 0.5,     
+        radius: 10            
+      }).addTo(this.map)
 
-    console.log(ubicacion)
-    this.mostrarToast(ubicacionTexto)
+      this.map.setView(userCoords, 17);
+
+      const ubicacionTexto = `Latitud: ${ubicacion.coords.latitude}, Longitud: ${ubicacion.coords.longitude}`;
+      this.mostrarToast(ubicacionTexto);
+
+    } catch (error) {
+      console.error("Error al obtener la ubicación:", error);
+      this.mostrarToast("No se pudo obtener la ubicación.");
+    }
   }
 
   async mostrarToast(mensaje: string) {

@@ -52,3 +52,30 @@ ion-header {
 ion-input[type="password"] {
   --color: gray;
 }
+
+.link-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+
+  a {
+    color: #003366; // Azul oscuro predeterminado
+    text-decoration: none;
+    margin: 0 0.5rem;
+    font-weight: bold;
+    transition: color 0.3s ease; // Añade una transición suave para el efecto hover
+
+    &:hover {
+      color: #3399FF !important; // Celeste claro al pasar el mouse
+      text-decoration: underline;
+    }
+
+    &:active {
+      color: #1a75ff !important; // Un tono más oscuro al hacer clic
+    }
+  }
+}
+
+
+

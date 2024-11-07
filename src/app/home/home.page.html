@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>
       <h1 class="title">Uber</h1>
-      <h6>Aquí comienza todo</h6>
+      <h6>Lleva de forma fácil y Rápida</h6>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -34,18 +34,15 @@
         </ion-input>
       </ion-item>
     </ion-list>
-
+    <br><br>
     <ion-button expand="block" (click)="validateLogin()">
       Ingresar
     </ion-button>
 
-    <ion-button fill="clear" [routerLink]="['/register']" class="register-button" expand="block">
-      Registrarse
-    </ion-button>
-
-    <ion-button fill="clear" [routerLink]="['/restcontra']" class="register-button" expand="block">
-      Olvidaste tu contraseña
-    </ion-button>
-
+    <div class="link-buttons">
+      <a [routerLink]="['/register']">Registrarse</a> /
+      <a [routerLink]="['/restcontra']">Olvidaste tu contraseña</a>
+    </div>
+    
   </div>
 </ion-content>
