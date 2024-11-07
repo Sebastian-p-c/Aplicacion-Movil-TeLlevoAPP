@@ -2,8 +2,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <h1 class="ion-text-center">Administrador</h1>
+  <h1 class="ion-text-center">Administrador</h1>
+
+  <ion-list *ngIf="usuarios.length > 0">
     <ion-item *ngFor="let usuario of usuarios">
       <ion-label>
         <h2>{{ usuario.nombre }} {{ usuario.apellido }}</h2>
@@ -14,6 +15,10 @@
       <ion-button (click)="irAActualizarUsuario(usuario.usernameRegistro)">Actualizar</ion-button>
     </ion-item>
   </ion-list>
+
+  <div *ngIf="usuarios.length === 0" class="ion-text-center">
+    <p>No hay registros. Por favor, rellene un registro.</p>
+  </div>
 </ion-content>
 
 <ion-footer>
