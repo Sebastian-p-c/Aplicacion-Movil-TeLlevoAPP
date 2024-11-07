@@ -31,7 +31,7 @@ export class PrincipalPage implements OnInit {
   }
 
  
-  async eliminarUsuario(uid: string) {
+  async eliminarUsuario(uid: string) {                                         // Sugerencia de mejora futura: eliminar cualquier accion que haya realizado el usuario a eliminar
     const alert = await this.alertController.create({
       header: 'Confirmar eliminación',
       message: '¿Estás seguro de que quieres eliminar este usuario?',
