@@ -20,7 +20,6 @@ const routes: Routes = [
     path: 'register',
     loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterPageModule)
   },
-
   {
     path: 'principal',
     loadChildren: () => import('./pages/principal/principal.module').then(m => m.PrincipalPageModule),
@@ -36,7 +35,7 @@ const routes: Routes = [
   },
   {
     path: 'conductor',
-    loadChildren: () => import('./pages/conductor/conductor.module').then(m => m.ConductorPageModule),
+    loadChildren: () => import('./pages/conductor/conductor.module').then(m => m.ConductorPageModule)
   },
   {
     path: 'forma-viaje',
@@ -44,7 +43,7 @@ const routes: Routes = [
   },
   {
     path: 'reserva',
-    loadChildren: () => import('./pages/reserva/reserva.module').then( m => m.ReservaPageModule)
+    loadChildren: () => import('./pages/reserva/reserva.module').then(m => m.ReservaPageModule)
   },
   {
     path: 'not-found',
@@ -58,7 +57,10 @@ const routes: Routes = [
     path: 'mapa',
     loadChildren: () => import('./pages/mapa/mapa.module').then(m => m.MapaPageModule)
   },
-
+  {
+    path: 'viaje',
+    loadChildren: () => import('./pages/viaje/viaje.module').then(m => m.ViajePageModule)
+  },
   {
     path: '**',
     redirectTo: 'not-found',

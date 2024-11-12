@@ -10,7 +10,10 @@
 </ion-header>
 
 <ion-content>
-  <div id="map" style="height: 100%;"></div>
+  <!-- Contenedor del mapa con el estilo height: 100vh para que ocupe toda la pantalla disponible -->
+  <div id="map" style="height: 100vh; width: 100%;"></div>
+
+  <!-- Botón de ubicación -->
   <div class="boton-ubicacion">
     <ion-button color="primary" shape="round" (click)="obtenerMiUbicacion()">
       <ion-icon name="locate-outline" slot="icon-only"></ion-icon>
@@ -27,11 +30,7 @@
             <ion-icon name="home-outline" size="large"></ion-icon>
           </ion-button>
         </ion-col>
-        <ion-col class="ion-text-center" size="auto">
-          <ion-button fill="clear" [routerLink]="['/mapa']" style="margin-top: -5px;">
-            <ion-icon name="map-outline" size="large"></ion-icon>
-          </ion-button>
-        </ion-col>
+
         <ion-col class="ion-text-center" size="auto">
           <ion-button fill="clear" [routerLink]="['/ajustes']" style="margin-top: -5px;">
             <ion-icon name="settings-outline" size="large"></ion-icon>

@@ -25,7 +25,7 @@ text-overflow: ellipsis;
 }
 
 ion-icon {
-    color: white;
+    color: white; 
 }
 
 .new-badge {
@@ -33,4 +33,8 @@ position: absolute;
 top: 10px;
 right: 10px;
 font-size: 12px;
+}
+
+ion-footer ion-icon {
+    color: white;
 }

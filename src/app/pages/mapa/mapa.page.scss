@@ -15,5 +15,9 @@ ion-button {
 --border-radius: 50%;
 width: 60px;
 height: 60px;
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+
+}
+
+ion-footer ion-icon {
+    color: white;
 }

@@ -1,0 +1,62 @@
+.content-background {
+    --background: #f4f4f4;
+    padding: 1rem;
+  }
+  
+  .ion-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .input-item {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 9px;
+  }
+  
+  .ubicacion-actual {
+    color: #007bff;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  ion-button {
+    border-radius: 8px;
+    margin-top: 1rem;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Lista de sugerencias estilizada */
+  .suggestions-list {
+    margin-top: 0.5rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+  }
+  
+  /* Estilo de los elementos de la lista */
+  .suggestions-list ion-item {
+    --background: #ffffff;
+    --border-radius: 8px;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Efecto hover para el elemento de la lista */
+  .suggestions-list ion-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Icono de ubicación al lado de cada sugerencia */
+  .suggestions-list ion-icon {
+    font-size: 1.2rem;
+    color: #007bff;
+  }
+  
+  /* Color del texto */
+  .suggestions-list ion-label {
+    color: #333;
+    font-size: 0.95rem;
+  }
+  

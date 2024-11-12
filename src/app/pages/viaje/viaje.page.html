@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Planificar Viaje</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="content-background">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item class="input-item">
+          <ion-icon name="location-outline" slot="start" color="medium"></ion-icon>
+          <ion-label position="stacked">Origen</ion-label>
+          <ion-input value="Usar ubicación actual" readonly class="ubicacion-actual" (click)="obtenerUbicacionActual()"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item class="input-item">
+          <ion-icon name="pin-outline" slot="start" color="medium"></ion-icon>
+          <ion-label position="stacked">Destino</ion-label>
+          <ion-input [(ngModel)]="destino" placeholder="Introduce tu destino" (ionInput)="onSearchChange($event)"></ion-input>
+        </ion-item>
+
+        <!-- Lista de sugerencias mejorada -->
+        <ion-list *ngIf="suggestions.length > 0" class="suggestions-list">
+          <ion-item *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)" button detail>
+            <ion-icon name="location-outline" slot="start" color="primary"></ion-icon>
+            <ion-label>
+              {{ suggestion.display_name }}
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row> <!-- Cierre de ion-row agregado -->
+
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" (click)="obtenerUbicacionActual()" color="secondary">
+          Actualizar Ubicación Actual
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" (click)="confirmarViaje()" color="success">
+          Confirmar Viaje
+        </ion-button>        
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+
