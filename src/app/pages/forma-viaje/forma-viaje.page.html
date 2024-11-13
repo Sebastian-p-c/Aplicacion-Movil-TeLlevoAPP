@@ -139,7 +139,7 @@
       </ion-modal>
     </ion-item>
 
-    <ion-item>
+    <ion-item class="input-item">
       <ion-input
         label="Numero de Cuenta"
         labelPlacement="floating"
@@ -147,7 +147,7 @@
       </ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item class="input-item">
       <ion-input
         label="Precio por Pasajero (CLP)"
         labelPlacement="floating"
@@ -169,6 +169,23 @@
         </ion-button>
       </div>
     </ion-item>
+
+    <ion-item class="input-item">
+      <ion-label position="stacked">Origen (Ubicación Actual)</ion-label>
+      <ion-input [(ngModel)]="origen" placeholder="Usar ubicación actual" readonly (click)="obtenerUbicacionActual()"></ion-input>
+    </ion-item>
+  
+    <ion-item class="input-item">
+      <ion-label position="stacked">Destino</ion-label>
+      <ion-input [(ngModel)]="destino" placeholder="Introduce tu destino" (ionInput)="onSearchChange($event)"></ion-input>
+    </ion-item>
+
+    <ion-list *ngIf="suggestions.length > 0" class="suggestions-list">
+      <ion-item *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)" button detail>
+        <ion-icon name="location-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>{{ suggestion.display_name }}</ion-label>
+      </ion-item>
+    </ion-list>
 
     <ion-button expand="block" style="margin-bottom: 10px;" (click)="generarViaje()">
       Generar Viaje

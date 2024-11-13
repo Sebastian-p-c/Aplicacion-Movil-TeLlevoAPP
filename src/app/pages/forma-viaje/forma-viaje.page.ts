@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
 import { ViajeService } from 'src/services/viaje.service';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Geolocation } from '@capacitor/geolocation';
+
 
 @Component({
   selector: 'app-forma-viaje',
@@ -9,6 +14,14 @@ import { ViajeService } from 'src/services/viaje.service';
   styleUrls: ['./forma-viaje.page.scss'],
 })
 export class FormaViajePage implements OnInit {
+  origen: string = '';
+  destino: string = '';
+  suggestions: any[] = [];
+  countrycode: string = '';
+  private searchSubject: Subject<string> = new Subject();
+  origenCoords: { lat: number; lon: number } = { lat: 0, lon: 0 };
+  destinoCoords: { lat: number; lon: number } = { lat: 0, lon: 0 };
+
   cantidad: number = 0;
   selectedBanco: string = '';
   selectedTipoCuenta: string = '';
@@ -25,10 +38,14 @@ export class FormaViajePage implements OnInit {
   constructor(
     private router: Router,
     private viajeService: ViajeService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private toastController: ToastController,
+    private http: HttpClient
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.setupSearchSubscription();
+   }
 
   incrementarCantidad() {
     if (this.cantidad < 4) {
@@ -42,8 +59,42 @@ export class FormaViajePage implements OnInit {
     }
   }
 
+  async obtenerUbicacionActual() {
+    try {
+      const ubicacion = await Geolocation.getCurrentPosition();
+      const lat = ubicacion.coords.latitude;
+      const lon = ubicacion.coords.longitude;
+  
+      this.origenCoords = { lat, lon };
+      this.http.get(`https://nominatim.openstreetmap.org/reverse`, {
+        params: {
+          lat: lat.toString(),
+          lon: lon.toString(),
+          format: 'json',
+        }
+      }).subscribe((response: any) => {
+        const address = response.address;
+        const shortAddress = `${address.road || ''} ${address.house_number || ''}, ${address.city || ''}`.trim();
+        this.origen = shortAddress;        
+        this.countrycode = address.country_code ? address.country_code.toUpperCase() : '';
+        this.mostrarToast(`Ubicación actual: ${shortAddress}`);
+      }, error => {
+        console.error("Error al obtener la dirección:", error);
+        this.mostrarToast("No se pudo obtener la dirección actual.");
+      });
+    } catch (error) {
+      console.error("Error al obtener la ubicación:", error);
+      this.mostrarToast("No se pudo obtener la ubicación.");
+    }
+  }
+  
+
   async generarViaje() {
     const viaje = {
+      origen: this.origen,
+      destino: this.destino,
+      origenCoords: this.origenCoords,
+      destinoCoords: this.destinoCoords,
       nombre: this.nombre,
       apellido: this.apellido,
       rut: this.rut,
@@ -57,24 +108,19 @@ export class FormaViajePage implements OnInit {
       precioPasajero: this.precioPasajero,
       cantidadPasajeros: this.cantidad,
     };
-
     await this.viajeService.guardarViaje(viaje);
-
-    const viajesGuardados = await this.viajeService.obtenerViajes();
-    console.log('Viajes guardados:', viajesGuardados);
-
     const alert = await this.alertController.create({
       header: 'Éxito',
       message: 'Viaje generado correctamente',
       buttons: ['OK'],
     });
-
     await alert.present();
-
     this.limpiarFormulario();
   }
 
   limpiarFormulario() {
+    this.origen = '';
+    this.destino = '';
     this.nombre = '';
     this.apellido = '';
     this.rut = '';
@@ -111,6 +157,66 @@ export class FormaViajePage implements OnInit {
       }
     }
   }
+
+  setupSearchSubscription() {
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(query => {
+      this.performSearch(query);
+    });
+  }
+
+  onSearchChange(event: any) {
+    const inputValue = event.target.value;
+    if (inputValue) {
+      this.destino = inputValue;
+      this.searchSubject.next(this.destino);
+    } else {
+      this.suggestions = [];
+    }
+  }
+
+  // Realiza la búsqueda de ubicaciones sugeridas
+  performSearch(query: string) {
+    if (query && query.length > 2) {
+      this.http.get(`https://nominatim.openstreetmap.org/search`, {
+        params: {
+          q: query,
+          format: 'json',
+          addressdetails: '1',
+          limit: '5',
+          countrycodes: this.countrycode
+        }
+      }).subscribe((response: any) => {
+        this.suggestions = response.map((item: any) => {
+          const { house_number, road, city, country } = item.address;
+          return {
+            display_name: `${road || ''} ${house_number || ''}, ${city || ''}, ${country || ''}`.trim(),
+            lat: item.lat,
+            lon: item.lon
+          };
+        });
+      }, error => {
+        console.error("Error al obtener sugerencias:", error);
+      });
+    }
+  }
+
+  selectSuggestion(suggestion: any) {
+    this.destino = suggestion.display_name;
+    this.destinoCoords = { lat: parseFloat(suggestion.lat), lon: parseFloat(suggestion.lon) };
+    this.suggestions = [];
+  }
+
+  async mostrarToast(mensaje: string) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 3000,
+      position: "bottom",
+    });
+    await toast.present();
+  }   
 }
 
 
