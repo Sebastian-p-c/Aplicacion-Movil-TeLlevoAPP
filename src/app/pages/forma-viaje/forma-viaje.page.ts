@@ -90,6 +90,10 @@ export class FormaViajePage implements OnInit {
   
 
   async generarViaje() {
+    if (this.destinoCoords.lat === 0 && this.destinoCoords.lon === 0) {
+      this.mostrarToast("Por favor, selecciona un destino válido.");
+      return;
+    }
     const viaje = {
       origen: this.origen,
       destino: this.destino,
@@ -115,6 +119,14 @@ export class FormaViajePage implements OnInit {
       buttons: ['OK'],
     });
     await alert.present();
+    this.router.navigate(['/mapa'], {
+      queryParams: {
+        origenLat: this.origenCoords.lat,
+        origenLon: this.origenCoords.lon,
+        destinoLat: this.destinoCoords.lat,
+        destinoLon: this.destinoCoords.lon
+      }
+    });
     this.limpiarFormulario();
   }
 
