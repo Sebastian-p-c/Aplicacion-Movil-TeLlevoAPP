@@ -189,7 +189,6 @@ export class FormaViajePage implements OnInit {
     }
   }
 
-  // Realiza la búsqueda de ubicaciones sugeridas
   performSearch(query: string) {
     if (query && query.length > 2) {
       this.http.get(`https://nominatim.openstreetmap.org/search`, {
