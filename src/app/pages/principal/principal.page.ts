@@ -9,8 +9,8 @@ import { StorageService } from 'src/services/storage.service';
   styleUrls: ['./principal.page.scss'],
 })
 export class PrincipalPage implements OnInit {
-
-  usuarios: any[] = []; 
+  usuarios: any[] = [];
+  nombre: string = '';
 
   constructor(
     private alertController: AlertController,
@@ -19,22 +19,36 @@ export class PrincipalPage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    await this.cargarUsuarios(); 
+    const state = this.router.getCurrentNavigation()?.extras.state;
+    if (state && state['nombre']) {
+      this.nombre = state['nombre'];
+    }
+    await this.cargarUsuarios();
   }
 
-
   async cargarUsuarios() {
-    const userData = await this.storageService.getItem('userData');
-    if (userData) {
-      this.usuarios = [userData]; 
+    const usuarios = await this.storageService.getItem('usuarios');
+    if (usuarios && Array.isArray(usuarios)) {
+      this.usuarios = usuarios;
+    } else {
+      console.log('No hay usuarios almacenados.');
     }
   }
 
- 
-  async eliminarUsuario(uid: string) {                                         // Sugerencia de mejora futura: eliminar cualquier accion que haya realizado el usuario a eliminar
+  async eliminarUsuario(usuario: any) {
+    if (usuario.nombre === 'admin') {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'No puedes eliminar al administrador.',
+        buttons: ['OK'],
+      });
+      await alert.present();
+      return;
+    }
+
     const alert = await this.alertController.create({
       header: 'Confirmar eliminación',
-      message: '¿Estás seguro de que quieres eliminar este usuario?',
+      message: `¿Estás seguro de que quieres eliminar a ${usuario.nombre}?`,
       buttons: [
         {
           text: 'Cancelar',
@@ -43,9 +57,18 @@ export class PrincipalPage implements OnInit {
         {
           text: 'Eliminar',
           handler: async () => {
-            this.usuarios = this.usuarios.filter(usuario => usuario.usernameRegistro !== uid);
-            await this.storageService.removeItem('userData'); 
-            console.log(`Usuario con UID ${uid} eliminado`);
+            this.usuarios = this.usuarios.filter((u) => u.nombre !== usuario.nombre);
+
+            await this.storageService.setItem('usuarios', this.usuarios);
+
+            console.log(`Usuario con nombre ${usuario.nombre} eliminado del almacenamiento.`);
+
+            const successAlert = await this.alertController.create({
+              header: 'Usuario eliminado',
+              message: `El usuario ${usuario.nombre} ha sido eliminado correctamente.`,
+              buttons: ['OK'],
+            });
+            await successAlert.present();
           },
         },
       ],
@@ -53,15 +76,15 @@ export class PrincipalPage implements OnInit {
     await alert.present();
   }
 
-  
-  irAActualizarUsuario(uid: string) {
+  irAActualizarUsuario(usuario: any) {
     const navigationExtras: NavigationExtras = {
       state: {
-        uid: uid,
+        nombre: usuario.nombre, 
       },
     };
-    this.router.navigate(['/register'], navigationExtras); 
+    this.router.navigate(['/register'], navigationExtras);
   }
+
 
   irAlMenuPrincipal() {
     this.router.navigate(['/home']);

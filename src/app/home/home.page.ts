@@ -42,34 +42,38 @@ export class HomePage implements OnInit {
 
   async validateLogin() {
     console.log("Ejecutando validación");
-
+  
     if (this.username === this.adminUsername && this.password === this.adminPassword) {
       this.showToastMessage('Login correcto como Admin', 'success');
       this.router.navigate(['/principal']);
-    } else {
-      const storedCredentials = await this.storageService.getItem('userCredentials');
-
-      if (storedCredentials) {
-        const { username: storedUsername, password: storedPassword } = storedCredentials;
-
-        if (this.username === storedUsername && this.password === storedPassword) {
-          this.showToastMessage('Login correcto', 'success');
-
-          const extras: NavigationExtras = {
-            state: {
-              user: this.username,
-            },
-          };
-
-          this.router.navigate(['/elegusuario'], extras);
-        } else {
-          this.showToastMessage('Login incorrecto', 'danger');
-        }
+      return;
+    }
+  
+    const usuarios = await this.storageService.getItem('usuarios');
+  
+    if (usuarios && Array.isArray(usuarios)) {
+      const usuarioEncontrado = usuarios.find(
+        (user: any) => user.nombre === this.username && user.password === this.password
+      );
+  
+      if (usuarioEncontrado) {
+        this.showToastMessage('Login correcto', 'success');
+  
+        const extras: NavigationExtras = {
+          state: {
+            nombre: usuarioEncontrado.nombre,
+          },
+        };
+  
+        this.router.navigate(['/elegusuario'], extras);
       } else {
-        this.showToastMessage('No hay datos de usuario registrados', 'warning');
+        this.showToastMessage('Login incorrecto', 'danger');
       }
+    } else {
+      this.showToastMessage('No hay datos de usuario registrados', 'warning');
     }
   }
+  
 
   async showToastMessage(message: string, color: string) {
     const toast = await this.toastController.create({

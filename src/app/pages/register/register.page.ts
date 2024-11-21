@@ -18,7 +18,6 @@ export class RegisterPage implements OnInit {
   correoRegistro: string = '';
   emailInvalid: boolean = false;
 
-  usernameRegistro: string = '';
   passwordRegistro: string = '';
   confirmPassword: string = '';
   passwordVisible: boolean = false; 
@@ -72,7 +71,6 @@ export class RegisterPage implements OnInit {
       this.apellido.trim() !== '' &&
       this.fechaNacimiento !== '' &&
       !this.emailInvalid &&
-      this.usernameRegistro.trim() !== '' &&
       !this.passwordMismatch &&
       this.passwordRegistro.trim() !== '' &&
       this.confirmPassword.trim() !== ''
@@ -81,31 +79,35 @@ export class RegisterPage implements OnInit {
 
   async crearCuenta() {
     if (this.isFormValid()) {
-      const existingUser = await this.storageService.getItem('userCredentials');
-
-      if (existingUser && existingUser.username === this.usernameRegistro) {
+      // Obtener la lista de usuarios existente o inicializarla como un array vacío
+      const usuarios = await this.storageService.getItem('usuarios') || [];
+  
+      // Verificar si el nombre ya está en uso
+      const existingUser = usuarios.find((user: any) => user.nombre === this.nombre);
+  
+      if (existingUser) {
         const alert = await this.alertController.create({
           header: 'Error',
-          message: 'El nombre de usuario ya está en uso.',
+          message: 'El nombre ya está en uso.',
           buttons: ['OK'],
         });
         await alert.present();
         return;
       }
-
-      await this.storageService.setItem('userCredentials', {
-        username: this.usernameRegistro,
-        password: this.passwordRegistro,
-      });
-
-      await this.storageService.setItem('userData', {
+  
+      // Crear un nuevo objeto de usuario y agregarlo a la lista de usuarios
+      const nuevoUsuario = {
         nombre: this.nombre,
         apellido: this.apellido,
         fechaNacimiento: this.fechaNacimiento,
         correoRegistro: this.correoRegistro,
-        usernameRegistro: this.usernameRegistro,
-      });
-
+        password: this.passwordRegistro,
+      };
+      usuarios.push(nuevoUsuario);
+  
+      // Guardar la lista actualizada de usuarios en el Storage
+      await this.storageService.setItem('usuarios', usuarios);
+  
       const alert = await this.alertController.create({
         header: 'Éxito',
         message: 'Se ha creado correctamente su cuenta',
@@ -115,7 +117,7 @@ export class RegisterPage implements OnInit {
             handler: () => {
               const navigationExtras: NavigationExtras = {
                 state: {
-                  usernameRegistro: this.usernameRegistro
+                  nombre: this.nombre
                 }
               };
               this.router.navigate(['/elegusuario'], navigationExtras);
@@ -124,22 +126,25 @@ export class RegisterPage implements OnInit {
         ],
         backdropDismiss: false
       });
-
+  
       await alert.present();
     }
   }
 
-  async cargarDatos() {
-    const userData = await this.storageService.getItem('userData');
-    if (userData) {
-      this.nombre = userData.nombre || '';
-      this.apellido = userData.apellido || '';
-      this.fechaNacimiento = userData.fechaNacimiento || '';
-      this.correoRegistro = userData.correoRegistro || '';
-      this.usernameRegistro = userData.usernameRegistro || '';
-      this.passwordRegistro = userData.passwordRegistro || '';
+  async cargarDatos(nombre: string) {
+    const usuarios = await this.storageService.getItem('usuarios');
+    console.log('Usuarios recuperados:', usuarios); // Verifica qué datos se están recuperando
+  
+    if (usuarios) {
+      const userData = usuarios.find((user: any) => user.nombre === nombre);
+      console.log('Usuario encontrado:', userData); // Verifica si encuentra al usuario con el nombre proporcionado
+      if (userData) {
+        this.nombre = userData.nombre || '';
+        this.apellido = userData.apellido || '';
+        this.fechaNacimiento = userData.fechaNacimiento || '';
+        this.correoRegistro = userData.correoRegistro || '';
+        this.passwordRegistro = userData.password || '';
+      }
     }
   }
 }
-
-

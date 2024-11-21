@@ -8,14 +8,14 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./elegusuario.page.scss'],
 })
 export class ElegusuarioPage implements OnInit {
-  usernameRegistro: string = ''; 
+  nombre: string = ''; // Reemplazamos usernameRegistro por nombre
 
   constructor(private router: Router, private alertController: AlertController) { }
 
   ngOnInit() {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras?.state) {
-      this.usernameRegistro = navigation.extras.state['usernameRegistro'];
+      this.nombre = navigation.extras.state['nombre']; // Reemplazo de usernameRegistro por nombre
     }
   }
 
@@ -46,9 +46,9 @@ export class ElegusuarioPage implements OnInit {
 
   navigateTo(role: string) {
     if (role === 'conductor') {
-      this.router.navigate(['/conductor'], { state: { usernameRegistro: this.usernameRegistro } });
+      this.router.navigate(['/conductor'], { state: { nombre: this.nombre } }); // Reemplazo de usernameRegistro por nombre
     } else if (role === 'index') {
-      this.router.navigate(['/index'], { state: { usernameRegistro: this.usernameRegistro } });
+      this.router.navigate(['/index'], { state: { nombre: this.nombre } }); // Reemplazo de usernameRegistro por nombre
     }
   }
 }
