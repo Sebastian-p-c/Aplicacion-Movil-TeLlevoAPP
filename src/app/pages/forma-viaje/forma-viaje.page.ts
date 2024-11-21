@@ -6,6 +6,7 @@ import { ViajeService } from 'src/services/viaje.service';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Geolocation } from '@capacitor/geolocation';
+import { LoadingController } from '@ionic/angular';
 
 
 @Component({
@@ -34,13 +35,15 @@ export class FormaViajePage implements OnInit {
   telefonoContacto: string = '';
   numeroCuenta: string = '';
   precioPasajero: number = 0;
+  isLoading: boolean = false;
 
   constructor(
     private router: Router,
     private viajeService: ViajeService,
     private alertController: AlertController,
     private toastController: ToastController,
-    private http: HttpClient
+    private http: HttpClient,
+    private loadingController: LoadingController
   ) { }
 
   ngOnInit() {
@@ -60,6 +63,11 @@ export class FormaViajePage implements OnInit {
   }
 
   async obtenerUbicacionActual() {
+    const loading = await this.loadingController.create({
+      message: 'Obteniendo ubicación...',
+      spinner: 'crescent',
+    });
+    await loading.present();
     try {
       const ubicacion = await Geolocation.getCurrentPosition();
       const lat = ubicacion.coords.latitude;
@@ -78,13 +86,16 @@ export class FormaViajePage implements OnInit {
         this.origen = shortAddress;        
         this.countrycode = address.country_code ? address.country_code.toUpperCase() : '';
         this.mostrarToast(`Ubicación actual: ${shortAddress}`);
+        loading.dismiss();
       }, error => {
         console.error("Error al obtener la dirección:", error);
         this.mostrarToast("No se pudo obtener la dirección actual.");
+        loading.dismiss();
       });
     } catch (error) {
       console.error("Error al obtener la ubicación:", error);
       this.mostrarToast("No se pudo obtener la ubicación.");
+      loading.dismiss();
     }
   }
   
