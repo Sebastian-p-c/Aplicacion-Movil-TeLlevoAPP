@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-index',
@@ -12,7 +13,8 @@ export class IndexPage implements OnInit {
   username: string = 'guest';
 
   constructor(
-    private router: Router, 
+    private router: Router,
+    private alertController: AlertController
   ) {
     const state = this.router.getCurrentNavigation()?.extras.state;
     if (state) {
@@ -37,9 +39,29 @@ export class IndexPage implements OnInit {
     centeredSlides: true,
   };
 
-  logout() {
-    console.log('Cerrar sesión');
-    this.router.navigate(['/home']);
+  async logout() {
+    const alert = await this.alertController.create({
+      header: 'Confirmar',
+      message: '¿Realmente deseas salir?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancelado');
+          }
+        },
+        {
+          text: 'Sí',
+          handler: () => {
+            console.log('Cerrar sesión');
+            this.router.navigate(['/home']);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   ngOnInit() {

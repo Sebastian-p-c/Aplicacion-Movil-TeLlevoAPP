@@ -147,9 +147,29 @@ export class FormaViajePage implements OnInit {
     this.cantidad = 0;
   }
 
-  logout() {
-    console.log('Cerrar sesión');
-    this.router.navigate(['/home']);
+  async logout() {
+    const alert = await this.alertController.create({
+      header: 'Confirmar',
+      message: '¿Realmente deseas salir?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancelado');
+          }
+        },
+        {
+          text: 'Sí',
+          handler: () => {
+            console.log('Cerrar sesión');
+            this.router.navigate(['/home']);
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
   }
 
   onIonChange(event: CustomEvent, field: string) {

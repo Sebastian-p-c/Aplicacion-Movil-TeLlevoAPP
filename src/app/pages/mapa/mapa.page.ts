@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Geolocation } from '@capacitor/geolocation';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-mapa',
@@ -20,7 +20,8 @@ export class MapaPage {
     private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private alertController: AlertController
   ) {}
 
   ionViewDidEnter() {
@@ -120,7 +121,28 @@ export class MapaPage {
     await toast.present();
   }
 
-  logout() {
-    this.router.navigate(['/home']);
+  async logout() {
+    const alert = await this.alertController.create({
+      header: 'Confirmar',
+      message: '¿Realmente deseas salir?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancelado');
+          }
+        },
+        {
+          text: 'Sí',
+          handler: () => {
+            console.log('Cerrar sesión');
+            this.router.navigate(['/home']);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }
