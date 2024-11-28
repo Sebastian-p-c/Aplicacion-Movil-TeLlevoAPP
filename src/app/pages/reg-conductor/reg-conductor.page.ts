@@ -25,15 +25,23 @@ export class RegConductorPage {
   ) {}
 
   async ngOnInit() {
-    // Recuperar el ID del usuario logueado desde el Storage
+    // Recuperar el ID del usuario logueado desde el almacenamiento
     this.currentUserId = await this.storageService.getItem('currentUserId');
+  
     if (this.currentUserId !== null) {
       console.log('Usuario logueado ID:', this.currentUserId);
-
+  
       // Cargar datos del conductor si existen
       await this.cargarDatosConductor();
     } else {
       console.error('No se encontró un usuario logueado.');
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'No se encontró un usuario logueado. Por favor, inicie sesión o registre una cuenta.',
+        buttons: ['OK'],
+      });
+      await alert.present();
+      this.router.navigate(['/home']); // Redirigir a la página de inicio o login
     }
   }
 
@@ -73,7 +81,6 @@ export class RegConductorPage {
     }
   }
 
-  // Método para guardar los datos del conductor
   async generarDatos() {
     if (!this.matricula || !this.selectedBanco || !this.selectedTipoCuenta || !this.numeroCuenta) {
       const alert = await this.alertController.create({
@@ -84,24 +91,24 @@ export class RegConductorPage {
       await alert.present();
       return;
     }
-
+  
     // Recuperar usuarios del Storage
     const usuarios = (await this.storageService.getItem('usuarios')) || [];
-
+  
     // Buscar el usuario logueado por ID
     const usuario = usuarios.find((user: any) => user.id === this.currentUserId);
-
+  
     if (!usuario) {
       const alert = await this.alertController.create({
         header: 'Error',
-        message: 'No se encontró un usuario logueado.',
+        message: 'No se encontró un usuario logueado. Por favor, registre o inicie sesión nuevamente.',
         buttons: ['OK'],
       });
       await alert.present();
       return;
     }
-
-    // Actualizar los datos del conductor en el usuario logueado
+  
+    // Actualizar los datos del conductor
     usuario.datosConductor = {
       matricula: this.matricula,
       modeloVehiculo: this.modeloVehiculo,
@@ -110,10 +117,10 @@ export class RegConductorPage {
       tipoCuenta: this.selectedTipoCuenta,
       numeroCuenta: this.numeroCuenta,
     };
-
+  
     // Guardar los usuarios actualizados en el Storage
     await this.storageService.setItem('usuarios', usuarios);
-
+  
     const alert = await this.alertController.create({
       header: 'Éxito',
       message: 'Datos del conductor registrados correctamente.',
@@ -121,15 +128,15 @@ export class RegConductorPage {
         {
           text: 'OK',
           handler: () => {
-            this.router.navigate(['/home']); // Redirigir a la página principal u otra página
+            this.router.navigate(['/conductor']);
           },
         },
       ],
     });
-
+  
     await alert.present();
   }
-
+  
   // Método para confirmar y procesar la acción de logout
   async logout() {
     const alert = await this.alertController.create({

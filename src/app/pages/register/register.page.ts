@@ -119,6 +119,7 @@ export class RegisterPage implements OnInit {
       // Actualizar el último ID y guardar los usuarios
       await this.storageService.setItem('lastUserId', nuevoUsuario.id);
       await this.storageService.setItem('usuarios', usuarios);
+      await this.storageService.setItem('currentUserId', nuevoUsuario.id);
 
       const alert = await this.alertController.create({
         header: 'Éxito',
