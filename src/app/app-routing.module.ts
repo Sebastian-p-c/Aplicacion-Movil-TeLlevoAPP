@@ -62,10 +62,16 @@ const routes: Routes = [
     loadChildren: () => import('./pages/viaje/viaje.module').then(m => m.ViajePageModule)
   },
   {
+    path: 'reg-conductor',
+    loadChildren: () => import('./pages/reg-conductor/reg-conductor.module').then( m => m.RegConductorPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'not-found',
     pathMatch: 'full'
   },
+  
+
 ];
 
 @NgModule({

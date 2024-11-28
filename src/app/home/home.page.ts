@@ -9,7 +9,7 @@ import { StorageService } from 'src/services/storage.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  message: string;
+  message: string = 'Bienvenido!';
   username: string = '';
   password: string = '';
 
@@ -21,9 +21,7 @@ export class HomePage implements OnInit {
     private router: Router,
     private toastController: ToastController,
     private storageService: StorageService
-  ) {
-    this.message = 'Bienvenido!';
-  }
+  ) {}
 
   ngOnInit() {
     const storedContrast = localStorage.getItem('high-contrast');
@@ -32,23 +30,28 @@ export class HomePage implements OnInit {
     }
   }
 
+  // Método para limpiar el campo del nombre de usuario
   clearInput() {
-    this.username = '';  
+    this.username = '';
   }
 
+  // Método para limpiar el campo de la contraseña
   clearPassword() {
     this.password = '';
   }
 
+  // Validación del inicio de sesión
   async validateLogin() {
     console.log("Ejecutando validación");
   
+    // Verificar si se trata del administrador
     if (this.username === this.adminUsername && this.password === this.adminPassword) {
       this.showToastMessage('Login correcto como Admin', 'success');
       this.router.navigate(['/principal']);
       return;
     }
   
+    // Verificar usuarios registrados
     const usuarios = await this.storageService.getItem('usuarios');
   
     if (usuarios && Array.isArray(usuarios)) {
@@ -57,14 +60,16 @@ export class HomePage implements OnInit {
       );
   
       if (usuarioEncontrado) {
+        // Guardar el ID del usuario logueado en el almacenamiento
+        await this.storageService.setItem('currentUserId', usuarioEncontrado.id);
         this.showToastMessage('Login correcto', 'success');
   
+        // Navegar a la página con información del usuario logueado
         const extras: NavigationExtras = {
           state: {
             nombre: usuarioEncontrado.nombre,
           },
         };
-  
         this.router.navigate(['/elegusuario'], extras);
       } else {
         this.showToastMessage('Login incorrecto', 'danger');
@@ -73,8 +78,8 @@ export class HomePage implements OnInit {
       this.showToastMessage('No hay datos de usuario registrados', 'warning');
     }
   }
-  
 
+  // Mostrar un mensaje en un toast
   async showToastMessage(message: string, color: string) {
     const toast = await this.toastController.create({
       duration: 500,

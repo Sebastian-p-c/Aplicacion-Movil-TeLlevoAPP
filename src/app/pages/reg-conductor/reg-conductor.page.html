@@ -1,0 +1,117 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar color="dark">
+    <ion-title>Registro Conductor</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon class="custom-icon" slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-register" [fullscreen]="true" keyboardScroll="false" style="padding-bottom: 100px;">
+  <h4 class="ion-info">Información:</h4>
+  <ion-list>
+
+    <ion-item>
+      <ion-input
+        label="Matrícula (Patente)"
+        labelPlacement="floating"
+        [(ngModel)]="matricula">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        label="Modelo del Vehículo"
+        labelPlacement="floating"
+        [(ngModel)]="modeloVehiculo">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        label="Color del Vehículo"
+        labelPlacement="floating"
+        [(ngModel)]="colorVehiculo">
+      </ion-input>
+    </ion-item>
+
+    <!-- Modal para seleccionar Banco -->
+    <ion-item>
+      <ion-input
+        label="Banco"
+        labelPlacement="floating"
+        [value]="selectedBanco"
+        readonly>
+      </ion-input>
+      <ion-button id="open-banco-modal" fill="clear">
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </ion-button>
+
+      <ion-modal #bancoModal trigger="open-banco-modal" (didDismiss)="onDidDismiss($event, 'banco')">
+        <ng-template>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="bancoModal.dismiss(null, 'cancel')">Cancel</ion-button>
+            </ion-buttons>
+            <ion-buttons slot="end">
+              <ion-button (click)="bancoModal.dismiss(selectedBanco, 'confirm')">Listo</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+          <ion-picker>
+            <ion-picker-column [value]="selectedBanco" (ionChange)="onIonChange($event, 'banco')">
+              <ion-picker-column-option value="Banco Estado">Banco Estado</ion-picker-column-option>
+              <ion-picker-column-option value="Banco Santander">Banco Santander</ion-picker-column-option>
+              <ion-picker-column-option value="Banco Scotiabank">Banco Scotiabank</ion-picker-column-option>
+            </ion-picker-column>
+          </ion-picker>
+        </ng-template>
+      </ion-modal>
+    </ion-item>
+
+    <!-- Modal para seleccionar Tipo de Cuenta -->
+    <ion-item>
+      <ion-input
+        label="Tipo de Cuenta"
+        labelPlacement="floating"
+        [value]="selectedTipoCuenta"
+        readonly>
+      </ion-input>
+      <ion-button id="open-tipoCuenta-modal" fill="clear">
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </ion-button>
+
+      <ion-modal #tipoCuentaModal trigger="open-tipoCuenta-modal" (didDismiss)="onDidDismiss($event, 'tipoCuenta')">
+        <ng-template>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="tipoCuentaModal.dismiss(null, 'cancel')">Cancel</ion-button>
+            </ion-buttons>
+            <ion-buttons slot="end">
+              <ion-button (click)="tipoCuentaModal.dismiss(selectedTipoCuenta, 'confirm')">Listo</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+          <ion-picker>
+            <ion-picker-column [value]="selectedTipoCuenta" (ionChange)="onIonChange($event, 'tipoCuenta')">
+              <ion-picker-column-option value="Corriente">Corriente</ion-picker-column-option>
+              <ion-picker-column-option value="Vista">Vista</ion-picker-column-option>
+            </ion-picker-column>
+          </ion-picker>
+        </ng-template>
+      </ion-modal>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        label="Número de Cuenta"
+        labelPlacement="floating"
+        [(ngModel)]="numeroCuenta">
+      </ion-input>
+    </ion-item>
+
+    <ion-button expand="block" style="margin-bottom: 10px;" (click)="generarDatos()">
+      Registrar datos
+    </ion-button>
+  </ion-list>
+</ion-content>

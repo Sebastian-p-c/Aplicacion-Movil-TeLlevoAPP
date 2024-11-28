@@ -13,11 +13,13 @@ export class ReservaPage implements OnInit {
   viajeSeleccionado: any = null;
   cantidadPasajeros: number = 1;
 
-  constructor(private router: Router,
-              private viajeService: ViajeService,
-              private alertController: AlertController) { }
+  constructor(
+    private router: Router,
+    private viajeService: ViajeService,
+    private alertController: AlertController
+  ) {}
 
-  async  ngOnInit() {
+  async ngOnInit() {
     this.viajes = await this.viajeService.obtenerViajes();
   }
 

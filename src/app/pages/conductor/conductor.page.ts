@@ -23,8 +23,8 @@ export class ConductorPage implements OnInit {
   continue() {
     if (this.selectedCard) {
       console.log('Tarjeta seleccionada:', this.selectedCard);
-      if (this.selectedCard === 'viaje-entrega') {
-        this.router.navigate(['/viaje-entrega']); 
+      if (this.selectedCard === 'reg-conductor') {
+        this.router.navigate(['/reg-conductor']); 
       } else if (this.selectedCard === 'viaje') {
         this.router.navigate(['/forma-viaje']); 
       }

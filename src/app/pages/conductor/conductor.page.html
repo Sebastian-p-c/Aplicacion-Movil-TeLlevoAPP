@@ -15,15 +15,15 @@
   <ion-grid>
     <h2 style="text-align: center;">Elige tu opcion:</h2>
 
-    <ion-card [ngClass]="{'selected-card': selectedCard === 'viaje-entrega'}" (click)="selectCard('viaje-entrega')">
+    <ion-card [ngClass]="{'selected-card': selectedCard === 'reg-conductor'}" (click)="selectCard('reg-conductor')">
       <ion-card-header>
-        <ion-badge color="success">Entrega</ion-badge>
+        <ion-badge color="success">Datos Conductor</ion-badge>
       </ion-card-header>
       <ion-card-content class="card-content">
         <div class="card-text">
-          <h3>Entregas</h3>
-          <p><strong>Edad:</strong> Mayor de 18 años</p>
-          <p><strong>Vehículo:</strong> El vehículo no puede tener más de 10 años de antigüedad a partir del año en curso.</p>
+          <h3>Registro</h3>
+          <p><strong>Cuenta Bancaria:</strong> Datos Bancarios</p>
+          <p><strong>Vehículo:</strong> Datos del Vehículo</p>
         </div>
         <img src="assets/img/viaje.png" alt="Auto" />
       </ion-card-content>
