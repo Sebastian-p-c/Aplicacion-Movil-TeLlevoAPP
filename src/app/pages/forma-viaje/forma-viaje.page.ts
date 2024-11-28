@@ -158,6 +158,10 @@ export class FormaViajePage implements OnInit {
   }
 
   async generarViaje() {
+    const currentUserId = await this.storageService.getItem('currentUserId');
+    const usuarios = (await this.storageService.getItem('usuarios')) || [];
+    const usuario = usuarios.find((user: any) => user.id === currentUserId);
+    
     if (!this.origen || !this.destino || !this.conductorData) {
       this.mostrarToast('Por favor, completa todos los campos requeridos.');
       return;
@@ -168,6 +172,8 @@ export class FormaViajePage implements OnInit {
       destino: this.destino,
       origenCoords: this.origenCoords,
       destinoCoords: this.destinoCoords,
+      nombre: usuario.nombre, // Mover nombre del usuario aquí
+      apellido: usuario.apellido,
       conductor: {
         ...this.conductorData, // Incorporar datos del conductor
       },

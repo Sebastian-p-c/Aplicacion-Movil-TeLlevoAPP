@@ -1,90 +1,90 @@
-<ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar color="dark">
-    <ion-title>Uber</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="logout()">
-        <ion-icon class="custom-icon" slot="icon-only" name="log-out-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Reserva</ion-title>
+  <ion-header [translucent]="true" class="ion-no-border">
+    <ion-toolbar color="dark">
+      <ion-title>Uber</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="logout()">
+          <ion-icon class="custom-icon" slot="icon-only" name="log-out-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
-  
-  <ion-list>
-    <ion-item *ngFor="let viaje of viajes" (click)="seleccionarViaje(viaje)">
-      <ion-label>
-        <h2>{{ viaje.conductor?.nombre }} {{ viaje.conductor?.apellido }}</h2>
-        <p>Vehículo: {{ viaje.conductor?.modeloVehiculo }} ({{ viaje.conductor?.colorVehiculo }})</p>
-        <p>Origen: {{ viaje.origen }}</p>
-        <p>Destino: {{ viaje.destino }}</p>
-        <p>Precio por pasajero: CLP {{ viaje.precioPasajero }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
 
-  <ion-card *ngIf="viajeSeleccionado">
-    <ion-card-header>
-      <ion-card-title>Detalles del Viaje</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p><strong>Conductor:</strong> {{ viajeSeleccionado.conductor?.nombre }} {{ viajeSeleccionado.conductor?.apellido }}</p>
-      <p><strong>Vehículo:</strong> {{ viajeSeleccionado.conductor?.modeloVehiculo }} ({{ viajeSeleccionado.conductor?.colorVehiculo }})</p>
-      <p><strong>Teléfono de contacto:</strong> {{ viajeSeleccionado.conductor?.telefonoContacto }}</p>
-      <p><strong>Origen:</strong> {{ viajeSeleccionado.origen }}</p>
-      <p><strong>Destino:</strong> {{ viajeSeleccionado.destino }}</p>
-      <p><strong>Precio por pasajero:</strong> CLP {{ viajeSeleccionado.precioPasajero }}</p>
-
-      <ion-item lines="none">
-        <ion-label>Cantidad de Pasajeros</ion-label>
-        <ion-button (click)="decrementarPasajeros()" fill="outline" color="danger">
-          <ion-icon name="remove-outline"></ion-icon>
-        </ion-button>
-        <ion-input [(ngModel)]="cantidadPasajeros" type="number" min="1" readonly></ion-input>
-        <ion-button (click)="incrementarPasajeros()" fill="outline" color="success">
-          <ion-icon name="add-outline"></ion-icon>
-        </ion-button>
+  <ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">Reserva</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    
+    <ion-list>
+      <ion-item *ngFor="let viaje of viajes" (click)="seleccionarViaje(viaje)">
+        <ion-label>
+          <h2>Conductor: {{ viaje.nombre }} {{ viaje.apellido }}</h2>
+          <p>Vehículo: {{ viaje.conductor?.modeloVehiculo }} ({{ viaje.conductor?.colorVehiculo }})</p>
+          <p>Origen: {{ viaje.origen }}</p>
+          <p>Destino: {{ viaje.destino }}</p>
+          <p>Precio por pasajero: CLP {{ viaje.precioPasajero }}</p>
+        </ion-label>
       </ion-item>
+    </ion-list>
 
-      <p><strong>Total:</strong> CLP {{ calcularTotal() }}</p>
+    <ion-card *ngIf="viajeSeleccionado">
+      <ion-card-header>
+        <ion-card-title>Detalles del Viaje</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Conductor:</strong> {{ viajeSeleccionado.nombre }} {{ viajeSeleccionado.apellido }}</p>
+        <p><strong>Vehículo:</strong> {{ viajeSeleccionado.conductor?.modeloVehiculo }} ({{ viajeSeleccionado.conductor?.colorVehiculo }})</p>
+        <p><strong>Teléfono de contacto:</strong> {{ viajeSeleccionado.conductor?.telefonoContacto }}</p>
+        <p><strong>Origen:</strong> {{ viajeSeleccionado.origen }}</p>
+        <p><strong>Destino:</strong> {{ viajeSeleccionado.destino }}</p>
+        <p><strong>Precio por pasajero:</strong> CLP {{ viajeSeleccionado.precioPasajero }}</p>
 
-      <ion-item class="input-item">
-        <ion-input
-          label="Desa marcar una parada?"
-          labelPlacement="floating">
-        </ion-input>
-      </ion-item>
-      
-      <ion-button expand="block" color="primary" (click)="confirmarViaje()">Confirmar Viaje</ion-button>
-    </ion-card-content>
-  </ion-card>
-</ion-content>
+        <ion-item lines="none">
+          <ion-label>Cantidad de Pasajeros</ion-label>
+          <ion-button (click)="decrementarPasajeros()" fill="outline" color="danger">
+            <ion-icon name="remove-outline"></ion-icon>
+          </ion-button>
+          <ion-input [(ngModel)]="cantidadPasajeros" type="number" min="1" readonly></ion-input>
+          <ion-button (click)="incrementarPasajeros()" fill="outline" color="success">
+            <ion-icon name="add-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
 
-<ion-footer>
-  <ion-toolbar color="dark">
-    <ion-grid>
-      <ion-row class="ion-justify-content-center">
-        <ion-col class="ion-text-center" size="auto">
-          <ion-button fill="clear" color="light" [routerLink]="['/index']" style="margin-top: -5px;">
-            <ion-icon name="home-outline" size="large"></ion-icon>
-          </ion-button>
-        </ion-col>
-        <ion-col class="ion-text-center" size="auto">
-          <ion-button fill="clear" color="light" [routerLink]="['/...']" style="margin-top: -5px;">
-            <ion-icon name="map-outline" size="large"></ion-icon>
-          </ion-button>
-        </ion-col>
-        <ion-col class="ion-text-center" size="auto">
-          <ion-button fill="clear" color="light" [routerLink]="['/...']" style="margin-top: -5px;">
-            <ion-icon name="settings-outline" size="large"></ion-icon>
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-toolbar>
-</ion-footer>
+        <p><strong>Total:</strong> CLP {{ calcularTotal() }}</p>
+
+        <ion-item class="input-item">
+          <ion-input
+            label="Desea marcar una parada?"
+            labelPlacement="floating">
+          </ion-input>
+        </ion-item>
+        
+        <ion-button expand="block" color="primary" (click)="confirmarViaje()">Confirmar Viaje</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+
+  <ion-footer>
+    <ion-toolbar color="dark">
+      <ion-grid>
+        <ion-row class="ion-justify-content-center">
+          <ion-col class="ion-text-center" size="auto">
+            <ion-button fill="clear" color="light" [routerLink]="['/index']" style="margin-top: -5px;">
+              <ion-icon name="home-outline" size="large"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col class="ion-text-center" size="auto">
+            <ion-button fill="clear" color="light" [routerLink]="['/...']" style="margin-top: -5px;">
+              <ion-icon name="map-outline" size="large"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col class="ion-text-center" size="auto">
+            <ion-button fill="clear" color="light" [routerLink]="['/...']" style="margin-top: -5px;">
+              <ion-icon name="settings-outline" size="large"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-toolbar>
+  </ion-footer>
