@@ -51,6 +51,14 @@
       </ion-item>
 
       <p><strong>Total:</strong> CLP {{ calcularTotal() }}</p>
+
+      <ion-item class="input-item">
+        <ion-input
+          label="Desa marcar una parada?"
+          labelPlacement="floating"
+          [(ngModel)]="">
+        </ion-input>
+      </ion-item>
       
       <ion-button expand="block" color="primary" (click)="confirmarViaje()">Confirmar Viaje</ion-button>
     </ion-card-content>
