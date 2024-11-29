@@ -1,13 +1,21 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title class="ion-text-center">Restablecer Contraseña</ion-title>
+    <div class="header-container">
+      <button class="back-button" (click)="goBack()">
+        <!-- Icono de flecha (SVG) -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <ion-title class="header-title ion-text-center">Restablecer Contraseña</ion-title>
+    </div>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content [fullscreen]="true" [scrollY]="false">
-  <div id="container" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; padding: 16px; text-align: center;">
-    <h1 style="font-size: 1.8rem; margin-bottom: 20px;">Restablecer Contraseña</h1>
-    <form (ngSubmit)="onSubmit()" style="width: 100%; max-width: 400px;">
+  <div id="container">
+    <form (ngSubmit)="onSubmit()">
       <ion-list>
         <ion-item>
           <ion-input 
@@ -42,7 +50,7 @@
       </ion-list>
       <div *ngIf="passwordMismatch" class="error-message">Las contraseñas no coinciden.</div>
       <div *ngIf="emailInvalid" class="error-message">El correo ingresado no es válido.</div>
-      <ion-button expand="block" type="submit" style="width: 100%; max-width: 400px; height: 50px; font-size: 1.2rem;">
+      <ion-button expand="block" type="submit" style="width: 100%; max-width: 400px; height: 50px;">
         Restablecer Contraseña
       </ion-button>
     </form>

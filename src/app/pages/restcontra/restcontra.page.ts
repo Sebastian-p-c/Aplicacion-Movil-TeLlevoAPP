@@ -83,4 +83,8 @@ export class RestcontraPage implements OnInit {
 
     await alert.present();
   }
+  goBack() {
+    window.history.back(); // Navegar a la página anterior
+  }
+  
 }

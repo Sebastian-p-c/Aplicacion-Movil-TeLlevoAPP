@@ -1,5 +1,17 @@
 <ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <div class="header-container">
+      <button class="back-button" (click)="goBack()">
+        <!-- Icono de flecha (SVG) -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <ion-title class="header-title ion-text-center">Registrarse</ion-title>
+    </div>
+  </ion-toolbar>
 </ion-header>
+
 
 <ion-content class="ion-register">
   <h1 class="ion-title-register">¡Bienvenido!</h1>
@@ -7,25 +19,15 @@
   <h4 class="ion-info">Información:</h4>
 
   <ion-list>
-    <!-- Nombre -->
+    <!-- Nombre de Usuario -->
     <ion-item>
       <ion-input 
         class="nombre-input"
-        label="Nombre" 
+        label="Nombre de Usuario" 
         labelPlacement="floating"
-        [(ngModel)]="nombre">
+        [(ngModel)]="username">
       </ion-input>
     </ion-item>
-
-    <!-- Apellido -->
-    <ion-item>
-      <ion-input 
-        class="apellido-input"
-        label="Apellido" 
-        labelPlacement="floating"
-        [(ngModel)]="apellido">
-      </ion-input>
-    </ion-item> 
     
     <!-- RUT -->
     <ion-item>

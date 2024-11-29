@@ -1,27 +1,61 @@
 <ion-header>
+  <ion-toolbar>
+    <ion-title>Gestión de Usuarios</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <h1 class="ion-text-center">Administrador</h1>
+  <div class="ion-padding">
+    <h2 class="ion-text-center">Bienvenido, {{ username }}</h2>
 
-  <ion-list *ngIf="usuarios.length > 0">
-    <ion-item *ngFor="let usuario of usuarios">
-      <ion-label>
-        <h2>{{ usuario.nombre }} {{ usuario.apellido }}</h2>
-        <p>Email: {{ usuario.correoRegistro }}</p>
-      </ion-label>
-      <ion-buttons slot="end">
-        <ion-button (click)="eliminarUsuario(usuario)" color="danger">Eliminar</ion-button>
-        <ion-button (click)="irAActualizarUsuario(usuario)">Actualizar</ion-button>
-      </ion-buttons>
-    </ion-item>
-  </ion-list>
+    <!-- Mostrar detalles adicionales del usuario si están disponibles -->
+    <ion-card *ngIf="userdata || usercredentials" class="ion-margin-top">
+      <ion-card-header>
+        <ion-card-title>Información Adicional</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p *ngIf="userdata && userdata.token">
+          <strong>Token:</strong> {{ userdata.token }}
+        </p>
+        <p *ngIf="usercredentials && usercredentials.email">
+          <strong>Email:</strong> {{ usercredentials.email }}
+        </p>
+      </ion-card-content>
+    </ion-card>
 
-  <div *ngIf="usuarios.length === 0" class="ion-text-center">
-    <p>No hay registros. Por favor, rellene un registro.</p>
+    <!-- Lista de usuarios -->
+    <ion-list *ngIf="usuarios.length > 0" class="ion-margin-top">
+      <ion-item *ngFor="let usuario of usuarios">
+        <ion-label>
+          <h3><strong>Usuario:</strong> {{ usuario.username }}</h3>
+          <p><strong>Email:</strong> {{ usuario.correoRegistro }}</p>
+        </ion-label>
+        <ion-buttons slot="end">
+          <!-- Botón para actualizar usuario -->
+          <ion-button color="primary" fill="outline" (click)="irAActualizarUsuario(usuario)">
+            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+          </ion-button>
+
+          <!-- Botón para eliminar usuario -->
+          <ion-button color="danger" fill="outline" (click)="eliminarUsuario(usuario)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+
+    <!-- Mensaje si no hay usuarios -->
+    <div *ngIf="usuarios.length === 0" class="ion-text-center ion-margin-top">
+      <ion-icon name="information-circle-outline" size="large" color="medium"></ion-icon>
+      <p>No hay usuarios registrados.</p>
+    </div>
   </div>
 </ion-content>
 
 <ion-footer>
-  <ion-button expand="full" (click)="irAlMenuPrincipal()">Regresar al Menú Principal</ion-button>
+  <ion-toolbar>
+    <ion-button expand="full" color="secondary" (click)="irAlMenuPrincipal()">
+      Regresar al Menú Principal
+    </ion-button>
+  </ion-toolbar>
 </ion-footer>

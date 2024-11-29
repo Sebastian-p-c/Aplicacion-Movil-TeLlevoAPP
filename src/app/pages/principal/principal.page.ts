@@ -9,8 +9,10 @@ import { StorageService } from 'src/services/storage.service';
   styleUrls: ['./principal.page.scss'],
 })
 export class PrincipalPage implements OnInit {
-  usuarios: any[] = [];
-  nombre: string = '';
+  usuarios: any[] = []; // Lista de usuarios
+  username: string = ''; // Nombre de usuario actual
+  userdata: any = null; // Datos adicionales del usuario actual
+  usercredentials: any = null; // Credenciales adicionales del usuario actual
 
   constructor(
     private alertController: AlertController,
@@ -18,25 +20,46 @@ export class PrincipalPage implements OnInit {
     private storageService: StorageService
   ) {}
 
+  /**
+   * Método inicial del componente
+   */
   async ngOnInit() {
+    // Recuperar datos adicionales desde el estado de navegación
     const state = this.router.getCurrentNavigation()?.extras.state;
-    if (state && state['nombre']) {
-      this.nombre = state['nombre'];
+    if (state) {
+      this.username = state['username'] || '';
+      this.userdata = state['userdata'] || null;
+      this.usercredentials = state['usercredentials'] || null;
     }
+
+    // Cargar lista de usuarios desde el almacenamiento
     await this.cargarUsuarios();
   }
 
+  /**
+   * Carga los usuarios almacenados.
+   */
   async cargarUsuarios() {
-    const usuarios = await this.storageService.getItem('usuarios');
-    if (usuarios && Array.isArray(usuarios)) {
-      this.usuarios = usuarios;
-    } else {
-      console.log('No hay usuarios almacenados.');
+    try {
+      const usuarios = await this.storageService.getItem('usuarios');
+      if (usuarios && Array.isArray(usuarios)) {
+        this.usuarios = usuarios;
+      } else {
+        console.log('No hay usuarios almacenados.');
+        this.usuarios = [];
+      }
+    } catch (error) {
+      console.error('Error cargando usuarios:', error);
     }
   }
 
+  /**
+   * Elimina un usuario del almacenamiento.
+   * @param usuario Usuario a eliminar.
+   */
   async eliminarUsuario(usuario: any) {
-    if (usuario.nombre === 'admin') {
+    // Verificar si el usuario es el administrador y evitar su eliminación
+    if (usuario.username === 'admin') {
       const alert = await this.alertController.create({
         header: 'Error',
         message: 'No puedes eliminar al administrador.',
@@ -46,9 +69,10 @@ export class PrincipalPage implements OnInit {
       return;
     }
 
+    // Confirmar eliminación del usuario
     const alert = await this.alertController.create({
       header: 'Confirmar eliminación',
-      message: `¿Estás seguro de que quieres eliminar a ${usuario.nombre}?`,
+      message: `¿Estás seguro de que quieres eliminar a ${usuario.username}?`,
       buttons: [
         {
           text: 'Cancelar',
@@ -57,18 +81,23 @@ export class PrincipalPage implements OnInit {
         {
           text: 'Eliminar',
           handler: async () => {
-            this.usuarios = this.usuarios.filter((u) => u.nombre !== usuario.nombre);
+            try {
+              // Eliminar usuario de la lista y actualizar almacenamiento
+              this.usuarios = this.usuarios.filter((u) => u.username !== usuario.username);
+              await this.storageService.setItem('usuarios', this.usuarios);
 
-            await this.storageService.setItem('usuarios', this.usuarios);
+              console.log(`Usuario con username ${usuario.username} eliminado del almacenamiento.`);
 
-            console.log(`Usuario con nombre ${usuario.nombre} eliminado del almacenamiento.`);
-
-            const successAlert = await this.alertController.create({
-              header: 'Usuario eliminado',
-              message: `El usuario ${usuario.nombre} ha sido eliminado correctamente.`,
-              buttons: ['OK'],
-            });
-            await successAlert.present();
+              // Notificar éxito
+              const successAlert = await this.alertController.create({
+                header: 'Usuario eliminado',
+                message: `El usuario ${usuario.username} ha sido eliminado correctamente.`,
+                buttons: ['OK'],
+              });
+              await successAlert.present();
+            } catch (error) {
+              console.error('Error al eliminar usuario:', error);
+            }
           },
         },
       ],
@@ -76,16 +105,28 @@ export class PrincipalPage implements OnInit {
     await alert.present();
   }
 
+  /**
+   * Navega a la página de actualización del usuario.
+   * @param usuario Usuario a actualizar.
+   */
   irAActualizarUsuario(usuario: any) {
+    if (!usuario.username) {
+      console.error('El usuario no tiene un nombre de usuario válido.');
+      return;
+    }
+
     const navigationExtras: NavigationExtras = {
       state: {
-        nombre: usuario.nombre, 
+        username: usuario.username,
       },
     };
     this.router.navigate(['/register'], navigationExtras);
   }
 
-
+  
+  /**
+   * Navega al menú principal.
+   */
   irAlMenuPrincipal() {
     this.router.navigate(['/home']);
   }

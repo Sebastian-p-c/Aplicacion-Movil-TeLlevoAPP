@@ -10,8 +10,7 @@ import { StorageService } from 'src/services/storage.service';
 })
 export class RegisterPage implements OnInit {
   // Campos del formulario de registro
-  nombre: string = '';
-  apellido: string = '';
+  username: string = '';
   rut: string = '';
   fechaNacimiento: string = '';
   fechaTemporal: string = '';
@@ -71,8 +70,7 @@ export class RegisterPage implements OnInit {
 
   isFormValid(): boolean {
     return (
-      this.nombre.trim() !== '' &&
-      this.apellido.trim() !== '' &&
+      this.username.trim() !== '' &&
       this.rut.trim() !== '' &&
       this.telefono.trim() !== '' &&
       this.fechaNacimiento !== '' &&
@@ -105,8 +103,7 @@ export class RegisterPage implements OnInit {
       // Crear un nuevo usuario con un ID único
       const nuevoUsuario = {
         id: lastUserId + 1, // Incrementar el ID
-        nombre: this.nombre,
-        apellido: this.apellido,
+        username: this.username,
         rut: this.rut,
         telefono: this.telefono,
         fechaNacimiento: this.fechaNacimiento,
@@ -143,7 +140,10 @@ export class RegisterPage implements OnInit {
       await alert.present();
     }
   }
-
+  goBack() {
+    window.history.back(); // Navegar a la página anterior
+  }
+  
   // Método para cargar datos del usuario según el ID
   async cargarDatos(id: number) {
     const usuarios = await this.storageService.getItem('usuarios');
@@ -151,8 +151,7 @@ export class RegisterPage implements OnInit {
     if (usuarios) {
       const userData = usuarios.find((user: any) => user.id === id);
       if (userData) {
-        this.nombre = userData.nombre || '';
-        this.apellido = userData.apellido || '';
+        this.username = userData.username || '';
         this.rut = userData.rut || '';
         this.telefono = userData.telefono || '';
         this.fechaNacimiento = userData.fechaNacimiento || '';

@@ -1,53 +1,99 @@
 #container {
     display: flex;
     flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
-    height: 100%; 
-    padding: 20px; 
-    }
-    
-    .title {
-    background-color: #2d2c2c;
-    color: #f0f0f0;
-    padding: 10px;
-    border-radius: 5px;
-    display: inline-block;
-    }
-    
-    ion-list {
+    align-items: center;
+    justify-content: flex-start; 
+    min-height: 100vh; 
+    padding: 20px;
+    background-color: #f3f6f9; 
+}
+
+/* Contorno detrás del contenido */
+ion-list {
     width: 100%;
     max-width: 400px;
-    }
-    
-    ion-button {
-    margin: 10px 0;
-    width: 50%;
-    padding: 10px; 
-    align-self: center; 
-    }
-    
-    ion-item {
+    background-color: #ffffff; 
+    border-radius: 12px; 
+    padding: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+    margin: 20px 0;
+}
+
+/* Botones */
+ion-button {
+    width: 60%;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Inputs */
+ion-item {
     --padding-start: 0;
     --padding-end: 0;
-    }
-    
-    ion-input {
-    width: 100%;
-    }
-    
-    ion-header {
-    padding: 0;
-    }
-    
-    .usuario-input,
-    ion-input[type="password"] {
-    --color: gray;
-    }
-    
+    margin-bottom: 15px; 
+}
 
-    #error-message {
-        color: red;
-        font-size: 0.9rem;
-        margin: 10px 0;
-    }
+ion-input {
+    width: 100%;
+    padding: 10px;
+    color: #495057;
+    border-radius: 6px;
+    background-color: #fdfdfd;
+    transition: border-color 0.3s ease;
+}
+
+/* Mensaje de error */
+#error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin: 10px 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Fondo general */
+body {
+    background: linear-gradient(120deg, #dfe9f3, #ffffff); /* Gradiente sutil */
+}
+
+/* Contenedor del encabezado */
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background-color: #ffffff; /* Fondo blanco limpio */
+    border-bottom: 1px solid #eaeaea; /* Línea divisoria */
+}
+
+/* Botón de flecha hacia atrás */
+.back-button {
+    background: none;
+    border: none;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #007bff; /* Azul profesional */
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.back-button:hover {
+    color: #0056b3; /* Azul más oscuro al pasar el cursor */
+    transform: scale(1.1); /* Efecto flotante al pasar el cursor */
+}
+
+/* Título del encabezado */
+.header-title {
+    flex-grow: 1;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333; /* Color oscuro para texto */
+    text-align: center; /* Centrar el título */
+}
+

@@ -70,4 +70,21 @@ export class StorageService {
     await this._storage?.clear();
     console.log('Todo el almacenamiento ha sido limpiado.');
   }
+
+  /**
+   * Limpia datos específicos del almacenamiento.
+   * Elimina 'usuarios', 'userdata' y 'usercredential'.
+   */
+  async clearSpecificKeys() {
+    if (!this._storage) {
+      await this.init();
+    }
+
+    // Eliminar claves específicas
+    await this.removeItem('usuarios');
+    await this.removeItem('userdata');
+    await this.removeItem('usercredentials');
+
+    console.log('Usuarios, userdata y usercredentials han sido eliminados.');
+  }
 }
