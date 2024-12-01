@@ -35,7 +35,8 @@
         class="rut-input"
         label="RUT" 
         labelPlacement="floating"
-        [(ngModel)]="rut">
+        [(ngModel)]="rut"
+        (ngModelChange)="formatRUT($event)">
       </ion-input>
     </ion-item>
 
@@ -72,7 +73,8 @@
         class="telefono-input"
         label="Teléfono" 
         labelPlacement="floating"
-        [(ngModel)]="telefono">
+        [(ngModel)]="telefono"
+        (ngModelChange)="formatPhone($event)">
       </ion-input>
     </ion-item>
     
