@@ -172,8 +172,7 @@ export class FormaViajePage implements OnInit {
       destino: this.destino,
       origenCoords: this.origenCoords,
       destinoCoords: this.destinoCoords,
-      nombre: usuario.nombre, // Mover nombre del usuario aquí
-      apellido: usuario.apellido,
+      username: usuario.username, // Mover nombre del usuario aquí
       conductor: {
         ...this.conductorData, // Incorporar datos del conductor
       },

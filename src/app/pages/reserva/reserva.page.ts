@@ -29,9 +29,16 @@ export class ReservaPage implements OnInit {
   }
 
   seleccionarViaje(viaje: any) {
-    this.viajeSeleccionado = viaje;
-    this.cantidadPasajeros = 1;
+    if (this.viajeSeleccionado === viaje) {
+      // Si el mismo viaje ya está seleccionado, alternar visibilidad
+      this.viajeSeleccionado = null;
+    } else {
+      // Si es un nuevo viaje, seleccionarlo y mostrar detalles
+      this.viajeSeleccionado = viaje;
+      this.cantidadPasajeros = 1;
+    }
   }
+  
 
   incrementarPasajeros() {
     if (this.cantidadPasajeros < 4) {

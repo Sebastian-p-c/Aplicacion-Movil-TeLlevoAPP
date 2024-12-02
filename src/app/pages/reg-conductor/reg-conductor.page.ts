@@ -10,6 +10,9 @@ import { StorageService } from 'src/services/storage.service';
 })
 export class RegConductorPage {
   // Variables del formulario
+  nombre: string = '';
+  apellido: string = '';
+  telefono: string = ''; // Inicializado correctamente
   matricula: string = '';
   modeloVehiculo: string = '';
   colorVehiculo: string = '';
@@ -17,6 +20,7 @@ export class RegConductorPage {
   selectedBanco: string = '';
   selectedTipoCuenta: string = '';
   currentUserId: number | null = null; // Almacenar el ID del usuario logueado
+
 
   constructor(
     private alertController: AlertController,
@@ -49,9 +53,12 @@ export class RegConductorPage {
   async cargarDatosConductor() {
     const usuarios = await this.storageService.getItem('usuarios') || [];
     const usuario = usuarios.find((user: any) => user.id === this.currentUserId);
-
+  
     if (usuario && usuario.datosConductor) {
       const datosConductor = usuario.datosConductor;
+      this.nombre = datosConductor.nombre || ''; // Cargar nombre
+      this.apellido = datosConductor.apellido || ''; // Cargar apellido
+      this.telefono = datosConductor.telefono || 0; // Cargar teléfono
       this.matricula = datosConductor.matricula || '';
       this.modeloVehiculo = datosConductor.modeloVehiculo || '';
       this.colorVehiculo = datosConductor.colorVehiculo || '';
@@ -60,6 +67,8 @@ export class RegConductorPage {
       this.numeroCuenta = datosConductor.numeroCuenta || '';
     }
   }
+  
+  
 
   // Método que se ejecuta al cerrar el modal
   onDidDismiss(event: any, field: string) {
@@ -82,7 +91,7 @@ export class RegConductorPage {
   }
 
   async generarDatos() {
-    if (!this.matricula || !this.selectedBanco || !this.selectedTipoCuenta || !this.numeroCuenta) {
+    if (!this.nombre || !this.apellido || !this.telefono || !this.matricula || !this.selectedBanco || !this.selectedTipoCuenta || !this.numeroCuenta) {
       const alert = await this.alertController.create({
         header: 'Error',
         message: 'Todos los campos son obligatorios.',
@@ -110,6 +119,9 @@ export class RegConductorPage {
   
     // Actualizar los datos del conductor
     usuario.datosConductor = {
+      nombre: this.nombre, // Agregar nombre
+      apellido: this.apellido, // Agregar apellido
+      telefono: this.telefono, // Agregar teléfono
       matricula: this.matricula,
       modeloVehiculo: this.modeloVehiculo,
       colorVehiculo: this.colorVehiculo,

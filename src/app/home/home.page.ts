@@ -48,6 +48,9 @@ export class HomePage implements OnInit {
 
       this.usercredentials = await this.storageService.getItem('usercredentials');
       console.log('Usercredentials:', this.usercredentials);
+
+      const usuarios = await this.storageService.getItem('usuarios');
+      console.log('Usuarios:', usuarios); // Verifica la estructura aquí
     } catch (error) {
       console.error('Error cargando los datos del almacenamiento:', error);
     }
@@ -86,7 +89,7 @@ export class HomePage implements OnInit {
 
       if (usuarios && Array.isArray(usuarios)) {
         const usuarioEncontrado = usuarios.find(
-          (user: any) => user.nombre === this.username && user.password === this.password
+          (user: any) => user.username === this.username && user.password === this.password
         );
 
         if (usuarioEncontrado) {
@@ -97,7 +100,7 @@ export class HomePage implements OnInit {
           // Navegar con datos adicionales
           const extras: NavigationExtras = {
             state: {
-              nombre: usuarioEncontrado.nombre,
+              username: usuarioEncontrado.username,
               userdata: this.userdata || null,
               usercredentials: this.usercredentials || null,
             },

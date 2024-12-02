@@ -12,6 +12,20 @@
 <ion-content class="ion-register" [fullscreen]="true" keyboardScroll="false" style="padding-bottom: 100px;">
   <h4 class="ion-info">Información:</h4>
   <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Nombre del Conductor</ion-label>
+      <ion-input [(ngModel)]="nombre" name="nombre" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Apellido del Conductor</ion-label>
+      <ion-input [(ngModel)]="apellido" name="apellido" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Teléfono</ion-label>
+      <ion-input [(ngModel)]="telefono" name="telefono" type="tel" required></ion-input>
+    </ion-item>
 
     <ion-item>
       <ion-input

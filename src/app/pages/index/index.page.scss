@@ -13,6 +13,7 @@ ion-card img {
 width: 100%;
 height: auto;
 object-fit: contain;
+border-radius: 10px;
 }
 
 ion-card p {
@@ -37,4 +38,8 @@ font-size: 12px;
 
 ion-footer ion-icon {
     color: white;
+}
+
+.img-section{
+    padding-top: 250px;
 }
