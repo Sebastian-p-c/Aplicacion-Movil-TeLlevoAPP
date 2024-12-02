@@ -49,6 +49,28 @@ export class RegisterPage implements OnInit {
     }
   }
 
+  formatRUT(value: string): void {
+    // Eliminar cualquier carácter no numérico ni guión
+    const cleaned = value.replace(/[^\dkK]/g, '').toUpperCase();
+    
+    // Separar por puntos y guión según el formato chileno
+    const formatted = cleaned
+      .replace(/^(\d{1,2})(\d{3})(\d{3})([kK\d])$/, '$1.$2.$3-$4') // Caso completo
+      .replace(/^(\d{1,2})(\d{3})(\d{3})$/, '$1.$2.$3'); // Caso sin dígito verificador
+    
+    this.rut = formatted;
+  }
+  
+  formatPhone(value: string): void {
+    // Eliminar cualquier carácter no numérico
+    const cleaned = value.replace(/\D/g, '');
+    
+    // Formatear en el estilo "x xxxx xxxx"
+    const formatted = cleaned.replace(/^(\d{1})(\d{4})(\d{4})$/, '$1 $2 $3');
+    
+    this.telefono = formatted;
+  }
+
   // Métodos para la visibilidad de contraseñas
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
