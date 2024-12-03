@@ -21,27 +21,26 @@ export class ReservaPage implements OnInit {
 
   async ngOnInit() {
     this.viajes = await this.viajeService.obtenerViajes();
-  }
 
-  logout() {
-    console.log('Cerrar sesión');
-    this.router.navigate(['/home']);
+    // Inicializa pasajeros disponibles si no está definido
+    this.viajes.forEach((viaje) => {
+      if (!viaje.pasajerosDisponibles) {
+        viaje.pasajerosDisponibles = 4; // Máximo inicial
+      }
+    });
   }
 
   seleccionarViaje(viaje: any) {
     if (this.viajeSeleccionado === viaje) {
-      // Si el mismo viaje ya está seleccionado, alternar visibilidad
       this.viajeSeleccionado = null;
     } else {
-      // Si es un nuevo viaje, seleccionarlo y mostrar detalles
       this.viajeSeleccionado = viaje;
       this.cantidadPasajeros = 1;
     }
   }
-  
 
   incrementarPasajeros() {
-    if (this.cantidadPasajeros < 4) {
+    if (this.cantidadPasajeros < this.viajeSeleccionado.pasajerosDisponibles) {
       this.cantidadPasajeros++;
     }
   }
@@ -57,7 +56,20 @@ export class ReservaPage implements OnInit {
   }
 
   async confirmarViaje() {
+    if (this.viajeSeleccionado.pasajerosDisponibles < this.cantidadPasajeros) {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'No hay suficientes pasajeros disponibles para este viaje.',
+        buttons: ['OK'],
+      });
+      await alert.present();
+      return;
+    }
+
     const total = this.calcularTotal();
+    this.viajeSeleccionado.pasajerosDisponibles -= this.cantidadPasajeros; // Reducir los pasajeros disponibles
+    await this.viajeService.actualizarViaje(this.viajeSeleccionado); // Guardar los cambios
+
     const alert = await this.alertController.create({
       header: 'Confirmación de Viaje',
       message: `Se ha confirmado el viaje con un total de CLP ${total}`,

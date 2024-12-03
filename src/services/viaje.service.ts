@@ -35,6 +35,15 @@ export class ViajeService {
     const viajes = await this.storageService.getItem(this.viajesKey);
     return viajes ? viajes : []; 
   }
+
+  async actualizarViaje(viajeActualizado: any) {
+    const viajes = await this.obtenerViajes();
+    const index = viajes.findIndex((v: any) => v.id === viajeActualizado.id);
+    if (index !== -1) {
+      viajes[index] = viajeActualizado;
+      await this.storageService.setItem(this.viajesKey, viajes);
+    }
+  }
 }
 
 

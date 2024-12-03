@@ -1,7 +1,6 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar color="dark">
     <ion-title>UberDuoc</ion-title>
-
   </ion-toolbar>
 </ion-header>
 
@@ -13,7 +12,7 @@
   </ion-header>
   
   <ion-list>
-    <ion-item *ngFor="let viaje of viajes" (click)="seleccionarViaje(viaje)">
+    <ion-item *ngFor="let viaje of viajes" (click)="seleccionarViaje(viaje)" [disabled]="viaje.pasajerosDisponibles === 0">
       <ion-label>
         <h2 class="viaje-title">Conductor: {{ viaje.conductor.nombre }} {{ viaje.conductor.apellido }}</h2>
         <p class="viaje-detail">Vehículo: {{ viaje.conductor?.modeloVehiculo }} ({{ viaje.conductor?.colorVehiculo }})</p>
@@ -21,6 +20,7 @@
         <p class="viaje-detail">Origen: {{ viaje.origen }}</p>
         <p class="viaje-detail">Destino: {{ viaje.destino }}</p>
         <p class="viaje-detail">Precio por pasajero: <strong>CLP {{ viaje.precioPasajero }}</strong></p>
+        <p class="viaje-detail">Pasajeros disponibles: <strong>{{ viaje.pasajerosDisponibles }}</strong></p>
       </ion-label>
     </ion-item>
   </ion-list>
@@ -36,6 +36,7 @@
       <p><strong>Origen:</strong> {{ viajeSeleccionado.origen }}</p>
       <p><strong>Destino:</strong> {{ viajeSeleccionado.destino }}</p>
       <p><strong>Precio por pasajero:</strong> CLP {{ viajeSeleccionado.precioPasajero }}</p>
+      <p><strong>Pasajeros disponibles:</strong> {{ viajeSeleccionado.pasajerosDisponibles }}</p>
   
       <ion-item lines="none" class="passenger-item">
         <ion-label class="passenger-label">Cantidad de Pasajeros</ion-label>
@@ -47,11 +48,8 @@
           <ion-button (click)="incrementarPasajeros()" fill="outline" color="success" class="counter-button">
             <ion-icon name="add-outline"></ion-icon>
           </ion-button>
-          
         </div>
       </ion-item>      
-      
-
   
       <p class="total"><strong>Total:</strong> CLP {{ calcularTotal() }}</p>
       <ion-item class="input-item">
@@ -63,8 +61,6 @@
       <ion-button expand="block" color="primary" (click)="confirmarViaje()">Confirmar Viaje</ion-button>
     </ion-card-content>
   </ion-card>
-  
-
 </ion-content>
 
 <ion-footer>
