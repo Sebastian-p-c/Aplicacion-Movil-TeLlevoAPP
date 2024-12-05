@@ -15,7 +15,6 @@ export class RegisterPage implements OnInit {
   fechaNacimiento: string = '';
   fechaTemporal: string = '';
   mostrarCalendario: boolean = false;
-  telefono: string = '';
   correoRegistro: string = '';
   passwordRegistro: string = '';
   confirmPassword: string = '';
@@ -84,7 +83,6 @@ export class RegisterPage implements OnInit {
     return (
       this.username.trim() !== '' &&
       this.rut.trim() !== '' &&
-      this.telefono.trim() !== '' &&
       this.fechaNacimiento !== '' &&
       !this.emailInvalid &&
       !this.passwordMismatch &&
@@ -117,7 +115,6 @@ export class RegisterPage implements OnInit {
         id: lastUserId + 1, // Incrementar el ID
         username: this.username,
         rut: this.rut,
-        telefono: this.telefono,
         fechaNacimiento: this.fechaNacimiento,
         correoRegistro: this.correoRegistro,
         password: this.passwordRegistro,
@@ -165,7 +162,6 @@ export class RegisterPage implements OnInit {
       if (userData) {
         this.username = userData.username || '';
         this.rut = userData.rut || '';
-        this.telefono = userData.telefono || '';
         this.fechaNacimiento = userData.fechaNacimiento || '';
         this.correoRegistro = userData.correoRegistro || '';
         this.passwordRegistro = userData.password || '';
