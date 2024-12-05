@@ -1,8 +1,9 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar color="dark">
-    <ion-title>UberDuoc</ion-title>
+    <ion-title>ReservaDuoc</ion-title>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
@@ -10,76 +11,52 @@
       <ion-title size="large">Reserva</ion-title>
     </ion-toolbar>
   </ion-header>
-  
+
   <ion-list>
     <ion-item *ngFor="let viaje of viajes" (click)="seleccionarViaje(viaje)" [disabled]="viaje.pasajerosDisponibles === 0">
       <ion-label>
         <h2 class="viaje-title">Conductor: {{ viaje.conductor.nombre }} {{ viaje.conductor.apellido }}</h2>
-        <p class="viaje-detail">Vehículo: {{ viaje.conductor?.modeloVehiculo }} ({{ viaje.conductor?.colorVehiculo }})</p>
-        <p class="viaje-detail">Teléfono: {{ viaje.conductor.telefono }}</p>
         <p class="viaje-detail">Origen: {{ viaje.origen }}</p>
         <p class="viaje-detail">Destino: {{ viaje.destino }}</p>
-        <p class="viaje-detail">Precio por pasajero: <strong>CLP {{ viaje.precioPasajero }}</strong></p>
         <p class="viaje-detail">Pasajeros disponibles: <strong>{{ viaje.pasajerosDisponibles }}</strong></p>
       </ion-label>
     </ion-item>
   </ion-list>
-  
-  <ion-card *ngIf="viajeSeleccionado">
+
+  <ion-card *ngIf="viajeSeleccionado" class="detalle-viaje-card">
     <ion-card-header>
       <ion-card-title>Detalles del Viaje</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p><strong>Conductor:</strong> {{ viajeSeleccionado.conductor.nombre }} {{ viajeSeleccionado.conductor.apellido }}</p>
-      <p><strong>Vehículo:</strong> {{ viajeSeleccionado.conductor?.modeloVehiculo }} ({{ viajeSeleccionado.conductor?.colorVehiculo }})</p>
-      <p><strong>Teléfono:</strong> {{ viajeSeleccionado.conductor.telefono }}</p>
+      <p><strong>Conductor:</strong> {{ viajeSeleccionado.conductor.nombre }}</p>
       <p><strong>Origen:</strong> {{ viajeSeleccionado.origen }}</p>
       <p><strong>Destino:</strong> {{ viajeSeleccionado.destino }}</p>
-      <p><strong>Precio por pasajero:</strong> CLP {{ viajeSeleccionado.precioPasajero }}</p>
-      <p><strong>Pasajeros disponibles:</strong> {{ viajeSeleccionado.pasajerosDisponibles }}</p>
-  
+
       <ion-item lines="none" class="passenger-item">
         <ion-label class="passenger-label">Cantidad de Pasajeros</ion-label>
         <div class="counter-container">
           <ion-button (click)="decrementarPasajeros()" fill="outline" color="danger" class="counter-button">
             <ion-icon name="remove-outline"></ion-icon>
           </ion-button>
-          <ion-input [(ngModel)]="cantidadPasajeros" type="number" min="1" readonly class="passenger-input"></ion-input>
+          <div class="passenger-count">{{ cantidadPasajeros }}</div>
           <ion-button (click)="incrementarPasajeros()" fill="outline" color="success" class="counter-button">
             <ion-icon name="add-outline"></ion-icon>
           </ion-button>
         </div>
-      </ion-item>      
-  
-      <p class="total"><strong>Total:</strong> CLP {{ calcularTotal() }}</p>
-      <ion-item class="input-item">
-        <ion-input
-          [(ngModel)]="paradaAdicional"
-          label="Desea marcar una parada?"
-          labelPlacement="floating"
-          placeholder="Ingrese la dirección de la parada"
-        ></ion-input>
       </ion-item>
-      <ion-button expand="block" color="primary" (click)="confirmarViaje()">Confirmar Viaje</ion-button>
+
+      <p class="total"><strong>Total:</strong> CLP {{ calcularTotal() }}</p>
+
+      <ion-item class="input-item parada-item">
+        <ion-label position="stacked">¿Desea marcar una parada?</ion-label>
+      </ion-item>
+
+      <!-- Contenedor para el mapa -->
+      <div id="map" style="height: 300px; margin: 10px 0;"></div>
+
+      <ion-button expand="block" color="primary" (click)="confirmarViaje()" class="confirmar-viaje-button">
+        Confirmar Viaje
+      </ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar color="dark">
-    <ion-grid>
-      <ion-row class="ion-justify-content-center">
-        <ion-col class="ion-text-center" size="auto">
-          <ion-button fill="clear" color="light" [routerLink]="['/index']">
-            <ion-icon name="home-outline" size="large"></ion-icon>
-          </ion-button>
-        </ion-col>
-        <ion-col class="ion-text-center" size="auto">
-          <ion-button fill="clear" color="light" [routerLink]="['/...']">
-            <ion-icon name="settings-outline" size="large"></ion-icon>
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-toolbar>
-</ion-footer>

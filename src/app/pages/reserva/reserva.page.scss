@@ -1,79 +1,50 @@
-/* General */
-ion-content {
-    --background: #f9f9f9; /* Fondo claro */
-    border-radius: 20px;
-  }
-  
-  /* Lista de viajes */
-  .viaje-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333;
-  }
-  
-  .viaje-detail {
-    font-size: 0.9rem;
-    color: #555;
-    margin: 2px 0;
-  }
-  
-  /* Contador */
-  .passenger-item {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 0;
-  }
-  
-  .passenger-label {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #555;
-    margin-bottom: 8px;
-  }
-  
-  .counter-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .counter-button {
-    --padding-start: 8px;
-    --padding-end: 8px;
-    --padding-top: 5px;
-    --padding-bottom: 5px;
-    font-size: 0.8rem;
-  }
-  
-  .passenger-input {
-    text-align: center;
-    font-size: 0.9rem;
-    font-weight: bold;
-    min-width: 50px;
-    border: none;
-    background-color: transparent;
-    color: #333;
-  }
-  
-  /* Total */
-  .total {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #333;
-    margin-top: 15px;
-  }
-  
-  /* Footer */
-  ion-footer {
-    --background: #333; /* Fondo oscuro */
-    --color: #fff; /* Texto claro */
-  }
-  
-  ion-button {
-    padding-top: 20px;
-    --color: #fff;
-  }
-  
+#map {
+  width: 100%;
+  height: 300px;
+  margin: 10px 0;
+  background-color: #f0f0f0; /* Para verificar el contenedor */
+}
+
+.detalle-viaje-card {
+  margin-top: 15px;
+  padding: 10px;
+}
+
+.passenger-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.counter-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.counter-button {
+  --border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.passenger-count {
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+  min-width: 40px;
+}
+
+.parada-item {
+  margin-top: 20px;
+}
+
+.confirmar-viaje-button {
+  margin-top: 20px;
+  font-size: 1rem;
+  font-weight: bold;
+}

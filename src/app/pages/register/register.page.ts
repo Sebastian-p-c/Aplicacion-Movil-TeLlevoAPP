@@ -9,7 +9,6 @@ import { StorageService } from 'src/services/storage.service';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  // Campos del formulario de registro
   username: string = '';
   rut: string = '';
   fechaNacimiento: string = '';
@@ -32,7 +31,6 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {}
 
-  // Métodos para el manejo del calendario
   openCalendar() {
     this.mostrarCalendario = true;
   }
@@ -50,27 +48,23 @@ export class RegisterPage implements OnInit {
   }
 
   formatRUT(value: string): void {
-    // Eliminar cualquier carácter no numérico ni guión
     const cleaned = value.replace(/[^\dkK]/g, '').toUpperCase();
-    
-    // Separar por puntos y guión según el formato chileno
+    if (!cleaned) return;
+
     const formatted = cleaned
-      .replace(/^(\d{1,2})(\d{3})(\d{3})([kK\d])$/, '$1.$2.$3-$4') // Caso completo
-      .replace(/^(\d{1,2})(\d{3})(\d{3})$/, '$1.$2.$3'); // Caso sin dígito verificador
-    
+      .replace(/^(\d{1,2})(\d{3})(\d{3})([kK\d])$/, '$1.$2.$3-$4')
+      .replace(/^(\d{1,2})(\d{3})(\d{3})$/, '$1.$2.$3');
     this.rut = formatted;
   }
 
-  // Métodos para la visibilidad de contraseñas
-  togglePasswordVisibility() {
+  togglePasswordVisibility(): void {
     this.passwordVisible = !this.passwordVisible;
   }
 
-  toggleConfirmPasswordVisibility() {
+  toggleConfirmPasswordVisibility(): void {
     this.confirmPasswordVisible = !this.confirmPasswordVisible;
   }
 
-  // Validaciones del formulario
   validatePasswords() {
     this.passwordMismatch = this.passwordRegistro !== this.confirmPassword;
   }
@@ -84,7 +78,6 @@ export class RegisterPage implements OnInit {
     return (
       this.username.trim() !== '' &&
       this.rut.trim() !== '' &&
-      this.telefono.trim() !== '' &&
       this.fechaNacimiento !== '' &&
       !this.emailInvalid &&
       !this.passwordMismatch &&
@@ -93,13 +86,11 @@ export class RegisterPage implements OnInit {
     );
   }
 
-  // Crear una nueva cuenta de usuario
   async crearCuenta() {
     if (this.isFormValid()) {
       const usuarios = (await this.storageService.getItem('usuarios')) || [];
-      const lastUserId = (await this.storageService.getItem('lastUserId')) || 0; // Obtener el último ID generado
+      const lastUserId = (await this.storageService.getItem('lastUserId')) || 0;
 
-      // Verificar si el RUT ya existe
       const existingUser = usuarios.find((user: any) => user.rut === this.rut);
 
       if (existingUser) {
@@ -112,9 +103,8 @@ export class RegisterPage implements OnInit {
         return;
       }
 
-      // Crear un nuevo usuario con un ID único
       const nuevoUsuario = {
-        id: lastUserId + 1, // Incrementar el ID
+        id: lastUserId + 1,
         username: this.username,
         rut: this.rut,
         telefono: this.telefono,
@@ -125,7 +115,6 @@ export class RegisterPage implements OnInit {
 
       usuarios.push(nuevoUsuario);
 
-      // Actualizar el último ID y guardar los usuarios
       await this.storageService.setItem('lastUserId', nuevoUsuario.id);
       await this.storageService.setItem('usuarios', usuarios);
       await this.storageService.setItem('currentUserId', nuevoUsuario.id);
@@ -138,9 +127,7 @@ export class RegisterPage implements OnInit {
             text: 'OK',
             handler: () => {
               const navigationExtras: NavigationExtras = {
-                state: {
-                  id: nuevoUsuario.id, // Navegar utilizando el ID
-                },
+                state: { id: nuevoUsuario.id },
               };
               this.router.navigate(['/elegusuario'], navigationExtras);
             },
@@ -150,16 +137,22 @@ export class RegisterPage implements OnInit {
       });
 
       await alert.present();
+    } else {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Por favor, complete todos los campos correctamente.',
+        buttons: ['OK'],
+      });
+      await alert.present();
     }
   }
+
   goBack() {
-    window.history.back(); // Navegar a la página anterior
+    this.router.navigate(['../']);
   }
-  
-  // Método para cargar datos del usuario según el ID
+
   async cargarDatos(id: number) {
     const usuarios = await this.storageService.getItem('usuarios');
-
     if (usuarios) {
       const userData = usuarios.find((user: any) => user.id === id);
       if (userData) {
