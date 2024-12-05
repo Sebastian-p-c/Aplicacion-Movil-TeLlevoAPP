@@ -16,11 +16,12 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 })
 export class FormaViajePage implements OnInit {
   // Datos del formulario
-  origen: string = '';
   destino: string = '';
   suggestions: any[] = [];
   countrycode: string = '';
-  origenCoords: { lat: number; lon: number } = { lat: 0, lon: 0 };
+  origenCoords: { lat: number; lon: number } = { lat: -33.500097324442905, lon: -70.61728424227813 };
+  origen: string = 'Duoc UC San Joaquín, Santiago, Chile'; 
+  
   destinoCoords: { lat: number; lon: number } = { lat: 0, lon: 0 };
 
   cantidad: number = 0;
@@ -71,41 +72,11 @@ export class FormaViajePage implements OnInit {
   }
 
   async obtenerUbicacionActual() {
-    const loading = await this.loadingController.create({
-      message: 'Obteniendo ubicación...',
-      spinner: 'crescent',
-    });
-    await loading.present();
-    try {
-      const ubicacion = await Geolocation.getCurrentPosition();
-      const lat = ubicacion.coords.latitude;
-      const lon = ubicacion.coords.longitude;
-
-      this.origenCoords = { lat, lon };
-      this.http.get(`https://nominatim.openstreetmap.org/reverse`, {
-        params: {
-          lat: lat.toString(),
-          lon: lon.toString(),
-          format: 'json',
-        },
-      }).subscribe((response: any) => {
-        const address = response.address;
-        const shortAddress = `${address.road || ''} ${address.house_number || ''}, ${address.city || ''}`.trim();
-        this.origen = shortAddress;
-        this.countrycode = address.country_code ? address.country_code.toUpperCase() : '';
-        this.mostrarToast(`Ubicación actual: ${shortAddress}`);
-        loading.dismiss();
-      }, error => {
-        console.error('Error al obtener la dirección:', error);
-        this.mostrarToast('No se pudo obtener la dirección actual.');
-        loading.dismiss();
-      });
-    } catch (error) {
-      console.error('Error al obtener la ubicación:', error);
-      this.mostrarToast('No se pudo obtener la ubicación.');
-      loading.dismiss();
-    }
+    this.origenCoords = { lat: -33.500097324442905, lon: -70.61728424227813 }; 
+    this.origen = 'Duoc UC San Joaquín, Santiago, Chile'; 
+    this.mostrarToast('El origen se ha establecido como Duoc UC San Joaquín.');
   }
+  
 
   setupSearchSubscription() {
     this.searchSubject.pipe(
