@@ -28,6 +28,16 @@ export class RegConductorPage {
     private storageService: StorageService
   ) {}
 
+  formatPhone(value: string): void {
+    // Eliminar cualquier carácter no numérico
+    const cleaned = value.replace(/\D/g, '');
+    
+    // Formatear en el estilo "x xxxx xxxx"
+    const formatted = cleaned.replace(/^(\d{1})(\d{4})(\d{4})$/, '$1 $2 $3');
+    
+    this.telefono = formatted;
+  }
+
   async ngOnInit() {
     // Recuperar el ID del usuario logueado desde el almacenamiento
     this.currentUserId = await this.storageService.getItem('currentUserId');

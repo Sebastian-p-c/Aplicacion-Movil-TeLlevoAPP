@@ -60,16 +60,6 @@ export class RegisterPage implements OnInit {
     
     this.rut = formatted;
   }
-  
-  formatPhone(value: string): void {
-    // Eliminar cualquier carácter no numérico
-    const cleaned = value.replace(/\D/g, '');
-    
-    // Formatear en el estilo "x xxxx xxxx"
-    const formatted = cleaned.replace(/^(\d{1})(\d{4})(\d{4})$/, '$1 $2 $3');
-    
-    this.telefono = formatted;
-  }
 
   // Métodos para la visibilidad de contraseñas
   togglePasswordVisibility() {

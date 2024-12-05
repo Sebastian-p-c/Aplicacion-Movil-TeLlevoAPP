@@ -66,17 +66,6 @@
     <ion-button expand="block" (click)="applyDate()" *ngIf="mostrarCalendario" class="apply-button">
       Aplicar
     </ion-button>
-
-    <!-- teléfono -->
-    <ion-item>
-      <ion-input 
-        class="telefono-input"
-        label="Teléfono" 
-        labelPlacement="floating"
-        [(ngModel)]="telefono"
-        (ngModelChange)="formatPhone($event)">
-      </ion-input>
-    </ion-item>
     
     <!-- Correo Electrónico -->
     <ion-item>

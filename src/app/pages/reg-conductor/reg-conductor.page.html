@@ -24,7 +24,7 @@
 
     <ion-item>
       <ion-label position="stacked">Teléfono</ion-label>
-      <ion-input [(ngModel)]="telefono" name="telefono" type="tel" required></ion-input>
+      <ion-input [(ngModel)]="telefono" name="telefono" type="tel" required (ngModelChange)="formatPhone($event)">></ion-input>
     </ion-item>
 
     <ion-item>
