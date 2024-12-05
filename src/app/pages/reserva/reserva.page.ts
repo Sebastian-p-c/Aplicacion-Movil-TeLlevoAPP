@@ -15,15 +15,28 @@ export class ReservaPage implements OnInit {
   viajeSeleccionado: any = null;
   cantidadPasajeros: number = 1;
   paradaAdicional: string = '';
-  map: any; // Referencia al mapa
-  paradaCoords: { lat: number; lon: number } | null = null; // Coordenadas de la parada
-  rutaPolyline: any; // Referencia a la línea de la ruta
+  map: any; 
+  paradaCoords: { lat: number; lon: number } | null = null; 
+  rutaPolyline: any; 
+  paradaMarker: any = null; 
 
-  // Definir ícono personalizado
-  customIcon = L.icon({
-    iconUrl: 'assets/img/origin-icon.png', // Ruta a tu imagen
-    iconSize: [30, 30], // Tamaño del ícono en píxeles
-    iconAnchor: [15, 30], // Punto de anclaje (base del ícono en la posición del marcador)
+  
+  origenIcon = L.icon({
+    iconUrl: 'assets/img/origin-icon.png', 
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+  });
+
+  destinoIcon = L.icon({
+    iconUrl: 'assets/img/destination-icon.png', 
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+  });
+
+  paradaIcon = L.icon({
+    iconUrl: 'assets/img/stop-icon.png', 
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
   });
 
   constructor(
@@ -38,7 +51,7 @@ export class ReservaPage implements OnInit {
 
     this.viajes.forEach((viaje) => {
       if (!viaje.pasajerosDisponibles) {
-        viaje.pasajerosDisponibles = 4; // Máximo inicial
+        viaje.pasajerosDisponibles = 4; 
       }
     });
   }
@@ -56,37 +69,35 @@ export class ReservaPage implements OnInit {
   cargarMapa(origenCoords: any, destinoCoords: any) {
     setTimeout(() => {
       if (this.map) {
-        this.map.remove(); // Elimina el mapa anterior si existe
+        this.map.remove(); 
       }
 
-      // Verifica que las coordenadas sean válidas
+      
       if (!origenCoords || !destinoCoords) {
         console.error('Coordenadas inválidas para el origen o destino');
         return;
       }
 
-      // Inicializar el mapa
+      
       this.map = L.map('map').setView([origenCoords.lat, origenCoords.lon], 13);
 
-      // Cargar mosaicos de OpenStreetMap
+      
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
         attribution: '© OpenStreetMap contributors',
       }).addTo(this.map);
 
-      // Marcar origen y destino con ícono personalizado
-      const origenMarker = L.marker([origenCoords.lat, origenCoords.lon], { icon: this.customIcon })
+      L.marker([origenCoords.lat, origenCoords.lon], { icon: this.origenIcon })
         .addTo(this.map)
         .bindPopup('Origen')
         .openPopup();
 
-      const destinoMarker = L.marker([destinoCoords.lat, destinoCoords.lon], { icon: this.customIcon })
+      L.marker([destinoCoords.lat, destinoCoords.lon], { icon: this.destinoIcon })
         .addTo(this.map)
         .bindPopup('Destino');
 
-      // Solicitar la ruta desde OSRM
       this.obtenerRuta(origenCoords, destinoCoords);
-    }, 300); // Espera un momento para que el contenedor se cargue
+    }, 300);
   }
 
   obtenerRuta(origenCoords: any, destinoCoords: any) {
@@ -96,16 +107,16 @@ export class ReservaPage implements OnInit {
       (response: any) => {
         const coords = response.routes[0].geometry.coordinates;
 
-        // Convertir coordenadas de [lon, lat] a [lat, lon]
+        
         const route = coords.map((point: any) => [point[1], point[0]]);
 
-        // Dibujar la ruta en el mapa
+        
         this.rutaPolyline = L.polyline(route, { color: 'blue', weight: 5 }).addTo(this.map);
 
-        // Ajustar el mapa a la ruta
+  
         this.map.fitBounds(this.rutaPolyline.getBounds());
 
-        // Habilitar clics para asignar parada
+      
         this.habilitarClickParaParada();
       },
       (error) => {
@@ -118,7 +129,7 @@ export class ReservaPage implements OnInit {
     this.map.on('click', (e: any) => {
       const { lat, lng } = e.latlng;
 
-      // Verificar si el punto está cerca de la ruta
+      
       const punto = L.latLng(lat, lng);
       const distancia = this.rutaPolyline.getLatLngs().reduce((minDist: number, rutaPunto: any) => {
         const rutaLatLng = L.latLng(rutaPunto.lat, rutaPunto.lng);
@@ -126,16 +137,21 @@ export class ReservaPage implements OnInit {
         return Math.min(minDist, dist);
       }, Infinity);
 
-      // Si el punto está cerca de la ruta (por ejemplo, menos de 50 metros), permitir marcar la parada
+      
       if (distancia < 50) {
         this.paradaCoords = { lat, lon: lng };
         this.paradaAdicional = `Parada en: ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
 
-        // Agregar marcador en la parada seleccionada con ícono personalizado
-        L.marker([lat, lng], { icon: this.customIcon })
-          .addTo(this.map)
-          .bindPopup('Parada seleccionada')
-          .openPopup();
+        
+        if (this.paradaMarker) {
+          this.paradaMarker.setLatLng([lat, lng]).bindPopup('Parada seleccionada').openPopup();
+        } else {
+    
+          this.paradaMarker = L.marker([lat, lng], { icon: this.paradaIcon })
+            .addTo(this.map)
+            .bindPopup('Parada seleccionada')
+            .openPopup();
+        }
       } else {
         alert('Por favor, selecciona un punto más cercano a la ruta.');
       }
@@ -193,5 +209,6 @@ export class ReservaPage implements OnInit {
 
     this.viajeSeleccionado = null;
     this.paradaAdicional = '';
+    this.paradaMarker = null; 
   }
 }
