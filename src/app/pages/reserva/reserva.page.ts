@@ -19,6 +19,13 @@ export class ReservaPage implements OnInit {
   paradaCoords: { lat: number; lon: number } | null = null; // Coordenadas de la parada
   rutaPolyline: any; // Referencia a la línea de la ruta
 
+  // Definir ícono personalizado
+  customIcon = L.icon({
+    iconUrl: 'assets/img/origin-icon.png', // Ruta a tu imagen
+    iconSize: [30, 30], // Tamaño del ícono en píxeles
+    iconAnchor: [15, 30], // Punto de anclaje (base del ícono en la posición del marcador)
+  });
+
   constructor(
     private router: Router,
     private viajeService: ViajeService,
@@ -67,9 +74,15 @@ export class ReservaPage implements OnInit {
         attribution: '© OpenStreetMap contributors',
       }).addTo(this.map);
 
-      // Marcar origen y destino
-      const origenMarker = L.marker([origenCoords.lat, origenCoords.lon]).addTo(this.map).bindPopup('Origen').openPopup();
-      const destinoMarker = L.marker([destinoCoords.lat, destinoCoords.lon]).addTo(this.map).bindPopup('Destino');
+      // Marcar origen y destino con ícono personalizado
+      const origenMarker = L.marker([origenCoords.lat, origenCoords.lon], { icon: this.customIcon })
+        .addTo(this.map)
+        .bindPopup('Origen')
+        .openPopup();
+
+      const destinoMarker = L.marker([destinoCoords.lat, destinoCoords.lon], { icon: this.customIcon })
+        .addTo(this.map)
+        .bindPopup('Destino');
 
       // Solicitar la ruta desde OSRM
       this.obtenerRuta(origenCoords, destinoCoords);
@@ -118,8 +131,8 @@ export class ReservaPage implements OnInit {
         this.paradaCoords = { lat, lon: lng };
         this.paradaAdicional = `Parada en: ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
 
-        // Agregar marcador en la parada seleccionada
-        L.marker([lat, lng])
+        // Agregar marcador en la parada seleccionada con ícono personalizado
+        L.marker([lat, lng], { icon: this.customIcon })
           .addTo(this.map)
           .bindPopup('Parada seleccionada')
           .openPopup();
