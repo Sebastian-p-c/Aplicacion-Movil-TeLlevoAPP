@@ -12,6 +12,8 @@ export class ReservaPage implements OnInit {
   viajes: any[] = [];
   viajeSeleccionado: any = null;
   cantidadPasajeros: number = 1;
+  paradaAdicional: string = '';
+
 
   constructor(
     private router: Router,
@@ -65,17 +67,30 @@ export class ReservaPage implements OnInit {
       await alert.present();
       return;
     }
-
+  
     const total = this.calcularTotal();
     this.viajeSeleccionado.pasajerosDisponibles -= this.cantidadPasajeros; // Reducir los pasajeros disponibles
-    await this.viajeService.actualizarViaje(this.viajeSeleccionado); // Guardar los cambios
-
+  
+    // Validar si se ingresó una parada adicional
+    const parada = this.paradaAdicional?.trim();
+    if (parada) {
+      this.viajeSeleccionado.paradaAdicional = parada; // Almacena la parada adicional en el viaje seleccionado
+    }
+  
+    await this.viajeService.actualizarViaje(this.viajeSeleccionado); // Guardar los cambios en el servicio
+  
     const alert = await this.alertController.create({
       header: 'Confirmación de Viaje',
-      message: `Se ha confirmado el viaje con un total de CLP ${total}`,
+      message: `Se ha confirmado el viaje con un total de CLP ${total}${
+        parada ? `, incluyendo una parada en: ${parada}` : ''
+      }`,
       buttons: ['OK'],
     });
     await alert.present();
+  
+    // Reiniciar variables
     this.viajeSeleccionado = null;
+    this.paradaAdicional = '';
   }
+  
 }

@@ -54,9 +54,11 @@
       <p class="total"><strong>Total:</strong> CLP {{ calcularTotal() }}</p>
       <ion-item class="input-item">
         <ion-input
+          [(ngModel)]="paradaAdicional"
           label="Desea marcar una parada?"
-          labelPlacement="floating">
-        </ion-input>
+          labelPlacement="floating"
+          placeholder="Ingrese la dirección de la parada"
+        ></ion-input>
       </ion-item>
       <ion-button expand="block" color="primary" (click)="confirmarViaje()">Confirmar Viaje</ion-button>
     </ion-card-content>
