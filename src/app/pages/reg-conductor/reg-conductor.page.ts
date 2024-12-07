@@ -142,7 +142,7 @@ export class RegConductorPage {
   
     // Guardar los usuarios actualizados en el Storage
     await this.storageService.setItem('usuarios', usuarios);
-  
+
     const alert = await this.alertController.create({
       header: 'Éxito',
       message: 'Datos del conductor registrados correctamente.',
