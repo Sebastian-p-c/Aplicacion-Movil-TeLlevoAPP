@@ -21,13 +21,33 @@ export class ConductorPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.currentUserId = await this.storageService.getItem('currentUserId');
+    const usuarios = await this.storageService.getItem('usuarios') || [];
+    const currentUserId = await this.storageService.getItem('currentUserId');
+    const usuario = usuarios.find((user: any) => user.id === currentUserId);
 
-    if (this.currentUserId !== null) {
-      const usuarios = await this.storageService.getItem('usuarios') || [];
-      const usuario = usuarios.find((user: any) => user.id === this.currentUserId);
+    if (usuario) {
       this.datosConductorCompletos = !!usuario?.datosConductor;
+
+      if (!this.esMayorDeEdad(usuario.fechaNacimiento)) {
+        const alert = await this.alertController.create({
+          header: 'Acceso Denegado',
+          message: 'Debes tener al menos 18 años para registrarte como conductor.',
+          buttons: ['OK'],
+        });
+        await alert.present();
+        this.router.navigate(['/elegusuario']);
+      }
     }
+  }
+
+  esMayorDeEdad(fechaNacimiento: string): boolean {
+    const fechaNac = new Date(fechaNacimiento);
+    const hoy = new Date();
+    const edad = hoy.getFullYear() - fechaNac.getFullYear();
+    const mes = hoy.getMonth() - fechaNac.getMonth();
+    const dia = hoy.getDate() - fechaNac.getDate();
+  
+    return edad > 18 || (edad === 18 && (mes > 0 || (mes === 0 && dia >= 0)));
   }
 
   selectCard(card: string) {

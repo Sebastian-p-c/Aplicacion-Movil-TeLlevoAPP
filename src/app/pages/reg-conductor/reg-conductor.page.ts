@@ -29,13 +29,16 @@ export class RegConductorPage {
   ) {}
 
   formatPhone(value: string): void {
-    // Eliminar cualquier carácter no numérico
     const cleaned = value.replace(/\D/g, '');
-    
-    // Formatear en el estilo "x xxxx xxxx"
+    const limited = cleaned.substring(0, 9);
     const formatted = cleaned.replace(/^(\d{1})(\d{4})(\d{4})$/, '$1 $2 $3');
-    
     this.telefono = formatted;
+  }
+
+  formatPatente(value: string): void {
+    const cleaned = value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+    const formatted = cleaned.replace(/^([A-Z]{2})([A-Z]{2})(\d{2})$/, '$1-$2-$3');
+    this.matricula = formatted;
   }
 
   async ngOnInit() {

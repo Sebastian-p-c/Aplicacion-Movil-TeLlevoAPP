@@ -14,30 +14,47 @@
   <ion-list>
     <ion-item>
       <ion-label position="stacked">Nombre del Conductor</ion-label>
-      <ion-input [(ngModel)]="nombre" name="nombre" required></ion-input>
+      <ion-input 
+        [(ngModel)]="nombre" 
+        name="nombre" 
+        required>
+      </ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Apellido del Conductor</ion-label>
-      <ion-input [(ngModel)]="apellido" name="apellido" required></ion-input>
+      <ion-input 
+        [(ngModel)]="apellido" 
+        name="apellido" 
+        required>
+      </ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Teléfono</ion-label>
-      <ion-input [(ngModel)]="telefono" name="telefono" type="tel" required (ngModelChange)="formatPhone($event)">></ion-input>
+      <ion-input 
+        [(ngModel)]="telefono" 
+        name="telefono" 
+        type="tel" 
+        required 
+        maxlength="9" 
+        (ngModelChange)="formatPhone($event)"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-input
-        label="Matrícula (Patente)"
+        label="Matrícula (Patente sin guiones)"
         labelPlacement="floating"
-        [(ngModel)]="matricula">
+        [(ngModel)]="matricula"
+        required
+        maxlength="8" 
+        (ngModelChange)="formatPatente($event)">
       </ion-input>
     </ion-item>
 
     <ion-item>
       <ion-input
-        label="Modelo del Vehículo"
+        label="Marca del Vehículo"
         labelPlacement="floating"
         [(ngModel)]="modeloVehiculo">
       </ion-input>

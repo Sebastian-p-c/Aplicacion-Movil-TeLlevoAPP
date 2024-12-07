@@ -36,6 +36,7 @@
         label="RUT" 
         labelPlacement="floating"
         [(ngModel)]="rut"
+        maxlength="12"
         (ngModelChange)="formatRUT($event)">
       </ion-input>
     </ion-item>
