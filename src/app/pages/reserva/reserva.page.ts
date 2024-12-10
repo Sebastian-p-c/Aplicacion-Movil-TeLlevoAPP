@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class ReservaPage implements OnInit {
   viajes: any[] = [];
   viajeSeleccionado: any = null;
-  cantidadPasajeros: number = 1;
+  cantidadPasajeros: number = 0;
   paradaAdicional: string = '';
   map: any; 
   paradaCoords: { lat: number; lon: number } | null = null; 
@@ -59,9 +59,10 @@ export class ReservaPage implements OnInit {
   seleccionarViaje(viaje: any) {
     if (this.viajeSeleccionado === viaje) {
       this.viajeSeleccionado = null;
+      this.cantidadPasajeros = 0;
     } else {
       this.viajeSeleccionado = viaje;
-      this.cantidadPasajeros = 1;
+      this.cantidadPasajeros = 0;
       this.cargarMapa(viaje.origenCoords, viaje.destinoCoords); // Cargar el mapa con la ruta
     }
   }
@@ -159,19 +160,19 @@ export class ReservaPage implements OnInit {
   }
 
   incrementarPasajeros() {
-    if (this.cantidadPasajeros < this.viajeSeleccionado.pasajerosDisponibles) {
+    if (this.cantidadPasajeros < 3) {
       this.cantidadPasajeros++;
     }
   }
-
+  
   decrementarPasajeros() {
-    if (this.cantidadPasajeros > 1) {
+    if (this.cantidadPasajeros > 0) {
       this.cantidadPasajeros--;
     }
   }
-
+  
   calcularTotal(): number {
-    return this.viajeSeleccionado.precioPasajero * this.cantidadPasajeros;
+    return this.viajeSeleccionado.precioPasajero * (this.cantidadPasajeros + 1);
   }
 
   async confirmarViaje() {
@@ -186,6 +187,7 @@ export class ReservaPage implements OnInit {
     }
 
     const total = this.calcularTotal();
+    this.viajeSeleccionado.pasajerosDisponibles -= 1;
     this.viajeSeleccionado.pasajerosDisponibles -= this.cantidadPasajeros;
 
     const parada = this.paradaAdicional?.trim();
