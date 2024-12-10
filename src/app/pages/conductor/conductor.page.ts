@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { StorageService } from 'src/services/storage.service';
@@ -8,10 +8,9 @@ import { StorageService } from 'src/services/storage.service';
   templateUrl: './conductor.page.html',
   styleUrls: ['./conductor.page.scss'],
 })
-export class ConductorPage implements OnInit {
+export class ConductorPage {
   currentUserId: number | null = null;
   datosConductorCompletos: boolean = false;
-
   selectedCard: string | null = null;
 
   constructor(
@@ -20,7 +19,7 @@ export class ConductorPage implements OnInit {
     private storageService: StorageService
   ) { }
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
     const usuarios = await this.storageService.getItem('usuarios') || [];
     const currentUserId = await this.storageService.getItem('currentUserId');
     const usuario = usuarios.find((user: any) => user.id === currentUserId);
@@ -46,7 +45,7 @@ export class ConductorPage implements OnInit {
     const edad = hoy.getFullYear() - fechaNac.getFullYear();
     const mes = hoy.getMonth() - fechaNac.getMonth();
     const dia = hoy.getDate() - fechaNac.getDate();
-  
+
     return edad > 18 || (edad === 18 && (mes > 0 || (mes === 0 && dia >= 0)));
   }
 
@@ -69,7 +68,6 @@ export class ConductorPage implements OnInit {
       this.router.navigate(['/forma-viaje']);
     }
   }
-  
 
   async logout() {
     const alert = await this.alertController.create({
