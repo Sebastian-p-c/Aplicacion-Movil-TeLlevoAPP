@@ -7,13 +7,20 @@
         <ion-icon class="custom-icon" slot="icon-only" name="log-out-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-grid>
-    <h2 style="text-align: center;">Elige tu opcion:</h2>
+    <ion-item lines="none" class="info-box">
+      <ion-icon name="information-circle-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        Regístrate como conductor ingresando tus datos antes de comenzar a realizar tu primer viaje,
+        ten en cuenta que esto se realiza solo una vez.
+      </ion-label>
+    </ion-item>
+
+    <h2 style="text-align: center;">Elige tu opción:</h2>
 
     <ion-card [ngClass]="{'selected-card': selectedCard === 'reg-conductor'}" (click)="selectCard('reg-conductor')">
       <ion-card-header>
@@ -45,8 +52,8 @@
 
     <ion-button expand="block" color="primary" [disabled]="!selectedCard" (click)="continue()">Continuar</ion-button>
   </ion-grid>
-
 </ion-content>
+
 <ion-footer>
   <ion-toolbar color="dark">
     <ion-grid>
@@ -56,7 +63,6 @@
             <ion-icon name="home-outline" size="large"></ion-icon>
           </ion-button>
         </ion-col>
-
         <ion-col class="ion-text-center" size="auto">
           <ion-button fill="clear" [routerLink]="['/ajustes']" style="margin-top: -5px;">
             <ion-icon name="settings-outline" size="large"></ion-icon>
@@ -66,4 +72,3 @@
     </ion-grid>
   </ion-toolbar>
 </ion-footer>
-

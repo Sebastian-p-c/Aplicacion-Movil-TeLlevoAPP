@@ -12,6 +12,13 @@
     </ion-toolbar>
   </ion-header>
 
+  <ion-item lines="none" class="info-box">
+    <ion-icon name="information-circle-outline" slot="start" color="primary"></ion-icon>
+    <ion-label>
+      Aquí podras ver un listado de viajes disponibles y reservar el que más te acomode.
+    </ion-label>
+  </ion-item>
+
   <ion-list>
     <ion-item *ngFor="let viaje of viajes" (click)="seleccionarViaje(viaje)" [disabled]="viaje.pasajerosDisponibles === 0">
       <ion-label>

@@ -60,9 +60,30 @@ background-color: #f0f8ff;
 transition: all 0.3s ease-in-out;
 }
 
-ion-icon{
-    color: white;
+ion-icon {
+color: white;
 }
+
 ion-footer ion-icon {
-    color: white;
+color: white;
+}
+
+/* Nuevo estilo para el cuadro explicativo */
+.info-box {
+margin: 20px;
+padding: 15px;
+background-color: #f8f9fa; /* Fondo claro */
+border: 1px solid #d1d1d1; /* Borde gris */
+border-radius: 8px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+color: #333;
+
+ion-icon {
+    margin-right: 10px;
+    font-size: 1.5em;
+}
+
+ion-label {
+    font-size: 0.95em;
+}
 }
