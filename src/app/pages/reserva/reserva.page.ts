@@ -50,10 +50,11 @@ export class ReservaPage implements OnInit {
     this.viajes = await this.viajeService.obtenerViajes();
 
     this.viajes.forEach((viaje) => {
-      if (!viaje.pasajerosDisponibles) {
-        viaje.pasajerosDisponibles = 4; 
+      if (viaje.cantidadPasajeros === undefined || viaje.cantidadPasajeros === null) {
+        viaje.cantidadPasajeros = 4; 
       }
     });
+    
   }
 
   seleccionarViaje(viaje: any) {
@@ -160,9 +161,11 @@ export class ReservaPage implements OnInit {
   }
 
   incrementarPasajeros() {
-    if (this.cantidadPasajeros < 3) {
+    const pasajerosRestantes = this.viajeSeleccionado.cantidadPasajeros - this.cantidadPasajeros;
+  
+    if (pasajerosRestantes > 1) {
       this.cantidadPasajeros++;
-    }
+    } 
   }
   
   decrementarPasajeros() {
@@ -176,7 +179,7 @@ export class ReservaPage implements OnInit {
   }
 
   async confirmarViaje() {
-    if (this.viajeSeleccionado.pasajerosDisponibles < this.cantidadPasajeros) {
+    if (this.viajeSeleccionado.cantidadPasajeros < this.cantidadPasajeros) {
       const alert = await this.alertController.create({
         header: 'Error',
         message: 'No hay suficientes pasajeros disponibles para este viaje.',
@@ -187,8 +190,8 @@ export class ReservaPage implements OnInit {
     }
 
     const total = this.calcularTotal();
-    this.viajeSeleccionado.pasajerosDisponibles -= 1;
-    this.viajeSeleccionado.pasajerosDisponibles -= this.cantidadPasajeros;
+    this.viajeSeleccionado.cantidadPasajeros -= 1;
+    this.viajeSeleccionado.cantidadPasajeros -= this.cantidadPasajeros;
 
     const parada = this.paradaAdicional?.trim();
     if (parada && this.paradaCoords) {

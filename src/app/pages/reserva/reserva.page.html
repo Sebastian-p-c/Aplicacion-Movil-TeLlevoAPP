@@ -25,7 +25,7 @@
         <h2 class="viaje-title">Conductor: {{ viaje.conductor.nombre }} {{ viaje.conductor.apellido }}</h2>
         <p class="viaje-detail">Origen: {{ viaje.origen }}</p>
         <p class="viaje-detail">Destino: {{ viaje.destino }}</p>
-        <p class="viaje-detail">Pasajeros disponibles: <strong>{{ viaje.pasajerosDisponibles }}</strong></p>
+        <p class="viaje-detail">Pasajeros disponibles: <strong>{{ viaje.cantidadPasajeros }}</strong></p>
       </ion-label>
     </ion-item>
   </ion-list>
@@ -40,17 +40,27 @@
       <p><strong>Destino:</strong> {{ viajeSeleccionado.destino }}</p>
 
       <ion-item lines="none" class="passenger-item">
-        <ion-label class="passenger-label">Cantidad de Acompañantes</ion-label>
-        <div class="counter-container">
-          <ion-button (click)="decrementarPasajeros()" fill="outline" color="danger" class="counter-button">
-            <ion-icon name="remove-outline"></ion-icon>
-          </ion-button>
-          <div class="passenger-count">{{ cantidadPasajeros }}</div>
-          <ion-button (click)="incrementarPasajeros()" fill="outline" color="success" class="counter-button">
-            <ion-icon name="add-outline"></ion-icon>
-          </ion-button>
-        </div>
+        <ion-label class="passenger-label" position="stacked">Cantidad de Acompañantes</ion-label>
+        
+        <ion-row class="counter-container ion-align-items-center">
+          <ion-col size="auto">
+            <ion-button (click)="decrementarPasajeros()" fill="outline" color="danger" class="counter-button">
+              <ion-icon name="remove-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+      
+          <ion-col size="auto" class="passenger-count ion-text-center">
+            {{ cantidadPasajeros }}
+          </ion-col>
+      
+          <ion-col size="auto">
+            <ion-button (click)="incrementarPasajeros()" fill="outline" color="success" class="counter-button">
+              <ion-icon name="add-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
       </ion-item>
+           
 
       <p class="total"><strong>Total:</strong> CLP {{ calcularTotal() }}</p>
 
