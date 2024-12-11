@@ -53,6 +53,29 @@
       </ion-item>
     </ion-list>
 
+    <!-- Selector de Fecha -->
+    <ion-item>
+      <ion-label>Fecha del Viaje</ion-label>
+      <ion-button expand="block" (click)="toggleCalendar()">Seleccionar Fecha</ion-button>
+    </ion-item>
+    
+    <ion-datetime
+      [(ngModel)]="fechaTemporal"
+      display-format="DD/MM/YYYY"
+      cancelText="Cancelar"
+      doneText="Listo"
+      *ngIf="mostrarCalendario"
+      (ionCancel)="cancelCalendar()">
+    </ion-datetime>
+    
+    <ion-button
+      expand="block"
+      (click)="applyDate()"
+      *ngIf="mostrarCalendario"
+      class="apply-button">
+      Aplicar
+    </ion-button>
+
     <ion-button expand="block" style="margin-bottom: 10px;" (click)="generarViaje()">
       Generar Viaje
     </ion-button>

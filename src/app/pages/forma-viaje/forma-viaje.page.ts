@@ -28,6 +28,7 @@ export class FormaViajePage implements OnInit {
   selectedBanco: string = '';
   selectedTipoCuenta: string = '';
   precioPasajero: number = 0;
+  fechaViaje: string = ''; // Variable para almacenar la fecha seleccionada
 
   conductorData: any = {}; // Datos del conductor
   isLoading: boolean = false;
@@ -133,7 +134,7 @@ export class FormaViajePage implements OnInit {
     const usuarios = (await this.storageService.getItem('usuarios')) || [];
     const usuario = usuarios.find((user: any) => user.id === currentUserId);
     
-    if (!this.origen || !this.destino || !this.conductorData) {
+    if (!this.origen || !this.destino || !this.conductorData || !this.fechaViaje) {
       this.mostrarToast('Por favor, completa todos los campos requeridos.');
       return;
     }
@@ -149,6 +150,7 @@ export class FormaViajePage implements OnInit {
       },
       precioPasajero: this.precioPasajero,
       cantidadPasajeros: this.cantidad,
+      fecha: this.fechaViaje, // Agregar la fecha al objeto
     };
 
     await this.viajeService.guardarViaje(viaje);
@@ -214,4 +216,23 @@ export class FormaViajePage implements OnInit {
 
     await alert.present();
   }
+
+// Lógica para el calendario
+mostrarCalendario = false;
+fechaTemporal: string | null = null;
+
+toggleCalendar() {
+  this.mostrarCalendario = !this.mostrarCalendario;
+}
+
+cancelCalendar() {
+  this.mostrarCalendario = false;
+}
+
+applyDate() {
+  if (this.fechaTemporal) {
+    this.fechaViaje = this.fechaTemporal;
+  }
+  this.mostrarCalendario = false; // Ocultar el calendario después de aplicar
+}
 }

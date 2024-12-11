@@ -63,3 +63,21 @@ ion-picker {
     font-size: 0.95rem;
   }
   
+  ion-item {
+    margin-bottom: 10px;
+  }
+  
+  ion-datetime {
+    margin-top: 10px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .apply-button {
+    margin-top: 10px;
+    background-color: #3b82f6;
+    color: white;
+    border-radius: 5px;
+  }
+  
