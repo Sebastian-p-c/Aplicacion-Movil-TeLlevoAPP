@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>listaConductor</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">listaConductor</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-item lines="none" class="info-box">
+    <ion-icon name="information-circle-outline" slot="start" color="primary"></ion-icon>
+    <ion-label>
+      Aquí podras ver un listado de viajes disponibles y reservar el que más te acomode.
+    </ion-label>
+  </ion-item>
+
+  <ion-list *ngIf="!mostrarMensaje">
+    <ion-item *ngFor="let viaje of viajesFiltrados" [disabled]="viaje.pasajerosDisponibles === 0">
+      <ion-label>
+        <h2 class="viaje-title">Conductor: {{ viaje.conductor.nombre }} {{ viaje.conductor.apellido }}</h2>
+        <p class="viaje-detail">Origen: {{ viaje.origen }}</p>
+        <p class="viaje-detail">Destino: {{ viaje.destino }}</p>
+        <p class="viaje-detail">Pasajeros disponibles: <strong>{{ viaje.cantidadPasajeros }}</strong></p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <ion-card *ngIf="mostrarMensaje">
+    <ion-card-header>
+      <ion-card-title>No hay viajes tuyos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>No hay viajes tuyos para mostrar. Puedes crear un nuevo viaje volviendo a la pagina anterior y seleccionar la opción "viajes".</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="dark">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col class="ion-text-center" size="auto">
+          <ion-button fill="clear" [routerLink]="['/elegusuario']" style="margin-top: -5px;">
+            <ion-icon name="home-outline" size="large"></ion-icon>
+          </ion-button>
+        </ion-col>
+
+        <ion-col class="ion-text-center" size="auto">
+          <ion-button fill="clear" [routerLink]="['/ajustes']" style="margin-top: -5px;">
+            <ion-icon name="settings-outline" size="large"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

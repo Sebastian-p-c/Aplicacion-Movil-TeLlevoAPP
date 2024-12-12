@@ -144,13 +144,14 @@ export class FormaViajePage implements OnInit {
       destino: this.destino,
       origenCoords: this.origenCoords,
       destinoCoords: this.destinoCoords,
-      username: usuario.username, // Mover nombre del usuario aquí
+      username: usuario.username, 
       conductor: {
-        ...this.conductorData, // Incorporar datos del conductor
+        ...this.conductorData, 
       },
       precioPasajero: this.precioPasajero,
       cantidadPasajeros: this.cantidad,
-      fecha: this.fechaViaje, // Agregar la fecha al objeto
+      fecha: this.fechaViaje,
+      userId: currentUserId, 
     };
 
     await this.viajeService.guardarViaje(viaje);

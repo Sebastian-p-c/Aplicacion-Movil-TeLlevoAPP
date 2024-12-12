@@ -50,6 +50,19 @@
       </ion-card-content>
     </ion-card>
 
+    <ion-card [ngClass]="{'selected-card': selectedCard === 'lista-conductor'}" (click)="selectCard('lista-conductor')">
+      <ion-card-header>
+        <ion-badge color="medium">Lista de Viajes</ion-badge>
+      </ion-card-header>
+      <ion-card-content class="card-content">
+        <div class="card-text">
+          <h3>Historial</h3>
+          <p>Lista de los viajes que generes</p>
+        </div>
+        <img src="assets/img/viaje.png" alt="Auto" />
+      </ion-card-content>
+    </ion-card>
+
     <ion-button expand="block" color="primary" [disabled]="!selectedCard" (click)="continue()">Continuar</ion-button>
   </ion-grid>
 </ion-content>

@@ -66,6 +66,8 @@ export class ConductorPage {
       this.router.navigate(['/reg-conductor']);
     } else if (this.selectedCard === 'viaje' && this.datosConductorCompletos) {
       this.router.navigate(['/forma-viaje']);
+    } else if (this.selectedCard === 'lista-conductor') {
+      this.router.navigate(['/lista-conductor']);
     }
   }
 
