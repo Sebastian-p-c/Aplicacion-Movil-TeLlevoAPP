@@ -26,6 +26,7 @@
         <p class="viaje-detail">Origen: {{ viaje.origen }}</p>
         <p class="viaje-detail">Destino: {{ viaje.destino }}</p>
         <p class="viaje-detail">Pasajeros disponibles: <strong>{{ viaje.cantidadPasajeros }}</strong></p>
+        <p class="viaje-detail">Fecha: {{ viaje.fecha }}</p>
       </ion-label>
     </ion-item>
   </ion-list>
@@ -38,6 +39,7 @@
       <p><strong>Conductor:</strong> {{ viajeSeleccionado.conductor.nombre }}</p>
       <p><strong>Origen:</strong> {{ viajeSeleccionado.origen }}</p>
       <p><strong>Destino:</strong> {{ viajeSeleccionado.destino }}</p>
+      <p><strong>Fecha:</strong> {{ viajeSeleccionado.fecha }}</p>
 
       <ion-item lines="none" class="passenger-item">
         <ion-label class="passenger-label" position="stacked">Cantidad de Acompañantes</ion-label>
