@@ -20,7 +20,7 @@
   </ion-item>
 
   <ion-list>
-    <ion-item *ngFor="let viaje of viajes" (click)="seleccionarViaje(viaje)" [disabled]="viaje.pasajerosDisponibles === 0">
+    <ion-item *ngFor="let viaje of viajes" (click)="seleccionarViaje(viaje)" [disabled]="viaje.pasajerosDisponibles === 0 || viaje.userId === usuarioActualId">
       <ion-label>
         <h2 class="viaje-title">Conductor: {{ viaje.conductor.nombre }} {{ viaje.conductor.apellido }}</h2>
         <p class="viaje-detail">Origen: {{ viaje.origen }}</p>

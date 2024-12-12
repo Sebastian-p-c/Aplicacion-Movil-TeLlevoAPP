@@ -21,6 +21,7 @@ export class ReservaPage implements OnInit {
   paradaCoords: { lat: number; lon: number } | null = null; 
   rutaPolyline: any; 
   paradaMarker: any = null;
+  usuarioActualId: string | null = null;
 
   
   origenIcon = L.icon({
@@ -50,6 +51,7 @@ export class ReservaPage implements OnInit {
   ) {}
 
   async ngOnInit() {
+    this.usuarioActualId = await this.storageService.getItem('currentUserId');
     this.viajes = await this.viajeService.obtenerViajes();
 
     this.viajes.forEach((viaje) => {
