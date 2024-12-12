@@ -70,6 +70,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/lista-conductor/lista-conductor.module').then( m => m.ListaConductorPageModule)
   },
   {
+    path: 'lista-pasajero',
+    loadChildren: () => import('./pages/lista-pasajeros/lista-pasajeros.module').then( m => m.ListaPasajerosPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'not-found',
     pathMatch: 'full'
