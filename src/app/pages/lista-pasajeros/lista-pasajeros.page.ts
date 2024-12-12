@@ -1,10 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { StorageService } from 'src/services/storage.service';
-
-interface Pasajero {
-  nombre: string;
-  detalle: any;
-}
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-lista-pasajeros',
@@ -12,53 +8,63 @@ interface Pasajero {
   styleUrls: ['./lista-pasajeros.page.scss'],
 })
 export class ListaPasajerosPage implements OnInit {
-  pasajeros: Pasajero[] = [];
-  viajeConfirmado: any;
+  viajeConfirmado: any = null; 
+  pasajeros: any[] = [];
+  currentUserId: string | null = null; 
+  mostrarMensaje: boolean = false; 
 
-  constructor(private storageService: StorageService) {}
+  origenIcon = L.icon({
+    iconUrl: 'assets/img/origin-icon.png',
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+  });
 
-  ngOnInit() {
-    this.cargarPasajeros();
-  }
-  
+  destinoIcon = L.icon({
+    iconUrl: 'assets/img/destination-icon.png',
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+  });
 
-  async cargarPasajeros() {
-    this.viajeConfirmado = await this.storageService.getItem('viajeConfirmado');
-    if (this.viajeConfirmado && this.viajeConfirmado !== null) {
-      const conductor = this.viajeConfirmado.conductor;
-      const origen = this.viajeConfirmado.origen;
-      const destino = this.viajeConfirmado.destino;
-      const cantidadPasajeros = this.viajeConfirmado.cantidadPasajeros;
-      const paradaAdicional = this.viajeConfirmado.paradaAdicional;
-      const fecha = this.viajeConfirmado.fecha;
-      const total = this.viajeConfirmado.total;
+  constructor(
+    private storageService: StorageService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
-      this.pasajeros.push({
-        nombre: conductor.nombre,
-        detalle: `Conductor - ${origen} a ${destino}`,
-      });
-      for (let i = 0; i < cantidadPasajeros; i++) {
-        this.pasajeros.push({
-          nombre: `Pasajero ${i + 1}`,
-          detalle: `Asiento ${i + 1}`,
-        });
+  async ngOnInit() {
+    try {
+
+      this.currentUserId = await this.storageService.getItem('currentUserId');
+
+      if (!this.currentUserId) {
+        console.error('No se encontró el ID del usuario logueado.');
+        return;
       }
-      if (paradaAdicional) {
-        this.pasajeros.push({
-          nombre: 'Parada adicional',
-          detalle: paradaAdicional.direccion,
-        });
+
+      const viaje = await this.storageService.getItem('viajeConfirmado');
+
+      if (!viaje) {
+        console.error('No se encontraron datos del viaje confirmado.');
+        return;
       }
-      this.pasajeros.push({
-        nombre: 'Fecha del viaje',
-        detalle: fecha,
-      });
-      this.pasajeros.push({
-        nombre: 'Total pagado',
-        detalle: total,
-      });
-    } else {
-      console.log('No hay viaje confirmado');
+
+      this.viajeConfirmado = viaje;
+
+      this.pasajeros = Array(this.viajeConfirmado.cantidadPasajeros || 0)
+        .fill({})
+        .map((_, index) => ({
+          nombre: `Pasajero ${index + 1}`,
+          asiento: `Asiento ${index + 1}`,
+        }));
+
+      if (this.pasajeros.length === 0) {
+        this.mostrarMensaje = true;
+      }
+      this.cdr.detectChanges();
+    } catch (error) {
+      console.error('Error al cargar los datos:', error);
     }
   }
+
 }
+
+

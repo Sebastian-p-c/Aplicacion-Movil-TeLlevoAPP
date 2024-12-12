@@ -1,27 +1,30 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="dark">
-    <ion-title style="text-align: center;">Lista de Pasajero</ion-title>
+    <ion-title style="text-align: center;">Lista de Pasajeros</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="container">
-    <div class="header">
-      <h1>Lista de Pasajero</h1>
-      <p>Información del pasajero</p>
-    </div>
-    <div class="lista-pasajeros">
-      <ion-list>
-        <ion-item *ngFor="let pasajero of pasajeros" style="background-color: #f7f7f7; border-bottom: 1px solid #ccc; padding: 16px;">
-          <ion-avatar slot="start" style="background-color: #4CAF50; color: #fff;">
-            <ion-icon name="person"></ion-icon>
-          </ion-avatar>
-          <ion-label style="margin-left: 16px;">
-            <h2 style="font-weight: bold; font-size: 18px;">{{ pasajero.nombre }}</h2>
-            <p style="font-size: 16px; color: #666;">{{ pasajero.detalle }}</p>
-          </ion-label>
-        </ion-item>
-      </ion-list>
-    </div>
-  </div>
+  <!-- Si no hay pasajeros, muestra un mensaje -->
+  <ion-card *ngIf="mostrarMensaje">
+    <ion-card-header>
+      <ion-card-title>No hay pasajeros disponibles.</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+  <!-- Si hay pasajeros, muestra la lista -->
+  <ion-card *ngIf="!mostrarMensaje">
+    <ion-card-header>
+      <ion-card-title>Información del Viaje</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Conductor:</strong> {{ viajeConfirmado?.conductor?.nombre || 'No disponible' }}</p>
+      <p><strong>Origen:</strong> {{ viajeConfirmado?.origen || 'No disponible' }}</p>
+      <p><strong>Destino:</strong> {{ viajeConfirmado?.destino || 'No disponible' }}</p>
+      <p><strong>Acompañantes:</strong> {{ viajeConfirmado?.cantidadPasajeros || 'No disponible' }}</p>
+      <p><strong>Fecha:</strong> {{ viajeConfirmado?.fecha | date: 'long' }}</p>
+      <p><strong>Precio pagado:</strong> {{ viajeConfirmado?.total || 'No disponible' }}</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+

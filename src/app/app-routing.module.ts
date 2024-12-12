@@ -70,7 +70,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/lista-conductor/lista-conductor.module').then( m => m.ListaConductorPageModule)
   },
   {
-    path: 'lista-pasajero',
+    path: 'lista-pasajeros',
     loadChildren: () => import('./pages/lista-pasajeros/lista-pasajeros.module').then( m => m.ListaPasajerosPageModule)
   },
   {
