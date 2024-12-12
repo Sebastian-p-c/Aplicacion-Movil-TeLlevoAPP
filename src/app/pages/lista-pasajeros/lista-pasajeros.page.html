@@ -1,19 +1,27 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="dark">
-    <ion-title style="text-align: center;">Lista de Pasajeros</ion-title>
+    <ion-title style="text-align: center;">Lista de Pasajero</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list>
-    <ion-item *ngFor="let pasajero of pasajeros" style="background-color: #f7f7f7; border-bottom: 1px solid #ccc;">
-      <ion-avatar slot="start">
-        <ion-icon name="person"></ion-icon>
-      </ion-avatar>
-      <ion-label>
-        <h2>{{ pasajero.nombre }}</h2>
-        <p>{{ pasajero.detalle }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <div class="container">
+    <div class="header">
+      <h1>Lista de Pasajero</h1>
+      <p>Información del pasajero</p>
+    </div>
+    <div class="lista-pasajeros">
+      <ion-list>
+        <ion-item *ngFor="let pasajero of pasajeros" style="background-color: #f7f7f7; border-bottom: 1px solid #ccc; padding: 16px;">
+          <ion-avatar slot="start" style="background-color: #4CAF50; color: #fff;">
+            <ion-icon name="person"></ion-icon>
+          </ion-avatar>
+          <ion-label style="margin-left: 16px;">
+            <h2 style="font-weight: bold; font-size: 18px;">{{ pasajero.nombre }}</h2>
+            <p style="font-size: 16px; color: #666;">{{ pasajero.detalle }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
 </ion-content>

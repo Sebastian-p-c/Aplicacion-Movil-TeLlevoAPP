@@ -20,6 +20,7 @@ export class ListaPasajerosPage implements OnInit {
   ngOnInit() {
     this.cargarPasajeros();
   }
+  
 
   async cargarPasajeros() {
     this.viajeConfirmado = await this.storageService.getItem('viajeConfirmado');
