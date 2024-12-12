@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-title style="text-align: center;">Lista de Pasajeros</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item *ngFor="let pasajero of pasajeros" style="background-color: #f7f7f7; border-bottom: 1px solid #ccc;">
+      <ion-avatar slot="start">
+        <ion-icon name="person"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ pasajero.nombre }}</h2>
+        <p>{{ pasajero.detalle }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

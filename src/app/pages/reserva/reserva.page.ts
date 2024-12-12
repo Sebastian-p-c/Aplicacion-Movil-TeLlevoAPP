@@ -4,6 +4,7 @@ import { ViajeService } from 'src/services/viaje.service';
 import { AlertController } from '@ionic/angular';
 import * as L from 'leaflet';
 import { HttpClient } from '@angular/common/http';
+import { StorageService } from 'src/services/storage.service'; // Asegúrate de importar el StorageService
 
 @Component({
   selector: 'app-reserva',
@@ -19,7 +20,7 @@ export class ReservaPage implements OnInit {
   map: any; 
   paradaCoords: { lat: number; lon: number } | null = null; 
   rutaPolyline: any; 
-  paradaMarker: any = null; 
+  paradaMarker: any = null;
 
   
   origenIcon = L.icon({
@@ -44,7 +45,8 @@ export class ReservaPage implements OnInit {
     private router: Router,
     private viajeService: ViajeService,
     private alertController: AlertController,
-    private http: HttpClient
+    private http: HttpClient,
+    private storageService: StorageService // Inyectar el StorageService
   ) {}
 
   async ngOnInit() {
@@ -205,6 +207,19 @@ export class ReservaPage implements OnInit {
     }
 
     await this.viajeService.actualizarViaje(this.viajeSeleccionado);
+
+    // Almacenar el viaje confirmado en el almacenamiento
+    const viajeConfirmado = {
+      conductor: this.viajeSeleccionado.conductor,
+      origen: this.viajeSeleccionado.origen,
+      destino: this.viajeSeleccionado.destino,
+      fecha: this.viajeSeleccionado.fecha,
+      cantidadPasajeros: this.cantidadPasajeros,
+      paradaAdicional: this.viajeSeleccionado.paradaAdicional,
+      total: total,
+    };
+
+    await this.storageService.setItem('viajeConfirmado', viajeConfirmado); // Guardar el viaje en el almacenamiento
 
     const alert = await this.alertController.create({
       header: 'Confirmación de Viaje',
