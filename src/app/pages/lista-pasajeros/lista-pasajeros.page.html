@@ -5,6 +5,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-item lines="none" class="info-box">
+    <ion-icon name="information-circle-outline" slot="start" color="primary"></ion-icon>
+    <ion-label>
+      Aquí podrás ver el historial de viajes realizados por ti y otros usuarios, 
+      con el fin de garantizar la seguridad de los estudiantes y conductores.
+    </ion-label>
+  </ion-item>
   <!-- Si no hay pasajeros, muestra un mensaje -->
   <ion-card *ngIf="mostrarMensaje">
     <ion-card-header>
