@@ -14,6 +14,7 @@ export class ReservaPage implements OnInit {
   viajes: any[] = [];
   viajeSeleccionado: any = null;
   cantidadPasajeros: number = 0;
+  fechaViaje: string = '';
   paradaAdicional: string = '';
   map: any; 
   paradaCoords: { lat: number; lon: number } | null = null; 
@@ -61,9 +62,11 @@ export class ReservaPage implements OnInit {
     if (this.viajeSeleccionado === viaje) {
       this.viajeSeleccionado = null;
       this.cantidadPasajeros = 0;
+      this.fechaViaje = "";
     } else {
       this.viajeSeleccionado = viaje;
       this.cantidadPasajeros = 0;
+      this.fechaViaje = "";
       this.cargarMapa(viaje.origenCoords, viaje.destinoCoords); // Cargar el mapa con la ruta
     }
   }
